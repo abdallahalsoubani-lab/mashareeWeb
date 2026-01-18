@@ -16,6 +16,12 @@ import {
   PieChart,
   ArrowUpRight,
   ArrowLeft,
+  FileText,
+  Headphones,
+  UserPlus,
+  Search,
+  CheckCircle,
+  Zap,
 } from 'lucide-react';
 
 // Helper function to convert English numerals to Arabic numerals
@@ -309,6 +315,101 @@ const InvestmentCard = () => {
   );
 };
 
+// Services Data
+const services = [
+  {
+    id: 1,
+    icon: Landmark,
+    title: 'الصناديق العقارية',
+    description: 'استثمر في صناديق عقارية متنوعة تديرها شركات مرخصة من هيئة السوق المالية، مع عوائد دورية وشفافية كاملة.',
+    features: [
+      'عوائد سنوية تصل إلى ٢٥٪',
+      'إدارة احترافية معتمدة',
+      'تقارير دورية شفافة',
+      'تنويع المخاطر',
+    ],
+    buttonText: 'استكشف الصناديق',
+  },
+  {
+    id: 2,
+    icon: FileText,
+    title: 'الصكوك الاستثمارية',
+    description: 'أدوات دين متوافقة مع الشريعة الإسلامية تمكنك من تمويل المشاريع والحصول على عوائد مجزية.',
+    features: [
+      'تمويل يصل إلى ٣٠ مليون ريال',
+      'مدة تصل إلى ١٠ سنوات',
+      'جدول سداد مرن',
+      'سداد مبكر بدون رسوم',
+    ],
+    buttonText: 'تعرف على الصكوك',
+  },
+  {
+    id: 3,
+    icon: Users,
+    title: 'التمويل الجماعي',
+    description: 'شارك مع آلاف المستثمرين في تمويل مشاريع واعدة بمبالغ تبدأ من ٥٠٠ ريال فقط.',
+    features: [
+      'حد أدنى ٥٠٠ ريال فقط',
+      'مشاريع مدروسة بعناية',
+      'متابعة لحظية للاستثمار',
+      'سحب الأرباح في أي وقت',
+    ],
+    buttonText: 'ابدأ التمويل',
+  },
+];
+
+// Why Choose Us Features
+const features = [
+  {
+    id: 1,
+    icon: Clock,
+    title: 'موافقة خلال ٣ أيام',
+    description: 'نقدم لك عرض تمويلي خلال ٣ أيام فقط من تقديم الطلب',
+  },
+  {
+    id: 2,
+    icon: Wallet,
+    title: 'استثمر من ٥٠٠ ريال',
+    description: 'ابدأ رحلتك الاستثمارية بمبلغ بسيط يناسب ميزانيتك',
+  },
+  {
+    id: 3,
+    icon: TrendingUp,
+    title: 'عوائد تصل ٢٥٪',
+    description: 'حقق عوائد استثنائية مع فرص مدروسة بعناية فائقة',
+  },
+  {
+    id: 4,
+    icon: Shield,
+    title: '١٠٠٪ حلال',
+    description: 'جميع استثماراتنا معتمدة من هيئة شرعية مستقلة',
+  },
+  {
+    id: 5,
+    icon: PieChart,
+    title: 'كل استثماراتك في مكان واحد',
+    description: 'تابع صناديقك وصكوكك وأسهمك من محفظة واحدة',
+  },
+  {
+    id: 6,
+    icon: ArrowUpRight,
+    title: 'اسحب أرباحك في أي وقت',
+    description: 'حرية كاملة في سحب أرباحك أو إعادة استثمارها',
+  },
+  {
+    id: 7,
+    icon: FileText,
+    title: 'تحديثات دورية',
+    description: 'احصل على تقارير مفصلة من مدراء الصناديق بشكل منتظم',
+  },
+  {
+    id: 8,
+    icon: Headphones,
+    title: 'دعم على مدار الساعة',
+    description: 'فريق دعم متخصص جاهز لمساعدتك في أي وقت',
+  },
+];
+
 // Investment Opportunities Data
 const investmentOpportunities = [
   {
@@ -420,6 +521,29 @@ export default function Masharee() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeFilter, setActiveFilter] = useState('الكل');
+  const [calcAmount, setCalcAmount] = useState(50000);
+  const [calcDuration, setCalcDuration] = useState('٣ سنوات');
+  const [calcType, setCalcType] = useState('صندوق عقاري');
+
+  // Calculator returns mapping
+  const returnRates = {
+    'صندوق عقاري': 20,
+    'صكوك': 18,
+    'تمويل جماعي': 15,
+  };
+
+  // Calculate investment returns
+  const calculateReturns = () => {
+    const durationMap = { '١ سنة': 1, '٢ سنة': 2, '٣ سنوات': 3, '٥ سنوات': 5 };
+    const rate = returnRates[calcType] || 18;
+    const years = durationMap[calcDuration] || 3;
+    const annualReturn = Math.floor((calcAmount * rate) / 100);
+    const totalProfit = Math.floor(annualReturn * years);
+    const finalValue = calcAmount + totalProfit;
+    return { annualReturn, totalProfit, finalValue };
+  };
+
+  const { annualReturn, totalProfit, finalValue } = calculateReturns();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -804,6 +928,336 @@ export default function Masharee() {
             <button className="px-8 md:px-12 py-3 md:py-4 rounded-xl border-2 border-[#c9a227] text-[#d4b94c] font-bold text-base md:text-lg hover:bg-[#c9a227]/10 hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 flex items-center gap-3">
               <span>عرض جميع الفرص</span>
               <ArrowLeft size={20} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-16 md:py-32 px-4 md:px-6 bg-[#1a1a1a] relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#c9a227]/5 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#d4b94c]/5 rounded-full blur-3xl -z-10" />
+
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12 md:mb-16">
+            <p className="text-[#d4b94c] text-sm md:text-base font-bold tracking-widest mb-4 uppercase">
+              حلول استثمارية متكاملة
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-[#f5f0e8] mb-4">
+              خدماتنا المالية
+            </h2>
+            <p className="text-[#b0a090] max-w-2xl mx-auto text-base md:text-lg">
+              نقدم لك مجموعة شاملة من الخدمات الاستثمارية المتوافقة مع الشريعة الإسلامية
+            </p>
+          </div>
+
+          {/* Services Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+            {services.map((service) => {
+              const IconComponent = service.icon;
+              return (
+                <div
+                  key={service.id}
+                  className="group rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-3"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(139, 115, 85, 0.2) 0%, rgba(92, 77, 58, 0.15) 100%)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(201, 162, 39, 0.2)',
+                  }}
+                >
+                  <div className="p-8 md:p-6 flex flex-col h-full">
+                    {/* Icon */}
+                    <div className="mb-6 p-4 rounded-full bg-gradient-to-br from-[#c9a227]/20 to-[#d4b94c]/20 w-fit">
+                      <IconComponent className="text-[#d4b94c]" size={32} />
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl md:text-xl font-bold text-[#f5f0e8] mb-3">
+                      {service.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-[#b0a090] text-sm md:text-base mb-6 flex-grow">
+                      {service.description}
+                    </p>
+
+                    {/* Features List */}
+                    <div className="mb-8 space-y-3">
+                      {service.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <CheckCircle size={18} className="text-[#d4b94c] mt-0.5 flex-shrink-0" />
+                          <span className="text-[#b0a090] text-sm">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Button */}
+                    <button className="w-full py-3 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300">
+                      {service.buttonText}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 md:py-32 px-4 md:px-6 relative overflow-hidden">
+        {/* Background Gradient */}
+        <div
+          className="absolute inset-0 -z-10 noise-overlay"
+          style={{
+            background: 'linear-gradient(180deg, #2a2a2a 0%, #5c4d3a 50%, #2a2a2a 100%)',
+          }}
+        />
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 right-0 w-96 h-96 bg-[#c9a227]/8 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-20 left-0 w-96 h-96 bg-[#d4b94c]/5 rounded-full blur-3xl -z-10" />
+
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <p className="text-[#d4b94c] text-sm md:text-base font-bold tracking-widest mb-4 uppercase">
+              مميزاتنا التنافسية
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-[#f5f0e8] mb-4">
+              لماذا تختار مشاريع؟
+            </h2>
+            <p className="text-[#b0a090] max-w-2xl mx-auto text-base md:text-lg">
+              جمعنا لك أفضل المميزات من منصات الاستثمار الرائدة في مكان واحد
+            </p>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {features.map((feature) => {
+              const IconComponent = feature.icon;
+              return (
+                <div
+                  key={feature.id}
+                  className="rounded-xl p-6 transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: 'rgba(92, 77, 58, 0.2)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(201, 162, 39, 0.15)',
+                  }}
+                >
+                  <div className="mb-4 p-2 rounded-lg bg-gradient-to-br from-[#c9a227]/20 to-[#d4b94c]/20 w-fit">
+                    <IconComponent className="text-[#d4b94c]" size={24} />
+                  </div>
+                  <h4 className="text-lg font-bold text-[#f5f0e8] mb-2">
+                    {feature.title}
+                  </h4>
+                  <p className="text-[#b0a090] text-sm">
+                    {feature.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 md:py-32 px-4 md:px-6 bg-[#1a1a1a] relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 -z-10 noise-overlay" style={{ background: 'linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.05), transparent)' }} />
+
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <p className="text-[#d4b94c] text-sm md:text-base font-bold tracking-widest mb-4 uppercase">
+              خطوات بسيطة
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-[#f5f0e8] mb-4">
+              كيف تبدأ الاستثمار؟
+            </h2>
+            <p className="text-[#b0a090] max-w-2xl mx-auto text-base md:text-lg">
+              ٤ خطوات سهلة تفصلك عن تحقيق أهدافك المالية
+            </p>
+          </div>
+
+          {/* Steps Timeline */}
+          <div className="relative">
+            {/* Connecting Line */}
+            <div className="hidden lg:block absolute top-20 right-0 left-0 h-1 bg-gradient-to-r from-transparent via-[#c9a227]/30 to-transparent -z-10" />
+
+            {/* Steps Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  number: '١',
+                  title: 'أنشئ حسابك',
+                  description: 'سجل في أقل من دقيقة عبر النفاذ الوطني الموحد',
+                  icon: UserPlus,
+                },
+                {
+                  number: '٢',
+                  title: 'اشحن محفظتك',
+                  description: 'أضف رصيد عبر التحويل البنكي أو Apple Pay أو مدى',
+                  icon: Wallet,
+                },
+                {
+                  number: '٣',
+                  title: 'اختر فرصتك',
+                  description: 'تصفح الفرص واختر ما يناسب أهدافك ومستوى المخاطرة',
+                  icon: Search,
+                },
+                {
+                  number: '٤',
+                  title: 'احصد الأرباح',
+                  description: 'تابع استثمارك واستلم أرباحك بشكل دوري في محفظتك',
+                  icon: TrendingUp,
+                },
+              ].map((step, idx) => {
+                const StepIcon = step.icon;
+                return (
+                  <div key={idx} className="flex flex-col items-center text-center">
+                    {/* Number Circle */}
+                    <div className="mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-[#c9a227] to-[#d4b94c] flex items-center justify-center">
+                      <span className="text-[#1a1a1a] text-4xl font-black">
+                        {step.number}
+                      </span>
+                    </div>
+
+                    {/* Icon */}
+                    <div className="mb-4 p-3 rounded-full bg-[#5c4d3a]/50">
+                      <StepIcon className="text-[#d4b94c]" size={28} />
+                    </div>
+
+                    {/* Title */}
+                    <h4 className="text-xl font-bold text-[#f5f0e8] mb-2">
+                      {step.title}
+                    </h4>
+
+                    {/* Description */}
+                    <p className="text-[#b0a090] text-sm">
+                      {step.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Calculator Widget */}
+      <section className="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute inset-0 -z-10" style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }} />
+
+        <div className="max-w-4xl mx-auto">
+          {/* Calculator Card */}
+          <div
+            className="rounded-3xl p-8 md:p-12 relative overflow-hidden border border-[#c9a227]/30"
+            style={{
+              background: 'rgba(92, 77, 58, 0.2)',
+              backdropFilter: 'blur(20px)',
+            }}
+          >
+            {/* Decorative Element */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-[#c9a227]/5 rounded-full blur-3xl -z-10" />
+
+            {/* Header */}
+            <div className="text-center mb-12">
+              <h3 className="text-3xl md:text-4xl font-black text-[#f5f0e8] mb-2">
+                احسب عوائدك المتوقعة
+              </h3>
+              <p className="text-[#b0a090]">
+                حسّن استثمارك باختيار المبلغ ومدة الاستثمار ونوع الفرصة
+              </p>
+            </div>
+
+            {/* Inputs */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+              {/* Amount Slider */}
+              <div>
+                <label className="block text-[#d4b94c] font-bold mb-4">
+                  مبلغ الاستثمار: {toArabicNumeral(Math.floor(calcAmount / 1000))} ألف ريال
+                </label>
+                <input
+                  type="range"
+                  min="1000"
+                  max="1000000"
+                  step="5000"
+                  value={calcAmount}
+                  onChange={(e) => setCalcAmount(Number(e.target.value))}
+                  className="w-full h-2 bg-[#5c4d3a] rounded-lg appearance-none cursor-pointer"
+                  style={{
+                    accentColor: '#c9a227',
+                  }}
+                />
+                <div className="flex justify-between text-[#b0a090] text-xs mt-2">
+                  <span>١ ألف</span>
+                  <span>١ مليون</span>
+                </div>
+              </div>
+
+              {/* Duration Dropdown */}
+              <div>
+                <label className="block text-[#d4b94c] font-bold mb-2">
+                  مدة الاستثمار
+                </label>
+                <select
+                  value={calcDuration}
+                  onChange={(e) => setCalcDuration(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a] text-[#f5f0e8] border border-[#c9a227]/50 focus:border-[#d4b94c] outline-none text-right"
+                >
+                  <option>١ سنة</option>
+                  <option>٢ سنة</option>
+                  <option>٣ سنوات</option>
+                  <option>٥ سنوات</option>
+                </select>
+              </div>
+
+              {/* Type Dropdown */}
+              <div>
+                <label className="block text-[#d4b94c] font-bold mb-2">
+                  نوع الاستثمار
+                </label>
+                <select
+                  value={calcType}
+                  onChange={(e) => setCalcType(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a] text-[#f5f0e8] border border-[#c9a227]/50 focus:border-[#d4b94c] outline-none text-right"
+                >
+                  <option>صندوق عقاري</option>
+                  <option>صكوك</option>
+                  <option>تمويل جماعي</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Results */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 p-6 rounded-xl" style={{ background: 'rgba(201, 162, 39, 0.05)' }}>
+              <div className="text-center">
+                <p className="text-[#b0a090] text-sm mb-2">العائد السنوي المتوقع</p>
+                <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4b94c] to-[#c9a227]">
+                  {toArabicNumeral(Math.floor(annualReturn / 1000))} ألف ر.س
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-[#b0a090] text-sm mb-2">إجمالي الأرباح</p>
+                <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4b94c] to-[#c9a227]">
+                  {toArabicNumeral(Math.floor(totalProfit / 1000))} ألف ر.س
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-[#b0a090] text-sm mb-2">القيمة النهائية</p>
+                <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4b94c] to-[#c9a227]">
+                  {toArabicNumeral(Math.floor(finalValue / 1000))} ألف ر.س
+                </p>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <button className="w-full py-4 rounded-xl bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold text-lg hover:shadow-2xl hover:shadow-[#c9a227]/50 hover:scale-105 transition-all duration-300">
+              ابدأ الاستثمار الآن
             </button>
           </div>
         </div>
