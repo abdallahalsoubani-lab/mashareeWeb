@@ -22,6 +22,14 @@ import {
   Search,
   CheckCircle,
   Zap,
+  Star,
+  Eye,
+  EyeOff,
+  ArrowUp,
+  Phone,
+  Mail,
+  MapPinIcon,
+  Quote,
 } from 'lucide-react';
 
 // Helper function to convert English numerals to Arabic numerals
@@ -410,6 +418,52 @@ const features = [
   },
 ];
 
+// Testimonials Data
+const testimonials = [
+  {
+    id: 1,
+    rating: 5,
+    quote: 'استثمرت في صندوق الرياض السكني قبل سنتين، وحصلت على عائد ٢٢٪. المنصة سهلة الاستخدام والتقارير واضحة وشفافة. أنصح الجميع بالتجربة.',
+    name: 'محمد العتيبي',
+    title: 'مستثمر منذ ٢٠٢٣',
+    initials: 'م ع',
+  },
+  {
+    id: 2,
+    rating: 5,
+    quote: 'أفضل منصة استثمار عقاري جربتها. الحد الأدنى المنخفض سمح لي بتنويع استثماراتي بين عدة صناديق. الدعم الفني ممتاز ويرد بسرعة.',
+    name: 'سارة القحطاني',
+    title: 'مستثمرة منذ ٢٠٢٢',
+    initials: 'س ق',
+  },
+  {
+    id: 3,
+    rating: 5,
+    quote: 'كرجل أعمال، كنت أبحث عن تمويل سريع لمشروعي. منصة مشاريع وفرت لي التمويل خلال أسبوع فقط! عملية سلسة ومهنية من البداية للنهاية.',
+    name: 'عبدالله الشمري',
+    title: 'صاحب مشروع ممول',
+    initials: 'ع ش',
+  },
+];
+
+// Partners Data
+const partners = [
+  { id: 1, name: 'هيئة السوق المالية' },
+  { id: 2, name: 'البنك المركزي السعودي' },
+  { id: 3, name: 'الهيئة العامة للعقار' },
+  { id: 4, name: 'مركز الإيداع' },
+  { id: 5, name: 'الامتثال الشرعي' },
+];
+
+// Payment Methods
+const paymentMethods = [
+  { id: 1, name: 'Apple Pay' },
+  { id: 2, name: 'مدى' },
+  { id: 3, name: 'فيزا' },
+  { id: 4, name: 'ماستركارد' },
+  { id: 5, name: 'تحويل بنكي' },
+];
+
 // Investment Opportunities Data
 const investmentOpportunities = [
   {
@@ -518,12 +572,35 @@ const investmentOpportunities = [
 
 // Main Masharee Component
 export default function Masharee() {
+  // UI State
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [activeFilter, setActiveFilter] = useState('الكل');
+
+  // Calculator State
   const [calcAmount, setCalcAmount] = useState(50000);
   const [calcDuration, setCalcDuration] = useState('٣ سنوات');
   const [calcType, setCalcType] = useState('صندوق عقاري');
+
+  // Modal States
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [registerModalOpen, setRegisterModalOpen] = useState(false);
+
+  // Login Form State
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
+  // Register Form State
+  const [registerName, setRegisterName] = useState('');
+  const [registerPhone, setRegisterPhone] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [registerConfirmPassword, setRegisterConfirmPassword] = useState('');
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
 
   // Calculator returns mapping
   const returnRates = {
@@ -545,13 +622,20 @@ export default function Masharee() {
 
   const { annualReturn, totalProfit, finalValue } = calculateReturns();
 
+  // Scroll event handlers
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
+      setShowScrollToTop(window.scrollY > 500);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Scroll to top function
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const navItems = [
     { label: 'الرئيسية', href: '#' },
@@ -652,12 +736,12 @@ export default function Masharee() {
             </button>
 
             {/* Sign In */}
-            <button className="hidden sm:block px-4 py-2 rounded-lg border border-[#c9a227] text-[#d4b94c] hover:bg-[#c9a227]/10 transition-all duration-300 text-sm font-medium">
+            <button onClick={() => setLoginModalOpen(true)} className="hidden sm:block px-4 py-2 rounded-lg border border-[#c9a227] text-[#d4b94c] hover:bg-[#c9a227]/10 transition-all duration-300 text-sm font-medium">
               تسجيل دخول
             </button>
 
             {/* Sign Up */}
-            <button className="hidden sm:block px-4 py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 font-bold text-sm">
+            <button onClick={() => setRegisterModalOpen(true)} className="hidden sm:block px-4 py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 font-bold text-sm">
               إنشاء حساب
             </button>
 
@@ -1313,13 +1397,193 @@ export default function Masharee() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-[#8b7355]/30 bg-[#1a1a1a] py-8 md:py-12 px-4 md:px-6">
+      {/* Testimonials Section */}
+      <section className="py-16 md:py-32 px-4 md:px-6 bg-[#1a1a1a] relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#c9a227]/5 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#d4b94c]/5 rounded-full blur-3xl -z-10" />
+
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-            {/* Brand */}
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-3 mb-4">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <p className="text-[#d4b94c] text-sm md:text-base font-bold tracking-widest mb-4 uppercase">
+              قصص نجاح
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-[#f5f0e8] mb-4">
+              ماذا يقول مستثمرونا؟
+            </h2>
+            <p className="text-[#b0a090] max-w-2xl mx-auto text-base md:text-lg">
+              انضم إلى آلاف المستثمرين الذين حققوا أهدافهم المالية معنا
+            </p>
+          </div>
+
+          {/* Testimonials Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial) => (
+              <div
+                key={testimonial.id}
+                className="rounded-2xl p-8 transition-all duration-300 hover:-translate-y-2"
+                style={{
+                  background: 'rgba(92, 77, 58, 0.2)',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(201, 162, 39, 0.15)',
+                }}
+              >
+                {/* Quote Icon */}
+                <Quote className="text-[#c9a227] mb-4" size={32} />
+
+                {/* Stars */}
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <Star key={i} size={18} className="text-[#d4b94c] fill-current" />
+                  ))}
+                </div>
+
+                {/* Quote */}
+                <p className="text-[#f5f0e8] mb-6 text-right leading-relaxed">
+                  "{testimonial.quote}"
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center justify-end gap-3">
+                  <div>
+                    <p className="text-[#f5f0e8] font-bold text-sm">{testimonial.name}</p>
+                    <p className="text-[#b0a090] text-xs">{testimonial.title}</p>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#d4b94c] flex items-center justify-center">
+                    <span className="text-[#1a1a1a] font-bold text-sm">{testimonial.initials}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Statistics Banner */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-gradient-to-r from-[#c9a227] to-[#d4b94c] relative overflow-hidden">
+        {/* Noise Pattern */}
+        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }} />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4">
+            {[
+              { label: 'مستثمر سعيد', value: '١٢,٥٠٠+' },
+              { label: 'نسبة رضا العملاء', value: '٩٨٪' },
+              { label: 'مليار ريال استثمرت', value: '٢.٥+' },
+              { label: 'مشروع مكتمل', value: '١٢٧' },
+              { label: 'متوسط العائد السنوي', value: '٢٢٪' },
+            ].map((stat, index) => (
+              <div key={index} className="text-center">
+                <p className="text-[#1a1a1a] font-bold text-lg md:text-2xl mb-2">
+                  {stat.value}
+                </p>
+                <p className="text-[#1a1a1a]/80 text-sm md:text-base">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="py-16 md:py-24 px-4 md:px-6 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a]">
+        <div className="max-w-7xl mx-auto">
+          {/* Title */}
+          <h3 className="text-2xl md:text-3xl font-black text-[#f5f0e8] mb-12 text-center">
+            شركاؤنا ومعتمدونا
+          </h3>
+
+          {/* Partners Grid */}
+          <div className="mb-16">
+            <p className="text-[#b0a090] text-sm mb-6 text-center font-bold">
+              التراخيص والمعتمديات
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {partners.map((partner) => (
+                <div
+                  key={partner.id}
+                  className="rounded-lg p-4 border border-[#c9a227]/50 text-center hover:border-[#c9a227] hover:bg-[#c9a227]/10 transition-all duration-300 cursor-pointer"
+                >
+                  <p className="text-[#b0a090] text-xs md:text-sm font-medium">
+                    {partner.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Payment Methods */}
+          <div className="border-t border-[#8b7355]/30 pt-12">
+            <p className="text-[#b0a090] text-sm mb-6 text-center font-bold">
+              طرق الدفع المدعومة
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              {paymentMethods.map((method) => (
+                <div
+                  key={method.id}
+                  className="rounded-lg p-4 border border-[#c9a227]/30 text-center hover:border-[#d4b94c] transition-all duration-300"
+                >
+                  <p className="text-[#d4b94c] text-xs md:text-sm font-medium">
+                    {method.name}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section
+        className="py-20 md:py-32 px-4 md:px-6 relative overflow-hidden bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80)',
+        }}
+      >
+        {/* Overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'linear-gradient(135deg, rgba(201, 162, 39, 0.9) 0%, rgba(212, 185, 76, 0.85) 100%)',
+          }}
+        />
+
+        {/* Content */}
+        <div className="max-w-3xl mx-auto text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-black text-[#1a1a1a] mb-4">
+            ابدأ رحلتك الاستثمارية اليوم
+          </h2>
+          <p className="text-lg md:text-xl text-[#1a1a1a]/90 mb-10">
+            انضم إلى أكثر من ٤٥,٠٠٠ مستثمر يثقون بنا
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button onClick={() => setRegisterModalOpen(true)} className="px-8 py-4 rounded-lg bg-[#1a1a1a] text-[#d4b94c] font-bold hover:bg-[#0a0a0a] transition-all duration-300">
+              إنشاء حساب مجاني
+            </button>
+            <button className="px-8 py-4 rounded-lg border-2 border-[#1a1a1a] text-[#1a1a1a] font-bold hover:bg-[#1a1a1a]/10 transition-all duration-300">
+              تحدث مع مستشار
+            </button>
+          </div>
+
+          {/* Small text */}
+          <p className="text-sm text-[#1a1a1a]/70 mt-6">
+            التسجيل مجاني ولا يتطلب أي التزام
+          </p>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#1a1a1a] border-t border-[#8b7355]/30 py-12 md:py-16 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          {/* Footer Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            {/* Brand Column */}
+            <div>
+              <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#d4b94c] to-[#c9a227] flex items-center justify-center">
                   <Building2 size={20} className="text-[#1a1a1a]" />
                 </div>
@@ -1327,21 +1591,43 @@ export default function Masharee() {
                   مشاريع
                 </span>
               </div>
-              <p className="text-[#b0a090] text-sm leading-relaxed">
-                منصة استثمارية موثوقة وآمنة للاستثمار العقاري والصناديق الإسلامية
+              <p className="text-[#b0a090] text-sm leading-relaxed mb-6">
+                منصة الاستثمار العقاري الرائدة في المملكة العربية السعودية. نجمع لك أفضل الفرص الاستثمارية المتوافقة مع الشريعة الإسلامية.
               </p>
+              {/* Social Icons */}
+              <div className="flex gap-3">
+                {['Twitter', 'LinkedIn', 'Instagram', 'YouTube'].map((social, idx) => (
+                  <div
+                    key={idx}
+                    className="w-10 h-10 rounded-lg bg-[#5c4d3a]/50 hover:bg-[#c9a227]/20 transition-colors cursor-pointer flex items-center justify-center"
+                  >
+                    <span className="text-[#d4b94c] text-xs font-bold">{social[0]}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Links */}
+            {/* Quick Links */}
             <div>
-              <h4 className="text-[#f5f0e8] font-bold mb-4">الروابط السريعة</h4>
-              <ul className="space-y-2">
-                {['الرئيسية', 'الفرص', 'المحفظة', 'الدعم'].map((link, index) => (
-                  <li key={index}>
-                    <a
-                      href="#"
-                      className="text-[#b0a090] hover:text-[#d4b94c] transition-colors text-sm"
-                    >
+              <h4 className="text-[#f5f0e8] font-bold mb-6">روابط سريعة</h4>
+              <ul className="space-y-3">
+                {['الرئيسية', 'الفرص الاستثمارية', 'الصناديق العقارية', 'الصكوك', 'التمويل الجماعي', 'المحفظة'].map((link, idx) => (
+                  <li key={idx}>
+                    <a href="#" className="text-[#b0a090] hover:text-[#d4b94c] transition-colors text-sm">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Support */}
+            <div>
+              <h4 className="text-[#f5f0e8] font-bold mb-6">الدعم</h4>
+              <ul className="space-y-3">
+                {['مركز المساعدة', 'الأسئلة الشائعة', 'تواصل معنا', 'الشكاوى والمقترحات', 'الشروط والأحكام', 'سياسة الخصوصية'].map((link, idx) => (
+                  <li key={idx}>
+                    <a href="#" className="text-[#b0a090] hover:text-[#d4b94c] transition-colors text-sm">
                       {link}
                     </a>
                   </li>
@@ -1351,33 +1637,290 @@ export default function Masharee() {
 
             {/* Contact */}
             <div>
-              <h4 className="text-[#f5f0e8] font-bold mb-4">اتصل بنا</h4>
-              <ul className="space-y-2 text-[#b0a090] text-sm">
-                <li>البريد: info@masharee.sa</li>
-                <li>الهاتف: +966 11 1234 5678</li>
-                <li>الموقع: الرياض - المملكة العربية السعودية</li>
-              </ul>
+              <h4 className="text-[#f5f0e8] font-bold mb-6">تواصل معنا</h4>
+              <div className="space-y-4 text-sm text-[#b0a090]">
+                <div className="flex items-start gap-3">
+                  <MapPin size={18} className="text-[#d4b94c] mt-0.5 flex-shrink-0" />
+                  <p>الرياض، المملكة العربية السعودية<br/>طريق الملك فهد، برج المملكة</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone size={18} className="text-[#d4b94c] flex-shrink-0" />
+                  <p>٩٢٠٠١٢٣٤٥</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Mail size={18} className="text-[#d4b94c] flex-shrink-0" />
+                  <p>info@masharee.sa</p>
+                </div>
+              </div>
+              <p className="text-xs text-[#b0a090] mt-4">
+                ساعات العمل: الأحد - الخميس، ٩ص - ٦م
+              </p>
             </div>
           </div>
 
           {/* Divider */}
           <div className="border-t border-[#8b7355]/30 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <p className="text-[#b0a090] text-sm">
-                جميع الحقوق محفوظة © ٢٠٢٦ منصة مشاريع
+                © ٢٠٢٦ مشاريع. جميع الحقوق محفوظة
               </p>
-              <div className="flex gap-4">
-                <a href="#" className="text-[#b0a090] hover:text-[#d4b94c] transition-colors">
-                  سياسة الخصوصية
-                </a>
-                <a href="#" className="text-[#b0a090] hover:text-[#d4b94c] transition-colors">
-                  شروط الخدمة
-                </a>
+              <div className="flex flex-wrap justify-center gap-4 text-[#b0a090] text-xs">
+                <span className="px-3 py-1 rounded-full bg-[#5c4d3a]/50 border border-[#8b7355]/50">
+                  مرخصة من هيئة السوق المالية
+                </span>
+                <span className="px-3 py-1 rounded-full bg-[#5c4d3a]/50 border border-[#8b7355]/50">
+                  متوافق مع الشريعة الإسلامية
+                </span>
               </div>
             </div>
           </div>
         </div>
       </footer>
+
+      {/* Login Modal */}
+      {loginModalOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#1a1a1a]/95 rounded-2xl max-w-md w-full border border-[#c9a227]/30" style={{ backdropFilter: 'blur(10px)' }}>
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b border-[#8b7355]/30">
+              <h2 className="text-2xl font-bold text-[#f5f0e8]">تسجيل الدخول</h2>
+              <button onClick={() => setLoginModalOpen(false)} className="text-[#b0a090] hover:text-[#d4b94c] transition-colors">
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-4">
+              {/* Email Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">رقم الجوال أو البريد الإلكتروني</label>
+                <input
+                  type="text"
+                  placeholder="example@masharee.sa"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                />
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">كلمة المرور</label>
+                <div className="relative">
+                  <input
+                    type={showLoginPassword ? 'text' : 'password'}
+                    placeholder="••••••••"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                  />
+                  <button
+                    onClick={() => setShowLoginPassword(!showLoginPassword)}
+                    className="absolute left-3 top-3 text-[#b0a090] hover:text-[#d4b94c]"
+                  >
+                    {showLoginPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Remember Me */}
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="w-4 h-4 rounded accent-[#c9a227]"
+                />
+                <span className="text-[#b0a090] text-sm">تذكرني</span>
+              </label>
+
+              {/* Forgot Password */}
+              <div className="text-right">
+                <a href="#" className="text-[#d4b94c] hover:text-[#f5f0e8] text-sm font-medium transition-colors">
+                  نسيت كلمة المرور؟
+                </a>
+              </div>
+
+              {/* Login Button */}
+              <button className="w-full py-3 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300">
+                تسجيل الدخول
+              </button>
+
+              {/* Divider */}
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-px bg-[#8b7355]/30" />
+                <span className="text-[#b0a090] text-xs">أو</span>
+                <div className="flex-1 h-px bg-[#8b7355]/30" />
+              </div>
+
+              {/* SSO Button */}
+              <button className="w-full py-3 rounded-lg border-2 border-[#c9a227]/50 text-[#d4b94c] font-bold hover:bg-[#c9a227]/10 transition-all duration-300">
+                الدخول عبر النفاذ الوطني
+              </button>
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-[#8b7355]/30 text-center">
+              <span className="text-[#b0a090] text-sm">
+                ليس لديك حساب؟{' '}
+                <button
+                  onClick={() => {
+                    setLoginModalOpen(false);
+                    setRegisterModalOpen(true);
+                  }}
+                  className="text-[#d4b94c] font-bold hover:text-[#f5f0e8] transition-colors"
+                >
+                  إنشاء حساب جديد
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Register Modal */}
+      {registerModalOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-[#1a1a1a]/95 rounded-2xl max-w-md w-full border border-[#c9a227]/30 my-8" style={{ backdropFilter: 'blur(10px)' }}>
+            {/* Header */}
+            <div className="flex justify-between items-center p-6 border-b border-[#8b7355]/30">
+              <h2 className="text-2xl font-bold text-[#f5f0e8]">إنشاء حساب جديد</h2>
+              <button onClick={() => setRegisterModalOpen(false)} className="text-[#b0a090] hover:text-[#d4b94c] transition-colors">
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 space-y-4">
+              {/* Name Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">الاسم الكامل</label>
+                <input
+                  type="text"
+                  placeholder="محمد أحمد علي"
+                  value={registerName}
+                  onChange={(e) => setRegisterName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                />
+              </div>
+
+              {/* Phone Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">رقم الجوال</label>
+                <input
+                  type="tel"
+                  placeholder="٠٥xxxxxxxxxx"
+                  value={registerPhone}
+                  onChange={(e) => setRegisterPhone(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                />
+              </div>
+
+              {/* Email Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">البريد الإلكتروني</label>
+                <input
+                  type="email"
+                  placeholder="example@masharee.sa"
+                  value={registerEmail}
+                  onChange={(e) => setRegisterEmail(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                />
+              </div>
+
+              {/* Password Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">كلمة المرور</label>
+                <input
+                  type={showRegisterPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={registerPassword}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                />
+              </div>
+
+              {/* Confirm Password Input */}
+              <div>
+                <label className="block text-[#d4b94c] text-sm font-bold mb-2">تأكيد كلمة المرور</label>
+                <input
+                  type={showRegisterPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={registerConfirmPassword}
+                  onChange={(e) => setRegisterConfirmPassword(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right"
+                />
+              </div>
+
+              {/* Terms Checkbox */}
+              <label className="flex items-start gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={agreeTerms}
+                  onChange={(e) => setAgreeTerms(e.target.checked)}
+                  className="w-4 h-4 rounded accent-[#c9a227] mt-1"
+                />
+                <span className="text-[#b0a090] text-xs leading-relaxed">
+                  أوافق على الشروط والأحكام وسياسة الخصوصية
+                </span>
+              </label>
+
+              {/* Register Button */}
+              <button className="w-full py-3 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300">
+                إنشاء حساب
+              </button>
+
+              {/* Divider */}
+              <div className="flex items-center gap-4">
+                <div className="flex-1 h-px bg-[#8b7355]/30" />
+                <span className="text-[#b0a090] text-xs">أو</span>
+                <div className="flex-1 h-px bg-[#8b7355]/30" />
+              </div>
+
+              {/* SSO Button */}
+              <button className="w-full py-3 rounded-lg border-2 border-[#c9a227]/50 text-[#d4b94c] font-bold hover:bg-[#c9a227]/10 transition-all duration-300">
+                التسجيل عبر النفاذ الوطني
+              </button>
+            </div>
+
+            {/* Footer */}
+            <div className="p-6 border-t border-[#8b7355]/30 text-center">
+              <span className="text-[#b0a090] text-sm">
+                لديك حساب بالفعل؟{' '}
+                <button
+                  onClick={() => {
+                    setRegisterModalOpen(false);
+                    setLoginModalOpen(true);
+                  }}
+                  className="text-[#d4b94c] font-bold hover:text-[#f5f0e8] transition-colors"
+                >
+                  تسجيل الدخول
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Scroll to Top Button */}
+      {showScrollToTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 left-8 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] flex items-center justify-center hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 hover:scale-110"
+          style={{
+            animation: 'pulse 2s infinite',
+          }}
+        >
+          <ArrowUp size={24} />
+        </button>
+      )}
+
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.7); }
+          50% { box-shadow: 0 0 0 10px rgba(201, 162, 39, 0); }
+        }
+      `}</style>
     </div>
   );
 }
