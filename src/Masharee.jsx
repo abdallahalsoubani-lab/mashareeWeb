@@ -15,6 +15,7 @@ import {
   Wallet,
   PieChart,
   ArrowUpRight,
+  ArrowLeft,
 } from 'lucide-react';
 
 // Helper function to convert English numerals to Arabic numerals
@@ -73,6 +74,130 @@ const AnimatedCounter = ({ target, suffix = '', prefix = '' }) => {
         {prefix}
         {toArabicNumeral(count)}
         {suffix}
+      </div>
+    </div>
+  );
+};
+
+// Investment Opportunity Card Component
+const InvestmentOpportunityCard = ({ opportunity }) => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => setProgress(opportunity.progress), 300);
+  }, [opportunity.progress]);
+
+  // Badge color mapping
+  const getBadgeStyle = (badgeType) => {
+    const styles = {
+      جديد: 'bg-green-500/20 text-green-300 border border-green-500/50',
+      مميز: 'bg-orange-500/20 text-orange-300 border border-orange-500/50',
+      حصري: 'bg-purple-500/20 text-purple-300 border border-purple-500/50',
+      'عوائد دورية': 'bg-blue-500/20 text-blue-300 border border-blue-500/50',
+      'متوافق مع الشريعة': 'bg-[#c9a227]/20 text-[#d4b94c] border border-[#c9a227]/50',
+      'فندقي': 'bg-[#c9a227]/20 text-[#d4b94c] border border-[#c9a227]/50',
+    };
+    return styles[badgeType] || 'bg-[#c9a227]/20 text-[#d4b94c] border border-[#c9a227]/50';
+  };
+
+  return (
+    <div
+      className="group rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+      style={{
+        background: 'rgba(92, 77, 58, 0.15)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      {/* Image Container */}
+      <div className="relative h-48 md:h-56 overflow-hidden rounded-t-2xl">
+        <img
+          src={opportunity.image}
+          alt={opportunity.title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        />
+        {/* Overlay Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent" />
+
+        {/* Badges */}
+        <div className="absolute top-4 right-4 flex gap-2 flex-wrap">
+          {opportunity.badges.map((badge, index) => (
+            <span
+              key={index}
+              className={`text-xs font-bold px-2 py-1 rounded-full ${getBadgeStyle(badge)}`}
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+
+        {/* Type Badge */}
+        <div className="absolute bottom-4 right-4 bg-[#1a1a1a]/90 px-3 py-1 rounded-full">
+          <p className="text-[#d4b94c] text-xs font-bold">{opportunity.type}</p>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 md:p-6">
+        {/* Title */}
+        <h3 className="text-lg md:text-xl font-bold text-[#f5f0e8] mb-2 text-right line-clamp-2">
+          {opportunity.title}
+        </h3>
+
+        {/* Location */}
+        <div className="flex items-center justify-end gap-2 mb-4 text-[#b0a090]">
+          <MapPin size={16} />
+          <span className="text-sm">{opportunity.location}</span>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-2 gap-3 mb-4 pb-4 border-b border-[#8b7355]/30">
+          <div className="text-right">
+            <p className="text-[#b0a090] text-xs mb-1">العائد المتوقع</p>
+            <p className="text-[#d4b94c] font-bold text-sm">{opportunity.expectedReturn}٪</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[#b0a090] text-xs mb-1">مدة الاستثمار</p>
+            <p className="text-[#d4b94c] font-bold text-sm">{opportunity.duration}</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[#b0a090] text-xs mb-1">الحد الأدنى</p>
+            <p className="text-[#d4b94c] font-bold text-sm">{toArabicNumeral(opportunity.minimum)} ر.س</p>
+          </div>
+          <div className="text-right">
+            <p className="text-[#b0a090] text-xs mb-1">المخاطر</p>
+            <p className="text-[#d4b94c] font-bold text-sm">{opportunity.riskLevel}</p>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mb-4">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-[#b0a090] text-xs">النسبة المكتملة</span>
+            <span className="text-[#d4b94c] font-bold text-xs">{toArabicNumeral(progress)}٪</span>
+          </div>
+          <div className="w-full h-2 bg-[#5c4d3a] rounded-full overflow-hidden border border-[#8b7355]/50">
+            <div
+              className="h-full bg-gradient-to-r from-[#c9a227] to-[#d4b94c] rounded-full transition-all duration-1000 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p className="text-[#b0a090] text-xs mt-2 text-right">
+            {toArabicNumeral(opportunity.funded)} من {toArabicNumeral(opportunity.target)} ريال
+          </p>
+        </div>
+
+        {/* Footer with Days Remaining */}
+        <div className="flex items-center justify-between mb-4 text-[#c9a227]">
+          <span className="flex items-center gap-1 text-xs">
+            <Clock size={14} />
+            {opportunity.daysRemaining}
+          </span>
+        </div>
+
+        {/* CTA Button */}
+        <button className="w-full py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold text-sm hover:shadow-lg hover:shadow-[#c9a227]/50 hover:scale-105 transition-all duration-300">
+          استثمر الآن
+        </button>
       </div>
     </div>
   );
@@ -184,10 +309,117 @@ const InvestmentCard = () => {
   );
 };
 
+// Investment Opportunities Data
+const investmentOpportunities = [
+  {
+    id: 1,
+    type: 'صندوق عقاري',
+    title: 'صندوق الرياض السكني الأول',
+    location: 'الرياض - حي العليا',
+    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80',
+    badges: ['جديد', 'متوافق مع الشريعة'],
+    expectedReturn: 20,
+    duration: '٣ سنوات',
+    minimum: 1000,
+    riskLevel: 'متوسطة',
+    progress: 65,
+    funded: '9750000',
+    target: '15000000',
+    daysRemaining: 'متبقي ١٨ يوم',
+    category: 'صناديق عقارية',
+  },
+  {
+    id: 2,
+    type: 'صكوك',
+    title: 'صكوك التعمير المتقدمة',
+    location: 'جدة - الكورنيش',
+    image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
+    badges: ['مميز', 'متوافق مع الشريعة'],
+    expectedReturn: 18,
+    duration: '٥ سنوات',
+    minimum: 5000,
+    riskLevel: 'منخفضة',
+    progress: 89,
+    funded: '26700000',
+    target: '30000000',
+    daysRemaining: 'متبقي ٥ أيام',
+    category: 'صكوك',
+  },
+  {
+    id: 3,
+    type: 'مساهمة عقارية',
+    title: 'مساهمة فلل الدرعية',
+    location: 'الرياض - الدرعية',
+    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
+    badges: ['حصري'],
+    expectedReturn: 25,
+    duration: '٢ سنة',
+    minimum: 10000,
+    riskLevel: 'متوسطة',
+    progress: 42,
+    funded: '8400000',
+    target: '20000000',
+    daysRemaining: 'متبقي ٣٠ يوم',
+    category: 'مساهمات عقارية',
+  },
+  {
+    id: 4,
+    type: 'تمويل جماعي',
+    title: 'مجمع الأندلس التجاري',
+    location: 'الدمام - الشاطئ الغربي',
+    image: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800&q=80',
+    badges: ['جديد'],
+    expectedReturn: 15,
+    duration: '١٨ شهر',
+    minimum: 500,
+    riskLevel: 'منخفضة',
+    progress: 91,
+    funded: '4550000',
+    target: '5000000',
+    daysRemaining: 'متبقي ٣ أيام',
+    category: 'تمويل جماعي',
+  },
+  {
+    id: 5,
+    type: 'صندوق عقاري',
+    title: 'صندوق المدينة المنورة',
+    location: 'المدينة المنورة - طريق الملك عبدالله',
+    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80',
+    badges: ['عوائد دورية'],
+    expectedReturn: 17,
+    duration: '٤ سنوات',
+    minimum: 2000,
+    riskLevel: 'منخفضة',
+    progress: 55,
+    funded: '11000000',
+    target: '20000000',
+    daysRemaining: 'متبقي ٢٥ يوم',
+    category: 'صناديق عقارية',
+  },
+  {
+    id: 6,
+    type: 'صكوك',
+    title: 'صكوك فندق البحر الأحمر',
+    location: 'نيوم - منطقة تبوك',
+    image: 'https://images.unsplash.com/photo-1464938050520-ef2571e6f5e8?w=800&q=80',
+    badges: ['فندقي', 'متوافق مع الشريعة'],
+    expectedReturn: 22,
+    duration: '٦ سنوات',
+    minimum: 10000,
+    riskLevel: 'متوسطة-عالية',
+    progress: 38,
+    funded: '19000000',
+    target: '50000000',
+    daysRemaining: 'متبقي ٤٥ يوم',
+    category: 'صكوك',
+  },
+];
+
 // Main Masharee Component
 export default function Masharee() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeFilter, setActiveFilter] = useState('الكل');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -497,6 +729,82 @@ export default function Masharee() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Investment Opportunities Section */}
+      <section className="py-16 md:py-32 px-4 md:px-6 relative overflow-hidden">
+        {/* Background Gradient */}
+        <div
+          className="absolute inset-0 -z-10 noise-overlay"
+          style={{
+            background: 'linear-gradient(180deg, #1a1a1a 0%, #5c4d3a 50%, #1a1a1a 100%)',
+          }}
+        />
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 right-0 w-96 h-96 bg-[#c9a227]/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute bottom-20 left-0 w-96 h-96 bg-[#d4b94c]/5 rounded-full blur-3xl -z-10" />
+
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12 md:mb-16">
+            <p className="text-[#d4b94c] text-sm md:text-base font-bold tracking-widest mb-4 uppercase">
+              استثمر بثقة
+            </p>
+            <h2 className="text-3xl md:text-5xl font-black text-[#f5f0e8] mb-4">
+              الفرص الاستثمارية المتاحة
+            </h2>
+            <p className="text-[#b0a090] max-w-2xl mx-auto text-base md:text-lg">
+              اختر من بين مجموعة متنوعة من الفرص الاستثمارية المدروسة بعناية والمتوافقة مع الشريعة الإسلامية
+            </p>
+          </div>
+
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12 md:mb-16">
+            {['الكل', 'صناديق عقارية', 'صكوك', 'مساهمات عقارية', 'تمويل جماعي'].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-4 md:px-6 py-2 md:py-3 rounded-full font-bold text-sm md:text-base transition-all duration-300 ${
+                  activeFilter === filter
+                    ? 'bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] shadow-lg shadow-[#c9a227]/50'
+                    : 'border border-[#c9a227]/50 text-[#d4b94c] hover:border-[#c9a227] hover:bg-[#c9a227]/10'
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
+            {investmentOpportunities
+              .filter(
+                (opp) =>
+                  activeFilter === 'الكل' ||
+                  opp.category === activeFilter
+              )
+              .map((opportunity) => (
+                <div
+                  key={opportunity.id}
+                  className="animate-fade-in"
+                  style={{
+                    animation: 'fadeInUp 0.6s ease-out forwards',
+                  }}
+                >
+                  <InvestmentOpportunityCard opportunity={opportunity} />
+                </div>
+              ))}
+          </div>
+
+          {/* View All Button */}
+          <div className="flex justify-center">
+            <button className="px-8 md:px-12 py-3 md:py-4 rounded-xl border-2 border-[#c9a227] text-[#d4b94c] font-bold text-base md:text-lg hover:bg-[#c9a227]/10 hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 flex items-center gap-3">
+              <span>عرض جميع الفرص</span>
+              <ArrowLeft size={20} />
+            </button>
           </div>
         </div>
       </section>
