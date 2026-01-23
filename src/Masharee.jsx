@@ -12,7 +12,7 @@ import {
   X,
   BadgeCheck,
   Landmark,
-  Wallet,
+  Wallet as WalletIcon,
   PieChart,
   ArrowUpRight,
   ArrowLeft,
@@ -31,6 +31,8 @@ import {
   MapPinIcon,
   Quote,
 } from 'lucide-react';
+import InvestmentDetail from './InvestmentDetail';
+import Wallet from './Wallet';
 
 // Helper function to convert English numerals to Arabic numerals
 const toArabicNumeral = (num) => {
@@ -94,7 +96,7 @@ const AnimatedCounter = ({ target, suffix = '', prefix = '' }) => {
 };
 
 // Investment Opportunity Card Component
-const InvestmentOpportunityCard = ({ opportunity }) => {
+const InvestmentOpportunityCard = ({ opportunity, onInvestClick }) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -209,7 +211,10 @@ const InvestmentOpportunityCard = ({ opportunity }) => {
         </div>
 
         {/* CTA Button */}
-        <button className="w-full py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold text-sm hover:shadow-lg hover:shadow-[#c9a227]/50 hover:scale-105 transition-all duration-300">
+        <button 
+          onClick={() => onInvestClick && onInvestClick(opportunity)}
+          className="w-full py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold text-sm hover:shadow-lg hover:shadow-[#c9a227]/50 hover:scale-105 transition-all duration-300"
+        >
           استثمر الآن
         </button>
       </div>
@@ -376,7 +381,7 @@ const features = [
   },
   {
     id: 2,
-    icon: Wallet,
+    icon: WalletIcon,
     title: 'استثمر من ٥٠٠ ريال',
     description: 'ابدأ رحلتك الاستثمارية بمبلغ بسيط يناسب ميزانيتك',
   },
@@ -481,7 +486,7 @@ const investmentOpportunities = [
     funded: '9750000',
     target: '15000000',
     daysRemaining: 'متبقي ١٨ يوم',
-    category: 'صناديق عقارية',
+    category: 'صناعي',
   },
   {
     id: 2,
@@ -532,7 +537,7 @@ const investmentOpportunities = [
     funded: '4550000',
     target: '5000000',
     daysRemaining: 'متبقي ٣ أيام',
-    category: 'تمويل جماعي',
+    category: 'صناعي',
   },
   {
     id: 5,
@@ -549,7 +554,7 @@ const investmentOpportunities = [
     funded: '11000000',
     target: '20000000',
     daysRemaining: 'متبقي ٢٥ يوم',
-    category: 'صناديق عقارية',
+    category: 'صناعي',
   },
   {
     id: 6,
@@ -586,6 +591,12 @@ export default function Masharee() {
   // Modal States
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [registerModalOpen, setRegisterModalOpen] = useState(false);
+  
+  // Investment Detail State
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
+  
+  // Wallet State
+  const [showWallet, setShowWallet] = useState(false);
 
   // Login Form State
   const [loginEmail, setLoginEmail] = useState('');
@@ -642,10 +653,37 @@ export default function Masharee() {
     { label: 'الفرص الاستثمارية', href: '#' },
     { label: 'الصناديق العقارية', href: '#' },
     { label: 'الصكوك', href: '#' },
-    { label: 'التمويل', href: '#' },
+    // { label: 'التمويل', href: '#' },
     { label: 'المحفظة', href: '#' },
     { label: 'من نحن', href: '#' },
   ];
+
+  // Handle Invest Now Click
+  const handleInvestNow = (opportunity) => {
+    setSelectedOpportunity(opportunity);
+  };
+
+  // Handle Wallet Click
+  const handleWalletClick = () => {
+    setShowWallet(true);
+  };
+
+  // If wallet is shown, show the wallet page
+  if (showWallet) {
+    return (
+      <Wallet onBack={() => setShowWallet(false)} />
+    );
+  }
+
+  // If an opportunity is selected, show the detail page
+  if (selectedOpportunity) {
+    return (
+      <InvestmentDetail 
+        opportunity={selectedOpportunity} 
+        onBack={() => setSelectedOpportunity(null)}
+      />
+    );
+  }
 
   return (
     <div dir="rtl" className="bg-[#1a1a1a] text-[#f5f0e8] overflow-hidden font-['Tajawal']">
@@ -717,13 +755,14 @@ export default function Masharee() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
             {navItems.map((item, index) => (
-              <a
+              <button
                 key={index}
+                onClick={item.label === 'المحفظة' ? handleWalletClick : undefined}
                 href={item.href}
                 className="text-[#b0a090] hover:text-[#d4b94c] transition-colors duration-300 text-sm font-medium"
               >
                 {item.label}
-              </a>
+              </button>
             ))}
           </nav>
 
@@ -760,13 +799,14 @@ export default function Masharee() {
           <nav className="lg:hidden bg-[#1a1a1a]/95 backdrop-blur-md border-t border-[#c9a227]/20 py-4">
             <div className="max-w-7xl mx-auto px-4 space-y-3 flex flex-col items-end">
               {navItems.map((item, index) => (
-                <a
+                <button
                   key={index}
+                  onClick={item.label === 'المحفظة' ? () => { handleWalletClick(); setMenuOpen(false); } : undefined}
                   href={item.href}
                   className="text-[#b0a090] hover:text-[#d4b94c] transition-colors duration-300 text-sm font-medium"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
               <div className="w-full border-t border-[#8b7355]/30 my-3" />
               <button className="w-full px-4 py-2 rounded-lg border border-[#c9a227] text-[#d4b94c] hover:bg-[#c9a227]/10 transition-all duration-300 text-sm font-medium">
@@ -971,7 +1011,7 @@ export default function Masharee() {
 
           {/* Filter Tabs */}
           <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12 md:mb-16">
-            {['الكل', 'صناديق عقارية', 'صكوك', 'مساهمات عقارية', 'تمويل جماعي'].map((filter) => (
+            {['الكل', 'صناديق عقارية', 'تجاري', 'صناعي', 'تمويل جماعي'].map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
@@ -1002,7 +1042,10 @@ export default function Masharee() {
                     animation: 'fadeInUp 0.6s ease-out forwards',
                   }}
                 >
-                  <InvestmentOpportunityCard opportunity={opportunity} />
+                  <InvestmentOpportunityCard 
+                    opportunity={opportunity} 
+                    onInvestClick={handleInvestNow}
+                  />
                 </div>
               ))}
           </div>
@@ -1184,7 +1227,7 @@ export default function Masharee() {
                   number: '٢',
                   title: 'اشحن محفظتك',
                   description: 'أضف رصيد عبر التحويل البنكي أو Apple Pay أو مدى',
-                  icon: Wallet,
+                  icon: WalletIcon,
                 },
                 {
                   number: '٣',
