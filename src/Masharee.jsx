@@ -30,9 +30,12 @@ import {
   Mail,
   MapPinIcon,
   Quote,
+  LogOut,
+  Settings,
 } from 'lucide-react';
 import InvestmentDetail from './InvestmentDetail';
 import Wallet from './Wallet';
+import { api } from './api/client';
 
 // Helper function to convert English numerals to Arabic numerals
 const toArabicNumeral = (num) => {
@@ -576,12 +579,18 @@ const investmentOpportunities = [
 ];
 
 // Main Masharee Component
-export default function Masharee() {
+export default function Masharee({ user, onLogout }) {
+  // Projects State
+  const [projects, setProjects] = useState([]);
+  const [loadingProjects, setLoadingProjects] = useState(true);
+  const [apiError, setApiError] = useState('');
+
   // UI State
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [activeFilter, setActiveFilter] = useState('الكل');
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   // Calculator State
   const [calcAmount, setCalcAmount] = useState(50000);
@@ -632,6 +641,25 @@ export default function Masharee() {
   };
 
   const { annualReturn, totalProfit, finalValue } = calculateReturns();
+
+  // Fetch projects from API
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoadingProjects(true);
+        const response = await api.getProjects();
+        setProjects(response.data);
+        setApiError('');
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+        setApiError('خطأ في تحميل المشاريع');
+      } finally {
+        setLoadingProjects(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   // Scroll event handlers
   useEffect(() => {
@@ -774,15 +802,59 @@ export default function Masharee() {
               <ChevronDown size={16} />
             </button>
 
-            {/* Sign In */}
-            <button onClick={() => setLoginModalOpen(true)} className="hidden sm:block px-4 py-2 rounded-lg border border-[#c9a227] text-[#d4b94c] hover:bg-[#c9a227]/10 transition-all duration-300 text-sm font-medium">
-              تسجيل دخول
-            </button>
+            {/* User Profile or Login/Register */}
+            {user ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg bg-[#5c4d3a]/50 hover:bg-[#5c4d3a] transition-colors duration-300 text-sm text-[#b0a090] hover:text-[#d4b94c]"
+                >
+                  <UserPlus size={18} />
+                  <span>{user.username || user.email}</span>
+                  <ChevronDown size={16} />
+                </button>
 
-            {/* Sign Up */}
-            <button onClick={() => setRegisterModalOpen(true)} className="hidden sm:block px-4 py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 font-bold text-sm">
-              إنشاء حساب
-            </button>
+                {/* Profile Dropdown Menu */}
+                {showProfileMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-[#1a1a1a] border border-[#8b7355]/30 rounded-lg shadow-xl z-50">
+                    <div className="p-4 border-b border-[#8b7355]/30">
+                      <p className="text-[#d4b94c] font-semibold text-sm">{user.username || user.email}</p>
+                      <p className="text-[#b0a090] text-xs mt-1">{user.role === 'admin' ? '👑 مسؤول' : '👤 مستثمر'}</p>
+                    </div>
+                    {user.isAdmin && (
+                      <>
+                        <button className="w-full text-right px-4 py-2 text-[#b0a090] hover:text-[#d4b94c] hover:bg-[#5c4d3a]/50 transition-colors flex items-center gap-2">
+                          <Settings size={16} />
+                          <span className="text-sm">إدارة المشاريع</span>
+                        </button>
+                      </>
+                    )}
+                    <button
+                      onClick={() => {
+                        onLogout();
+                        setShowProfileMenu(false);
+                      }}
+                      className="w-full text-right px-4 py-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors flex items-center gap-2 border-t border-[#8b7355]/30"
+                    >
+                      <LogOut size={16} />
+                      <span className="text-sm">تسجيل الخروج</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                {/* Sign In */}
+                <button onClick={() => setLoginModalOpen(true)} className="hidden sm:block px-4 py-2 rounded-lg border border-[#c9a227] text-[#d4b94c] hover:bg-[#c9a227]/10 transition-all duration-300 text-sm font-medium">
+                  تسجيل دخول
+                </button>
+
+                {/* Sign Up */}
+                <button onClick={() => setRegisterModalOpen(true)} className="hidden sm:block px-4 py-2 rounded-lg bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all duration-300 font-bold text-sm">
+                  إنشاء حساب
+                </button>
+              </>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button
