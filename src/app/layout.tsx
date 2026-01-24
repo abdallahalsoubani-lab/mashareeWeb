@@ -23,7 +23,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="antialiased bg-[#1a1a1a] text-[#f5f0e8]" style={{ fontFamily: "'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+      <body className="antialiased bg-[#1a1a1a] text-[#f5f0e8]" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Tajawal', sans-serif" }}>
         {children}
       </body>
     </html>

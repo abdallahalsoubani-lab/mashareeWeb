@@ -2,16 +2,30 @@
   "name": "masharee-temp",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "type-check": "tsc --noEmit",
+    "db:generate": "prisma generate",
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
+    "db:migrate:prod": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
-    "db:seed": "node prisma/seed.js",
-    "generate": "prisma generate"
+    "db:reset": "prisma migrate reset --force",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:build": "docker compose build --no-cache",
+    "docker:logs": "docker compose logs -f",
+    "docker:clean": "docker compose down -v --rmi all",
+    "setup": "npm install && npm run db:generate && npm run db:push && npm run db:seed",
+    "setup:docker": "docker compose up -d db && sleep 5 && npm run db:push && npm run db:seed"
   },
   "dependencies": {
     "@prisma/client": "^7.3.0",
