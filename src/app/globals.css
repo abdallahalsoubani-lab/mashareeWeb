@@ -5,15 +5,31 @@
   --foreground: #f5f0e8;
   --gold-primary: #c9a227;
   --gold-light: #d4b94c;
+
+  /* Dashboard colors */
+  --dashboard-bg: #f8fafc;
+  --dashboard-bg-secondary: #f1f5f9;
+  --dashboard-card: #ffffff;
+  --dashboard-primary: #2563eb;
+  --dashboard-primary-dark: #1d4ed8;
+  --dashboard-text: #0f172a;
+  --dashboard-text-secondary: #475569;
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light dark;
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: #1a1a1a;
   color: #f5f0e8;
+}
+
+/* Dashboard theme */
+.dashboard {
+  background-color: #f8fafc;
+  color: #0f172a;
 }
 
 /* Animations */
@@ -70,9 +86,33 @@ body {
   background: linear-gradient(to right, #d4b94c, #c9a227);
 }
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
+/* Dashboard specific styles */
+.dashboard-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-sidebar {
+  background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+}
+
+.dashboard-primary-btn {
+  background-color: #2563eb;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.dashboard-primary-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Responsive utilities */
+@media (max-width: 1024px) {
+  .sidebar-hide {
+    display: none;
+  }
 }
 
 /* RTL Support */
