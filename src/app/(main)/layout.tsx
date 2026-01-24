@@ -29,6 +29,7 @@ const mainNavItems: SidebarItem[] = [
   { label: 'الصناديق الاستثمارية', href: '/projects', icon: Home },
   { label: 'استثماراتي', href: '/investments', icon: PieChart },
   { label: 'محفظتي المالية', href: '/wallet', icon: Wallet },
+  { label: 'الحاسبة الاستثمارية', href: '/calculator', icon: PieChart },
 ];
 
 const bottomNavItems: SidebarItem[] = [
@@ -91,32 +92,32 @@ export default function DashboardLayout({
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-slate-50 dashboard font-tajawal flex"
+      className="min-h-screen bg-[#1a1a1a] dashboard font-tajawal flex"
     >
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed right-0 top-0 h-full w-64 z-40 flex-col dashboard-sidebar">
+      <aside className="hidden lg:flex fixed right-0 top-0 h-full w-64 z-40 flex-col bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] border-l border-[#c9a227]/20">
         {/* Logo */}
         <Link
           href="/projects"
-          className="p-6 flex items-center justify-center gap-3 border-b border-white/10 hover:bg-white/5 transition-colors"
+          className="p-6 flex items-center justify-center gap-3 border-b border-[#c9a227]/20 hover:bg-[#c9a227]/10 transition-colors"
         >
-          <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-blue-600 font-bold text-lg">م</span>
+          <div className="w-10 h-10 bg-gradient-to-br from-[#c9a227] to-[#d4b94c] rounded-lg flex items-center justify-center flex-shrink-0">
+            <span className="text-[#1a1a1a] font-bold text-lg">م</span>
           </div>
-          <span className="text-white font-bold text-lg">مشاريع</span>
+          <span className="text-[#f5f0e8] font-bold text-lg">مشاريع</span>
         </Link>
 
         {/* User Info */}
-        <div className="px-4 py-6 border-b border-white/10">
+        <div className="px-4 py-6 border-b border-[#c9a227]/20">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-              <User className="text-white" size={24} />
+            <div className="w-12 h-12 bg-gradient-to-br from-[#c9a227] to-[#d4b94c] rounded-full flex items-center justify-center flex-shrink-0">
+              <User className="text-[#1a1a1a]" size={24} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-white font-semibold text-sm truncate">
+              <p className="text-[#f5f0e8] font-semibold text-sm truncate">
                 {user.name}
               </p>
-              <p className="text-white/60 text-xs truncate">
+              <p className="text-[#b0a090] text-xs truncate">
                 {user.role === 'ADMIN' ? 'مدير' : 'مستثمر'}
               </p>
             </div>
@@ -135,8 +136,8 @@ export default function DashboardLayout({
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   active
-                    ? 'bg-white text-blue-600 font-semibold'
-                    : 'text-white/80 hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-semibold'
+                    : 'text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8]'
                 }`}
               >
                 <Icon size={20} />
@@ -147,7 +148,7 @@ export default function DashboardLayout({
         </nav>
 
         {/* Bottom Navigation */}
-        <div className="p-4 space-y-2 border-t border-white/10">
+        <div className="p-4 space-y-2 border-t border-[#c9a227]/20">
           {bottomNavItems.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.href);
@@ -158,8 +159,8 @@ export default function DashboardLayout({
                 href={item.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                   active
-                    ? 'bg-white text-blue-600 font-semibold'
-                    : 'text-white/80 hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-semibold'
+                    : 'text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8]'
                 }`}
               >
                 <Icon size={20} />
@@ -171,7 +172,7 @@ export default function DashboardLayout({
           {/* Download App */}
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/10 transition-all"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8] transition-all"
           >
             <Download size={20} />
             <span>تحميل التطبيق</span>
@@ -185,7 +186,7 @@ export default function DashboardLayout({
           >
             <button
               type="submit"
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/10 transition-all"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8] transition-all"
             >
               <LogOut size={20} />
               <span>تسجيل الخروج</span>
@@ -284,15 +285,15 @@ export default function DashboardLayout({
       )}
 
       {/* Main Content */}
-      <main className="flex-1 lg:mr-64 pt-20 lg:pt-0">
+      <main className="flex-1 lg:mr-64 pt-20 lg:pt-0 bg-[#1a1a1a]">
         {/* Top Bar - Desktop Only */}
-        <header className="hidden lg:block bg-white border-b border-slate-200 px-8 py-4 sticky top-0 z-30">
+        <header className="hidden lg:block bg-[#1a1a1a]/95 border-b border-[#c9a227]/20 px-8 py-4 sticky top-0 z-30 backdrop-blur-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <button className="px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100 rounded-lg transition-colors">
+              <button className="px-3 py-1.5 text-sm text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8] rounded-lg transition-colors">
                 EN
               </button>
-              <button className="p-2 rounded-lg hover:bg-slate-100 relative text-slate-700">
+              <button className="p-2 rounded-lg hover:bg-[#c9a227]/10 relative text-[#b0a090] hover:text-[#f5f0e8] transition-colors">
                 <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
                 🔔
               </button>
@@ -301,7 +302,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <div className="p-4 lg:p-8 max-w-7xl mx-auto">{children}</div>
+        <div className="w-full">{children}</div>
       </main>
     </div>
   );

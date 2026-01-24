@@ -7,17 +7,133 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ========== ENUMS ==========
+model AdminAuditLog {
+  id        String   @id
+  adminId   String
+  action    String
+  entity    String
+  entityId  String
+  metadata  Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+  User      User     @relation(fields: [adminId], references: [id])
 
-enum UserRole {
-  ADMIN
-  INVESTOR
+  @@index([adminId])
+  @@index([createdAt])
+  @@index([entity])
+}
+
+model Investment {
+  id        String           @id
+  userId    String
+  projectId String
+  amount    Float
+  units     Int?
+  status    InvestmentStatus @default(PENDING)
+  returns   Float            @default(0)
+  createdAt DateTime         @default(now())
+  updatedAt DateTime
+  Project   Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  User      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([status])
+  @@index([userId])
+}
+
+model Project {
+  id                 String       @id
+  type               String
+  title              String
+  description        String?
+  location           String
+  image              String
+  images             String[]
+  badges             String[]
+  expectedReturn     Float
+  durationMonths     Int
+  minimumAmount      Float
+  unitPrice          Float?
+  riskLevel          String
+  targetAmount       Float
+  fundedAmount       Float        @default(0)
+  daysRemaining      Int?
+  category           String
+  fundManager        String?
+  distributor        String?
+  supervisor         String?
+  distributionPolicy String?
+  status             String       @default("active")
+  isActive           Boolean      @default(true)
+  latitude           Float?
+  longitude          Float?
+  attachments        Json?
+  boardMembers       Json?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime
+  Investment         Investment[]
+
+  @@index([category])
+  @@index([status])
+}
+
+model Transaction {
+  id          String            @id
+  walletId    String
+  type        TransactionType
+  amount      Float
+  status      TransactionStatus @default(PENDING)
+  reference   String?
+  description String?
+  projectId   String?
+  createdAt   DateTime          @default(now())
+  Wallet      Wallet            @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([createdAt])
+  @@index([walletId])
+}
+
+model User {
+  id            String          @id
+  email         String          @unique
+  phone         String?         @unique
+  passwordHash  String
+  name          String
+  role          UserRole        @default(INVESTOR)
+  isVerified    Boolean         @default(false)
+  avatar        String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime
+  AdminAuditLog AdminAuditLog[]
+  Investment    Investment[]
+  Wallet        Wallet?
+
+  @@index([email])
+}
+
+model Wallet {
+  id          String        @id
+  userId      String        @unique
+  balance     Float         @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  Transaction Transaction[]
+  User        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 enum InvestmentStatus {
   PENDING
   ACTIVE
   COMPLETED
+  CANCELLED
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
   CANCELLED
 }
 
@@ -29,133 +145,7 @@ enum TransactionType {
   DIVIDEND
 }
 
-enum TransactionStatus {
-  PENDING
-  COMPLETED
-  FAILED
-  CANCELLED
-}
-
-// ========== MODELS ==========
-
-model User {
-  id           String       @id @default(cuid())
-  email        String       @unique
-  phone        String?      @unique
-  passwordHash String
-  name         String
-  role         UserRole     @default(INVESTOR)
-  isVerified   Boolean      @default(false)
-  avatar       String?
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-
-  investments  Investment[]
-  wallet       Wallet?
-  auditLogs    AdminAuditLog[]
-
-  @@index([email])
-}
-
-model Project {
-  id              String   @id @default(cuid())
-  type            String   // صندوق عقاري، صكوك، تمويل جماعي، مساهمة عقارية
-  title           String
-  description     String?  @db.Text
-  location        String
-  image           String
-  images          String[] // معرض الصور
-  badges          String[] // جديد، مميز، حصري، عوائد دورية، متوافق مع الشريعة
-  expectedReturn  Float    // نسبة العائد المتوقع
-  durationMonths  Int      // مدة الاستثمار بالأشهر
-  minimumAmount   Float    // الحد الأدنى للاستثمار
-  unitPrice       Float?   // سعر الوحدة
-  riskLevel       String   // منخفضة، متوسطة، متوسطة-عالية، عالية
-  targetAmount    Float    // المبلغ المستهدف
-  fundedAmount    Float    @default(0) // المبلغ المجموع
-  daysRemaining   Int?     // الأيام المتبقية
-  category        String   // سكني، تجاري، صناعي، فندقي
-  fundManager     String?  // مدير الصندوق
-  distributor     String?  // موزع الوحدات
-  supervisor      String?  // الرقابة
-  distributionPolicy String? // سياسة التوزيع
-  status          String   @default("active") // active, completed, cancelled
-  isActive        Boolean  @default(true)
-  latitude        Float?   // إحداثيات الموقع
-  longitude       Float?
-  attachments     Json?    // المرفقات PDF
-  boardMembers    Json?    // أعضاء مجلس الإدارة
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  investments     Investment[]
-
-  @@index([status])
-  @@index([category])
-}
-
-model Investment {
-  id          String           @id @default(cuid())
-  userId      String
-  projectId   String
-  amount      Float
-  units       Int?             // عدد الوحدات
-  status      InvestmentStatus @default(PENDING)
-  returns     Float            @default(0) // العوائد المحققة
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
-
-  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  project     Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
-  @@index([projectId])
-  @@index([status])
-}
-
-model Wallet {
-  id           String        @id @default(cuid())
-  userId       String        @unique
-  balance      Float         @default(0)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  transactions Transaction[]
-
-  @@index([userId])
-}
-
-model Transaction {
-  id          String            @id @default(cuid())
-  walletId    String
-  type        TransactionType
-  amount      Float
-  status      TransactionStatus @default(PENDING)
-  reference   String?           // رقم مرجعي
-  description String?
-  projectId   String?           // في حالة الاستثمار
-  createdAt   DateTime          @default(now())
-
-  wallet      Wallet            @relation(fields: [walletId], references: [id], onDelete: Cascade)
-
-  @@index([walletId])
-  @@index([createdAt])
-}
-
-model AdminAuditLog {
-  id           String   @id @default(cuid())
-  adminId      String
-  action       String   // CREATE, UPDATE, DELETE
-  entity       String   // User, Project, Investment
-  entityId     String
-  metadata     Json?
-  ipAddress    String?
-  createdAt    DateTime @default(now())
-
-  admin        User     @relation(fields: [adminId], references: [id])
-
-  @@index([adminId])
-  @@index([entity])
-  @@index([createdAt])
+enum UserRole {
+  ADMIN
+  INVESTOR
 }

@@ -20,11 +20,24 @@ function LoginPageContent() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [selectedUserType, setSelectedUserType] = useState<'admin' | 'user'>('user');
 
   // UI state
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  // Quick login function
+  const quickLogin = async (type: 'admin' | 'user') => {
+    setSelectedUserType(type);
+    if (type === 'admin') {
+      setEmail('admin@masharee.sa');
+      setPassword('Admin@123456');
+    } else {
+      setEmail('mohammed@test.com');
+      setPassword('Investor@123');
+    }
+  };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,12 +64,16 @@ function LoginPageContent() {
         return;
       }
 
-      setSuccess('تم تسجيل الدخول بنجاح');
+      setSuccess('تم تسجيل الدخول بنجاح! جاري التحويل...');
 
-      // Redirect to dashboard or requested page
+      // Redirect based on user role
       setTimeout(() => {
-        router.push(redirect);
-      }, 500);
+        if (data.user.role === 'ADMIN') {
+          window.location.href = '/admin';
+        } else {
+          window.location.href = redirect === '/' ? '/projects' : redirect;
+        }
+      }, 1000);
     } catch (err) {
       setError('حدث خطأ في الاتصال');
       console.error('Login error:', err);
@@ -71,6 +88,47 @@ function LoginPageContent() {
       <div className="text-center mb-8">
         <h1 className="text-3xl font-black text-[#f5f0e8] mb-2">تسجيل الدخول</h1>
         <p className="text-[#b0a090] text-sm">أهلاً بك في منصة مشاريع</p>
+      </div>
+
+      {/* Quick Login Buttons */}
+      <div className="mb-6">
+        <p className="text-[#b0a090] text-sm text-center mb-3">تسجيل دخول سريع (للتجربة)</p>
+        <div className="grid grid-cols-2 gap-4">
+          <button
+            type="button"
+            onClick={() => quickLogin('admin')}
+            className={`p-4 rounded-xl border-2 transition-all ${
+              selectedUserType === 'admin'
+                ? 'border-[#c9a227] bg-[#c9a227]/10'
+                : 'border-[#c9a227]/30 hover:border-[#c9a227]/50'
+            }`}
+          >
+            <div className="text-center">
+              <div className="text-2xl mb-2">👨‍💼</div>
+              <p className="text-[#f5f0e8] font-bold text-sm">مسؤول</p>
+              <p className="text-[#b0a090] text-xs">Admin</p>
+            </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => quickLogin('user')}
+            className={`p-4 rounded-xl border-2 transition-all ${
+              selectedUserType === 'user'
+                ? 'border-[#c9a227] bg-[#c9a227]/10'
+                : 'border-[#c9a227]/30 hover:border-[#c9a227]/50'
+            }`}
+          >
+            <div className="text-center">
+              <div className="text-2xl mb-2">👤</div>
+              <p className="text-[#f5f0e8] font-bold text-sm">مستخدم</p>
+              <p className="text-[#b0a090] text-xs">User</p>
+            </div>
+          </button>
+        </div>
+        <p className="text-[#b0a090] text-xs text-center mt-2">
+          اضغط على أحد الخيارين ليتم ملء البيانات تلقائياً
+        </p>
       </div>
 
       {/* Error Message */}

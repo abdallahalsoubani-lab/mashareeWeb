@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { ChevronDown } from 'lucide-react';
 import { toArabicNumeral } from '@/lib/utils';
 import Button from '@/components/ui/Button';
@@ -56,12 +57,16 @@ const HeroSection: React.FC = () => {
           </p>
 
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 w-full max-w-md">
-            <Button size="lg" className="flex-1">
-              ابدأ الاستثمار الآن
-            </Button>
-            <Button variant="outline" size="lg" className="flex-1">
-              استكشف الفرص
-            </Button>
+            <Link href="/register" className="flex-1">
+              <Button size="lg" className="w-full">
+                ابدأ الاستثمار الآن
+              </Button>
+            </Link>
+            <Link href="/projects" className="flex-1">
+              <Button variant="outline" size="lg" className="w-full">
+                استكشف الفرص
+              </Button>
+            </Link>
           </div>
         </div>
 

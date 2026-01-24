@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import Navbar from '@/components/layout/Navbar';
 
 export const metadata: Metadata = {
   title: 'مشاريع - منصة الاستثمار العقاري الأولى',
@@ -22,8 +23,13 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link 
+          href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" 
+          rel="stylesheet" 
+        />
       </head>
-      <body className="antialiased bg-[#1a1a1a] text-[#f5f0e8]" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Tajawal', sans-serif" }}>
+      <body className="antialiased bg-[#1a1a1a] text-[#f5f0e8]" style={{ fontFamily: "'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+        <Navbar />
         {children}
       </body>
     </html>
