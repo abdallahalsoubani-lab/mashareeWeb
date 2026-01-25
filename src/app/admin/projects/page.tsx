@@ -70,27 +70,34 @@ export default function AdminProjectsPage() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-8 flex items-center justify-between">
+      <div className="mb-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 animate-fade-in-up">
         <div>
-          <h1 className="text-3xl font-bold text-slate-900">إدارة المشاريع</h1>
-          <p className="text-slate-600 mt-1">
-            عدد المشاريع: <span className="font-bold">{total}</span>
+          <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 glass rounded-full border border-primary/20">
+            <div className="w-2 h-2 rounded-full bg-accent-purple animate-pulse" />
+            <span className="text-sm text-text-secondary font-medium">إدارة المحتوى</span>
+          </div>
+          <h1 className="text-4xl font-bold gradient-text mb-2">إدارة المشاريع</h1>
+          <p className="text-text-muted">
+            عدد المشاريع: <span className="font-bold text-primary-400">{total}</span>
           </p>
         </div>
         <Link
           href="/admin/projects/new"
-          className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium"
+          className="group relative flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold transition-all duration-300 hover:shadow-glow-md hover:scale-105 overflow-hidden"
         >
-          <Plus size={20} />
-          إضافة مشروع جديد
+          <span className="relative z-10 flex items-center gap-2">
+            <Plus size={20} />
+            إضافة مشروع جديد
+          </span>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </Link>
       </div>
 
       {/* Filters */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
         {/* Search */}
-        <div className="relative">
-          <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+        <div className="relative group">
+          <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-primary-400 group-focus-within:text-accent-purple transition-colors" size={20} />
           <input
             type="text"
             placeholder="ابحث عن مشروع..."
@@ -99,7 +106,7 @@ export default function AdminProjectsPage() {
               setSearchQuery(e.target.value);
               setPage(1);
             }}
-            className="w-full pl-4 pr-12 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none bg-white text-slate-900"
+            className="w-full pl-4 pr-12 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary placeholder-text-dimmed transition-all"
           />
         </div>
 
@@ -110,11 +117,11 @@ export default function AdminProjectsPage() {
             setSelectedStatus(e.target.value);
             setPage(1);
           }}
-          className="px-4 py-3 rounded-xl border border-slate-200 focus:border-blue-500 outline-none bg-white text-slate-900"
+          className="px-4 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary/40"
         >
-          <option value="all">جميع الحالات</option>
-          <option value="active">نشط</option>
-          <option value="completed">مكتمل</option>
+          <option value="all" className="bg-background-secondary">جميع الحالات</option>
+          <option value="active" className="bg-background-secondary">نشط</option>
+          <option value="completed" className="bg-background-secondary">مكتمل</option>
           <option value="cancelled">ملغي</option>
         </select>
 

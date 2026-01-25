@@ -102,34 +102,40 @@ export default function RegisterPage() {
     !isLoading;
 
   return (
-    <div className="bg-[#1a1a1a]/95 rounded-2xl border border-[#c9a227]/30 backdrop-blur-md p-8 shadow-2xl overflow-y-auto max-h-[90vh]">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-black text-[#f5f0e8] mb-2">إنشاء حساب جديد</h1>
-        <p className="text-[#b0a090] text-sm">ابدأ استثمارك معنا اليوم</p>
-      </div>
-
-      {/* Error Message */}
-      {error && (
-        <div className="mb-4 p-4 rounded-lg bg-red-500/20 border border-red-500/50 flex items-start gap-3">
-          <AlertCircle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
-          <p className="text-red-300 text-sm">{error}</p>
+    <div className="group relative animate-fade-in-scale max-h-[90vh] overflow-y-auto">
+      <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-3xl opacity-30 blur-2xl" />
+      <div className="relative glass rounded-3xl border-2 border-primary/30 backdrop-blur-xl p-8 shadow-glow-md">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
+            <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
+            <span className="text-sm text-text-secondary font-medium">حساب جديد</span>
+          </div>
+          <h1 className="text-4xl font-black gradient-text mb-2">انضم إلينا</h1>
+          <p className="text-text-muted text-sm">ابدأ رحلتك الاستثمارية معنا اليوم</p>
         </div>
-      )}
 
-      {/* Success Message */}
-      {success && (
-        <div className="mb-4 p-4 rounded-lg bg-green-500/20 border border-green-500/50 flex items-start gap-3">
-          <CheckCircle2 size={20} className="text-green-400 flex-shrink-0 mt-0.5" />
-          <p className="text-green-300 text-sm">{success}</p>
-        </div>
-      )}
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 p-4 rounded-xl glass border border-accent-pink/30 flex items-start gap-3 bg-accent-pink/5">
+            <AlertCircle size={20} className="text-accent-pink flex-shrink-0 mt-0.5" />
+            <p className="text-accent-pink text-sm font-medium">{error}</p>
+          </div>
+        )}
+
+        {/* Success Message */}
+        {success && (
+          <div className="mb-4 p-4 rounded-xl glass border border-accent-green/30 flex items-start gap-3 bg-accent-green/5">
+            <CheckCircle2 size={20} className="text-accent-green flex-shrink-0 mt-0.5" />
+            <p className="text-accent-green text-sm font-medium">{success}</p>
+          </div>
+        )}
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         {/* Full Name */}
         <div>
-          <label className="block text-[#d4b94c] text-sm font-bold mb-2">
+          <label className="block text-text-secondary text-sm font-bold mb-2">
             الاسم الكامل
           </label>
           <input
@@ -140,13 +146,13 @@ export default function RegisterPage() {
             placeholder="محمد أحمد علي"
             required
             disabled={isLoading}
-            className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           />
         </div>
 
         {/* Email */}
         <div>
-          <label className="block text-[#d4b94c] text-sm font-bold mb-2">
+          <label className="block text-text-secondary text-sm font-bold mb-2">
             البريد الإلكتروني
           </label>
           <input
@@ -157,13 +163,13 @@ export default function RegisterPage() {
             placeholder="example@masharee.sa"
             required
             disabled={isLoading}
-            className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           />
         </div>
 
         {/* Phone */}
         <div>
-          <label className="block text-[#d4b94c] text-sm font-bold mb-2">
+          <label className="block text-text-secondary text-sm font-bold mb-2">
             رقم الجوال (اختياري)
           </label>
           <input
@@ -173,14 +179,14 @@ export default function RegisterPage() {
             onChange={handleInputChange}
             placeholder="0501234567"
             disabled={isLoading}
-            className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           />
         </div>
 
         {/* Password */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="block text-[#d4b94c] text-sm font-bold">
+            <label className="block text-text-secondary text-sm font-bold">
               كلمة المرور
             </label>
             {formData.password && (
@@ -217,25 +223,25 @@ export default function RegisterPage() {
               placeholder="••••••••"
               required
               disabled={isLoading}
-              className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute left-3 top-3 text-[#b0a090] hover:text-[#d4b94c] transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary-400 transition-colors"
               disabled={isLoading}
             >
               {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
           </div>
-          <p className="text-[#b0a090] text-xs mt-2">
+          <p className="text-text-muted text-xs mt-2">
             يجب أن تحتوي على حرف كبير وحرف صغير ورقم (8 أحرف على الأقل)
           </p>
         </div>
 
         {/* Confirm Password */}
         <div>
-          <label className="block text-[#d4b94c] text-sm font-bold mb-2">
+          <label className="block text-text-secondary text-sm font-bold mb-2">
             تأكيد كلمة المرور
           </label>
           <div className="relative">
@@ -247,12 +253,12 @@ export default function RegisterPage() {
               placeholder="••••••••"
               required
               disabled={isLoading}
-              className="w-full px-4 py-3 rounded-lg bg-[#5c4d3a]/50 border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#b0a090]/50 focus:border-[#d4b94c] outline-none transition-colors text-right disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             />
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute left-3 top-3 text-[#b0a090] hover:text-[#d4b94c] transition-colors"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary-400 transition-colors"
               disabled={isLoading}
             >
               {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -273,20 +279,20 @@ export default function RegisterPage() {
             checked={formData.agreeTerms}
             onChange={handleInputChange}
             disabled={isLoading}
-            className="w-4 h-4 rounded accent-[#c9a227] mt-1 flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-4 h-4 rounded accent-primary-500 mt-1 flex-shrink-0 disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <span className="text-[#b0a090] text-xs leading-relaxed">
             أوافق على{' '}
             <Link
               href="/terms"
-              className="text-[#d4b94c] hover:text-[#f5f0e8] transition-colors"
+              className="text-primary-400 hover:text-accent-teal transition-colors"
             >
               الشروط والأحكام
             </Link>{' '}
             و
             <Link
               href="/privacy"
-              className="text-[#d4b94c] hover:text-[#f5f0e8] transition-colors"
+              className="text-primary-400 hover:text-accent-teal transition-colors"
             >
               سياسة الخصوصية
             </Link>
@@ -294,49 +300,55 @@ export default function RegisterPage() {
         </label>
 
         {/* Register Button */}
-        <Button
+        <button
           type="submit"
           disabled={!isFormValid}
-          className="w-full py-3 mt-6"
+          className="group relative w-full py-4 mt-6 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold overflow-hidden transition-all duration-300 hover:shadow-glow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
         >
-          {isLoading ? (
-            <span className="flex items-center justify-center gap-2">
-              <Loader2 size={18} className="animate-spin" />
-              جاري إنشاء الحساب...
-            </span>
-          ) : (
-            'إنشاء الحساب'
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            {isLoading ? (
+              <>
+                <Loader2 size={18} className="animate-spin" />
+                جاري إنشاء الحساب...
+              </>
+            ) : (
+              'إنشاء الحساب'
+            )}
+          </span>
+          {!isLoading && (
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           )}
-        </Button>
+        </button>
 
         {/* Divider */}
         <div className="flex items-center gap-4 my-6">
-          <div className="flex-1 h-px bg-[#8b7355]/30" />
-          <span className="text-[#b0a090] text-xs">أو</span>
-          <div className="flex-1 h-px bg-[#8b7355]/30" />
+          <div className="flex-1 h-px bg-gradient-to-l from-primary/30 to-transparent" />
+          <span className="text-text-muted text-xs font-medium">أو</span>
+          <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent" />
         </div>
 
         {/* SSO Button */}
         <button
           type="button"
           disabled={isLoading}
-          className="w-full py-3 rounded-lg border-2 border-[#c9a227]/50 text-[#d4b94c] font-bold hover:bg-[#c9a227]/10 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full py-4 rounded-xl glass border-2 border-primary/30 text-text-primary font-bold hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           التسجيل عبر النفاذ الوطني
         </button>
       </form>
 
       {/* Login Link */}
-      <div className="mt-6 text-center border-t border-[#8b7355]/30 pt-6">
-        <p className="text-[#b0a090] text-sm">
+      <div className="mt-6 text-center border-t border-primary/20 pt-6">
+        <p className="text-text-muted text-sm">
           هل لديك حساب بالفعل؟{' '}
           <Link
             href="/login"
-            className="text-[#d4b94c] font-bold hover:text-[#f5f0e8] transition-colors"
+            className="text-primary-400 font-bold hover:text-accent-teal transition-colors"
           >
             تسجيل الدخول
           </Link>
         </p>
+      </div>
       </div>
     </div>
   );

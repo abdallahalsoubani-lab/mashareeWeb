@@ -150,7 +150,7 @@ export default function EditProjectPage() {
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
               placeholder="مثال: صندوق الرياض السكني"
             />
           </div>
@@ -162,7 +162,7 @@ export default function EditProjectPage() {
               name="type"
               value={formData.type}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             >
               <option>صندوق عقاري</option>
               <option>صكوك</option>
@@ -178,7 +178,7 @@ export default function EditProjectPage() {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             >
               <option>سكني</option>
               <option>تجاري</option>
@@ -196,7 +196,7 @@ export default function EditProjectPage() {
               value={formData.location}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
               placeholder="الرياض - حي العليا"
             />
           </div>
@@ -209,7 +209,7 @@ export default function EditProjectPage() {
               value={formData.description}
               onChange={handleChange}
               rows={4}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
               placeholder="وصف تفصيلي للمشروع"
             />
           </div>
@@ -222,7 +222,7 @@ export default function EditProjectPage() {
               name="image"
               value={formData.image}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
               placeholder="https://example.com/image.jpg"
             />
           </div>
@@ -237,7 +237,7 @@ export default function EditProjectPage() {
               name="targetAmount"
               value={formData.targetAmount}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             />
           </div>
 
@@ -251,7 +251,7 @@ export default function EditProjectPage() {
               name="minimumAmount"
               value={formData.minimumAmount}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             />
           </div>
 
@@ -266,7 +266,7 @@ export default function EditProjectPage() {
               value={formData.expectedReturn}
               onChange={handleChange}
               step="0.1"
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             />
           </div>
 
@@ -280,7 +280,7 @@ export default function EditProjectPage() {
               name="durationMonths"
               value={formData.durationMonths}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             />
           </div>
 
@@ -291,7 +291,7 @@ export default function EditProjectPage() {
               name="riskLevel"
               value={formData.riskLevel}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             >
               <option>منخفضة</option>
               <option>متوسطة</option>
@@ -307,7 +307,7 @@ export default function EditProjectPage() {
               name="status"
               value={formData.status}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-xl bg-[#2a2a2a] border border-[#c9a227]/30 text-[#f5f0e8] placeholder-[#8b7355] focus:border-[#c9a227] outline-none"
+              className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
             >
               <option value="active">نشط</option>
               <option value="completed">مكتمل</option>

@@ -16,7 +16,7 @@ export default function AuthLayout({
       className="min-h-screen bg-cover bg-center flex items-center justify-center p-4 font-tajawal relative"
       style={{
         backgroundImage:
-          'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80)',
+          'url(/hero-bg.jpg)',
         backgroundAttachment: 'fixed',
       }}
     >

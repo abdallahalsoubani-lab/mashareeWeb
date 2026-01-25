@@ -54,7 +54,7 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
 
   return (
     <div ref={ref} className="text-center">
-      <div className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4b94c] to-[#c9a227]">
+      <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent">
         {prefix}
         {toArabicNumeral(count)}
         {suffix}

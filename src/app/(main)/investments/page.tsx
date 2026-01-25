@@ -23,7 +23,7 @@ interface SummaryCard {
   label: string;
   value: string;
   icon: React.ReactNode;
-  color: string;
+  color: 'primary' | 'purple' | 'teal' | 'cyan';
 }
 
 export default function InvestmentsPage() {
@@ -80,87 +80,110 @@ export default function InvestmentsPage() {
     {
       label: 'إجمالي الاستثمار',
       value: formatCurrency(summary.totalInvested),
-      icon: <TrendingUp className="text-white" size={24} />,
-      color: 'from-blue-500 to-blue-600',
+      icon: <TrendingUp className="text-primary-400" size={24} />,
+      color: 'primary',
     },
     {
       label: 'مجموع الصناديق',
       value: summary.totalFunds.toString(),
-      icon: <TrendingUp className="text-white" size={24} />,
-      color: 'from-indigo-500 to-indigo-600',
+      icon: <TrendingUp className="text-accent-purple" size={24} />,
+      color: 'purple',
     },
     {
       label: 'العائد',
       value: formatCurrency(summary.totalReturns),
-      icon: <TrendingUp className="text-white" size={24} />,
-      color: 'from-green-500 to-green-600',
+      icon: <TrendingUp className="text-accent-teal" size={24} />,
+      color: 'teal',
     },
     {
       label: 'توزيعات الأرباح',
       value: formatCurrency(summary.totalDividends),
-      icon: <TrendingUp className="text-white" size={24} />,
-      color: 'from-purple-500 to-purple-600',
+      icon: <TrendingUp className="text-accent-cyan" size={24} />,
+      color: 'cyan',
     },
   ];
 
   return (
-    <div>
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 mb-2">
-          استثماراتي
-        </h1>
-        <p className="text-slate-600">متابعة استثماراتك وعوائدك</p>
-      </div>
+    <div className="min-h-screen bg-mesh pb-16">
+      <div className="w-full px-4 md:px-8 max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-10 pt-8 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
+            <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
+            <span className="text-sm text-text-secondary">محفظتك الاستثمارية</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3 gradient-text">
+            استثماراتي
+          </h1>
+          <p className="text-text-muted text-lg">متابعة استثماراتك وعوائدك المالية</p>
+        </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {summaryCards.map((card) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10 animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
+        {summaryCards.map((card, index) => (
           <div
             key={card.label}
-            className={`bg-gradient-to-br ${card.color} rounded-2xl p-6 text-white dashboard-card shadow-lg`}
+            className="group relative stagger-item"
+            style={{ animationDelay: `${0.1 * (index + 1)}s` }}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                {card.icon}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+            <div className="relative glass rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 hover:shadow-glow-sm">
+              <div className="flex items-start justify-between mb-4">
+                <div className={`p-3.5 rounded-xl glass border transition-all ${
+                  card.color === 'primary' ? 'border-primary/30 bg-primary/10' :
+                  card.color === 'purple' ? 'border-accent-purple/30 bg-accent-purple/10' :
+                  card.color === 'teal' ? 'border-accent-teal/30 bg-accent-teal/10' :
+                  'border-accent-cyan/30 bg-accent-cyan/10'
+                }`}>
+                  {card.icon}
+                </div>
               </div>
+              <p className="text-text-muted text-sm mb-2 font-medium">{card.label}</p>
+              <p className="text-2xl md:text-3xl font-bold text-text-primary">{card.value}</p>
             </div>
-            <p className="text-white/80 text-sm mb-2">{card.label}</p>
-            <p className="text-2xl font-bold">{card.value}</p>
           </div>
         ))}
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 mb-8 border-b border-slate-200">
+      <div className="flex gap-3 mb-8">
         <button
           onClick={() => setActiveTab('active')}
-          className={`px-6 py-3 font-semibold border-b-2 transition-colors ${
+          className={`relative px-8 py-3.5 font-bold rounded-xl transition-all overflow-hidden ${
             activeTab === 'active'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-600 hover:text-slate-900'
+              ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
+              : 'glass text-text-muted hover:text-text-primary border border-primary/20 hover:border-primary/40'
           }`}
         >
-          استثماراتي الحالية
+          <span className="relative z-10">استثماراتي الحالية</span>
+          {activeTab === 'active' && (
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 hover:opacity-100 transition-opacity duration-500" />
+          )}
         </button>
         <button
           onClick={() => setActiveTab('completed')}
-          className={`px-6 py-3 font-semibold border-b-2 transition-colors ${
+          className={`relative px-8 py-3.5 font-bold rounded-xl transition-all overflow-hidden ${
             activeTab === 'completed'
-              ? 'border-blue-600 text-blue-600'
-              : 'border-transparent text-slate-600 hover:text-slate-900'
+              ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
+              : 'glass text-text-muted hover:text-text-primary border border-primary/20 hover:border-primary/40'
           }`}
         >
-          استثماراتي السابقة
+          <span className="relative z-10">استثماراتي السابقة</span>
+          {activeTab === 'completed' && (
+            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 hover:opacity-100 transition-opacity duration-500" />
+          )}
         </button>
       </div>
 
       {/* Loading State */}
       {loading && (
-        <div className="text-center py-12">
-          <div className="inline-flex items-center gap-3">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
-            <span className="text-slate-600">جاري التحميل...</span>
+        <div className="text-center py-20 animate-fade-in-scale">
+          <div className="inline-flex flex-col items-center gap-4">
+            <div className="relative">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500/20 border-t-primary-500" />
+              <div className="absolute inset-0 rounded-full bg-primary-500/20 blur-xl animate-pulse" />
+            </div>
+            <span className="text-text-secondary font-medium">جاري تحميل استثماراتك...</span>
           </div>
         </div>
       )}
@@ -190,53 +213,61 @@ export default function InvestmentsPage() {
       {/* Investments List */}
       {!loading && filteredInvestments.length > 0 && (
         <div className="space-y-4">
-          {filteredInvestments.map((investment) => (
+          {filteredInvestments.map((investment, index) => (
             <div
               key={investment.id}
-              className="dashboard-card p-6 hover:shadow-md transition-shadow"
+              className="group relative stagger-item"
+              style={{ animationDelay: `${0.1 * index}s` }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-slate-900">
-                    {investment.projectTitle}
-                  </h3>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-slate-600">
-                    <span className="flex items-center gap-1">
-                      <Calendar size={16} />
-                      {investment.date}
-                    </span>
-                    {investment.units && (
-                      <span>{investment.units} وحدة</span>
-                    )}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500" />
+              <div className="relative glass rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-glow-sm">
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="text-lg font-bold text-text-primary group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent-purple group-hover:to-primary-400 transition-all">
+                      {investment.projectTitle}
+                    </h3>
+                    <div className="flex items-center gap-4 mt-2 text-sm text-text-muted">
+                      <span className="flex items-center gap-1.5">
+                        <Calendar size={14} className="text-primary-400" />
+                        {investment.date}
+                      </span>
+                      {investment.units && (
+                        <span className="px-2 py-1 bg-primary/10 rounded-lg text-primary-400 text-xs font-semibold">
+                          {investment.units} وحدة
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-2xl font-bold text-text-primary">
+                      {formatCurrency(investment.amount)}
+                    </p>
+                    <p className="text-sm text-accent-green font-bold mt-1 flex items-center gap-1">
+                      <TrendingUp size={14} />
+                      عائد: {formatCurrency(investment.returns)}
+                    </p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold text-slate-900">
-                    {formatCurrency(investment.amount)}
-                  </p>
-                  <p className="text-sm text-green-600 font-semibold mt-1">
-                    عائد: {formatCurrency(investment.returns)}
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-green-500" />
-                  <span className="text-sm text-slate-600">
-                    {investment.status === 'ACTIVE'
-                      ? 'استثمار نشط'
-                      : 'اكتمل'}
-                  </span>
+                <div className="flex items-center justify-between pt-4 border-t border-primary/10">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-2.5 h-2.5 rounded-full ${investment.status === 'ACTIVE' ? 'bg-accent-green' : 'bg-accent-purple'} animate-pulse`} />
+                    <span className="text-sm text-text-secondary font-medium">
+                      {investment.status === 'ACTIVE'
+                        ? 'استثمار نشط'
+                        : 'اكتمل'}
+                    </span>
+                  </div>
+                  <button className="px-4 py-2 bg-gradient-to-r from-accent-purple to-primary-500 text-white rounded-lg font-semibold text-sm hover:shadow-glow-sm transition-all hover:scale-105">
+                    عرض التفاصيل
+                  </button>
                 </div>
-                <button className="text-blue-600 hover:text-blue-700 font-semibold text-sm">
-                  عرض التفاصيل
-                </button>
               </div>
             </div>
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

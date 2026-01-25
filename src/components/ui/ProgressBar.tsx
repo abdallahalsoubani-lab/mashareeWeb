@@ -22,25 +22,25 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <div className="w-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-3">
-        {label && <span className="text-[#b0a090] text-sm">{label}</span>}
+        {label && <span className="text-text-muted text-sm font-medium">{label}</span>}
         {showPercentage && (
-          <span className="text-[#d4b94c] font-bold text-sm">
+          <span className="text-primary-400 font-bold text-sm">
             {toArabicNumeral(Math.min(progress, 100))}٪
           </span>
         )}
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-2 bg-[#5c4d3a] rounded-full overflow-hidden border border-[#8b7355]/50">
+      <div className="relative w-full h-2.5 bg-background-tertiary rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-[#c9a227] to-[#d4b94c] rounded-full transition-all duration-1000 ease-out"
+          className="absolute inset-0 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-full transition-all duration-1000 shimmer"
           style={{ width: `${Math.min(progress, 100)}%` }}
         />
       </div>
 
       {/* Amount Info */}
       {showAmount && current !== undefined && total !== undefined && (
-        <p className="text-[#b0a090] text-xs mt-2 text-right">
+        <p className="text-text-muted text-xs mt-2 text-right">
           {toArabicNumeral(current)} من {toArabicNumeral(total)} ريال
         </p>
       )}

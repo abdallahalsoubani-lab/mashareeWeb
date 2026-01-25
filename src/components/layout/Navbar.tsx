@@ -43,19 +43,24 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#1a1a1a]/95 backdrop-blur-md border-b border-[#c9a227]/20">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b-2 border-primary/30 shadow-lg shadow-primary/10">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <Building2 className="w-8 h-8 text-[#d4b94c]" />
-            <span className="text-xl font-black text-transparent bg-clip-text bg-gradient-to-l from-[#d4b94c] to-[#f5f0e8]">
+          {/* Logo with enhanced glow */}
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute -inset-2 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-xl opacity-0 group-hover:opacity-60 blur-xl transition-all duration-500" />
+              <div className="relative p-2 bg-gradient-to-br from-accent-purple to-primary-500 rounded-xl">
+                <Building2 className="w-6 h-6 text-white" />
+              </div>
+            </div>
+            <span className="text-2xl font-black bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent">
               مشاريع
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop Navigation with enhanced styling */}
+          <div className="hidden md:flex items-center gap-3">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = pathname === link.href;
@@ -63,37 +68,40 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${
+                  className={`relative group flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
                     isActive
-                      ? 'bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold'
-                      : 'text-[#b0a090] hover:text-[#f5f0e8] hover:bg-[#c9a227]/10'
+                      ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
+                      : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/30'
                   }`}
                 >
-                  <Icon className="w-4 h-4" />
-                  <span>{link.label}</span>
+                  {isActive && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  )}
+                  <Icon className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">{link.label}</span>
                 </Link>
               );
             })}
           </div>
 
-          {/* Auth Buttons */}
-          <div className="flex items-center gap-2">
+          {/* Auth Buttons with enhanced design */}
+          <div className="flex items-center gap-3">
             {loading ? (
-              <div className="w-24 h-10 bg-[#c9a227]/10 rounded-lg animate-pulse" />
+              <div className="w-28 h-11 glass rounded-xl animate-pulse border border-primary/20" />
             ) : user ? (
               <>
                 <Link
                   href="/wallet"
-                  className="hidden md:flex items-center gap-2 px-4 py-2 text-[#b0a090] hover:text-[#f5f0e8] transition-colors"
+                  className="hidden md:flex items-center gap-2 px-5 py-2.5 glass border border-primary/20 hover:border-accent-teal/50 text-text-secondary hover:text-accent-teal rounded-xl font-semibold transition-all duration-300 hover:shadow-glow-teal"
                 >
-                  <Wallet className="w-4 h-4" />
+                  <Wallet className="w-5 h-5" />
                   <span>المحفظة</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 px-4 py-2 border border-[#c9a227] text-[#d4b94c] hover:bg-[#c9a227]/10 rounded-lg transition-all"
+                  className="flex items-center gap-2 px-5 py-2.5 glass border-2 border-accent-pink/30 text-accent-pink hover:border-accent-pink hover:bg-accent-pink/10 rounded-xl font-semibold transition-all duration-300 hover:shadow-glow-md"
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-5 h-5" />
                   <span className="hidden md:inline">تسجيل خروج</span>
                 </button>
               </>
@@ -101,16 +109,17 @@ export default function Navbar() {
               <>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-[#b0a090] hover:text-[#f5f0e8] transition-colors hidden md:block"
+                  className="px-5 py-2.5 text-text-secondary hover:text-text-primary transition-colors hidden md:block font-semibold"
                 >
                   إنشاء حساب
                 </Link>
                 <Link
                   href="/login"
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-bold rounded-lg hover:shadow-lg hover:shadow-[#c9a227]/50 transition-all"
+                  className="group relative flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-bold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-glow-md hover:scale-105"
                 >
-                  <LogIn className="w-4 h-4" />
-                  <span>تسجيل دخول</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <LogIn className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">تسجيل دخول</span>
                 </Link>
               </>
             )}
@@ -118,9 +127,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden border-t border-[#c9a227]/20 bg-[#1a1a1a]">
-        <div className="flex justify-around py-2">
+      {/* Mobile Navigation with enhanced design */}
+      <div className="md:hidden border-t-2 border-primary/30 glass">
+        <div className="flex justify-around py-3 px-2">
           {navLinks.slice(0, 4).map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -128,14 +137,17 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg transition-all ${
+                className={`relative flex flex-col items-center gap-1.5 px-4 py-2 rounded-xl transition-all duration-300 ${
                   isActive
-                    ? 'text-[#d4b94c]'
-                    : 'text-[#b0a090] hover:text-[#f5f0e8]'
+                    ? 'text-text-primary'
+                    : 'text-text-muted hover:text-text-primary'
                 }`}
               >
-                <Icon className="w-5 h-5" />
-                <span className="text-xs">{link.label}</span>
+                {isActive && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/20 to-primary-500/20 rounded-xl border border-primary/30" />
+                )}
+                <Icon className={`w-6 h-6 relative z-10 ${isActive ? 'text-primary-400' : ''}`} />
+                <span className={`text-xs font-semibold relative z-10 ${isActive ? 'text-primary-400' : ''}`}>{link.label}</span>
               </Link>
             );
           })}

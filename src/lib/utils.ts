@@ -104,14 +104,14 @@ export const formatPercentage = (percentage: number, decimals: number = 0): stri
  */
 export const getBadgeStyle = (badgeType: string): string => {
   const styles: Record<string, string> = {
-    جديد: 'bg-green-500/20 text-green-300 border border-green-500/50',
-    مميز: 'bg-orange-500/20 text-orange-300 border border-orange-500/50',
-    حصري: 'bg-purple-500/20 text-purple-300 border border-purple-500/50',
-    'عوائد دورية': 'bg-blue-500/20 text-blue-300 border border-blue-500/50',
-    'متوافق مع الشريعة': 'bg-[#c9a227]/20 text-[#d4b94c] border border-[#c9a227]/50',
-    'فندقي': 'bg-[#c9a227]/20 text-[#d4b94c] border border-[#c9a227]/50',
+    جديد: 'glass border border-accent-green/30 text-accent-green',
+    مميز: 'glass border border-accent-orange/30 text-accent-orange',
+    حصري: 'glass border border-accent-purple/30 text-accent-purple',
+    'عوائد دورية': 'glass border border-primary/30 text-primary-400',
+    'متوافق مع الشريعة': 'glass border border-accent-teal/30 text-accent-teal',
+    'فندقي': 'glass border border-primary/30 text-primary-400',
   };
-  return styles[badgeType] || 'bg-[#c9a227]/20 text-[#d4b94c] border border-[#c9a227]/50';
+  return styles[badgeType] || 'glass border border-primary/30 text-primary-400';
 };
 
 /**

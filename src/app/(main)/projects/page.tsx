@@ -66,30 +66,36 @@ export default function ProjectsPage() {
   }, [searchQuery, selectedCategory, selectedType]);
 
   return (
-    <div className="min-h-screen bg-[#1a1a1a] pb-16">
-      <div className="w-full px-4 md:px-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-l from-[#d4b94c] to-[#f5f0e8] mb-2">
+    <div className="min-h-screen bg-mesh pb-16">
+      <div className="w-full px-4 md:px-8 max-w-7xl mx-auto">
+        {/* Header with animation */}
+        <div className="mb-10 pt-8 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
+            <div className="w-2 h-2 rounded-full bg-accent-teal animate-pulse" />
+            <span className="text-sm text-text-secondary">فرص استثمارية مميزة</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3 gradient-text">
             الصناديق الاستثمارية
           </h1>
-          <p className="text-[#b0a090]">استكشف فرص الاستثمار المتاحة وابدأ رحلتك</p>
+          <p className="text-text-muted text-lg max-w-2xl">
+            استكشف فرص الاستثمار المتاحة وابدأ رحلتك نحو تحقيق أهدافك المالية
+          </p>
         </div>
 
         {/* Search and Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10 animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
           {/* Search Box */}
-          <div className="md:col-span-2 relative">
+          <div className="md:col-span-2 relative group">
             <Search
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-[#d4b94c]"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-primary-400 group-focus-within:text-accent-purple transition-colors"
               size={20}
             />
             <input
               type="text"
-              placeholder="ابحث عن صندوق..."
+              placeholder="ابحث عن صندوق استثماري..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-4 pr-12 py-4 border-2 border-[#c9a227]/30 rounded-xl focus:border-[#c9a227] focus:shadow-lg focus:shadow-[#c9a227]/20 outline-none transition-all bg-[#2a2a2a] text-[#f5f0e8] placeholder-[#8b7355] backdrop-blur-sm"
+              className="w-full pl-4 pr-12 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all text-text-primary placeholder-text-dimmed"
             />
           </div>
 
@@ -97,43 +103,49 @@ export default function ProjectsPage() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-4 border-2 border-[#c9a227]/30 rounded-xl focus:border-[#c9a227] focus:shadow-lg focus:shadow-[#c9a227]/20 outline-none bg-[#2a2a2a] text-[#f5f0e8] backdrop-blur-sm font-semibold cursor-pointer transition-all"
+            className="px-4 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary/40"
           >
-            <option value="all" className="bg-[#1a1a1a]">جميع الفئات</option>
-            <option value="residential" className="bg-[#1a1a1a]">سكني</option>
-            <option value="commercial" className="bg-[#1a1a1a]">تجاري</option>
-            <option value="industrial" className="bg-[#1a1a1a]">صناعي</option>
-            <option value="hotel" className="bg-[#1a1a1a]">فندقي</option>
+            <option value="all" className="bg-background-secondary">جميع الفئات</option>
+            <option value="residential" className="bg-background-secondary">سكني</option>
+            <option value="commercial" className="bg-background-secondary">تجاري</option>
+            <option value="industrial" className="bg-background-secondary">صناعي</option>
+            <option value="hotel" className="bg-background-secondary">فندقي</option>
           </select>
 
           {/* Type Filter */}
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-4 py-4 border-2 border-[#c9a227]/30 rounded-xl focus:border-[#c9a227] focus:shadow-lg focus:shadow-[#c9a227]/20 outline-none bg-[#2a2a2a] text-[#f5f0e8] backdrop-blur-sm font-semibold cursor-pointer transition-all"
+            className="px-4 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary/40"
           >
-            <option value="all" className="bg-[#1a1a1a]">جميع الأنواع</option>
-            <option value="fund" className="bg-[#1a1a1a]">صندوق عقاري</option>
-            <option value="sukuk" className="bg-[#1a1a1a]">صكوك</option>
-            <option value="crowdfunding" className="bg-[#1a1a1a]">تمويل جماعي</option>
+            <option value="all" className="bg-background-secondary">جميع الأنواع</option>
+            <option value="fund" className="bg-background-secondary">صندوق عقاري</option>
+            <option value="sukuk" className="bg-background-secondary">صكوك</option>
+            <option value="crowdfunding" className="bg-background-secondary">تمويل جماعي</option>
           </select>
         </div>
 
         {/* Loading State */}
         {loading && (
-          <div className="text-center py-12">
-            <div className="inline-flex items-center gap-3">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#d4b94c]" />
-              <span className="text-[#b0a090]">جاري تحميل المشاريع...</span>
+          <div className="text-center py-20 animate-fade-in-scale">
+            <div className="inline-flex flex-col items-center gap-4">
+              <div className="relative">
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500/20 border-t-primary-500" />
+                <div className="absolute inset-0 rounded-full bg-primary-500/20 blur-xl animate-pulse" />
+              </div>
+              <span className="text-text-secondary font-medium">جاري تحميل المشاريع الاستثمارية...</span>
             </div>
           </div>
         )}
 
         {/* Error State */}
         {error && !loading && (
-          <div className="bg-red-900/20 border border-red-500/50 rounded-xl p-6 text-center backdrop-blur-sm">
-            <p className="text-red-400 font-semibold mb-2">حدث خطأ</p>
-            <p className="text-red-300">{error}</p>
+          <div className="glass border border-red-500/30 rounded-2xl p-8 text-center backdrop-blur-sm animate-fade-in-scale">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/10 flex items-center justify-center">
+              <span className="text-3xl">⚠️</span>
+            </div>
+            <p className="text-red-400 font-semibold mb-2 text-lg">حدث خطأ</p>
+            <p className="text-red-300/80">{error}</p>
           </div>
         )}
 
@@ -141,19 +153,32 @@ export default function ProjectsPage() {
         {!loading && !error && (
           <>
             {projects.length === 0 ? (
-              <EmptyState
-                icon="📊"
-                title="لا توجد مشاريع متاحة"
-                description="جاري إضافة مشاريع جديدة. يرجى العودة لاحقاً"
-              />
+              <div className="animate-fade-in-scale">
+                <EmptyState
+                  icon="📊"
+                  title="لا توجد مشاريع متاحة"
+                  description="جاري إضافة مشاريع جديدة. يرجى العودة لاحقاً"
+                />
+              </div>
             ) : (
               <>
-                <p className="text-[#b0a090] mb-6">
-                  عدد النتائج: <span className="font-semibold text-[#d4b94c]">{projects.length}</span>
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {projects.map((project) => (
-                    <ProjectCard key={project.id} {...project} />
+                {/* Results count with badge */}
+                <div className="flex items-center gap-3 mb-6 animate-fade-in-up">
+                  <div className="glass px-4 py-2 rounded-full border border-primary/20 flex items-center gap-2">
+                    <span className="text-text-muted text-sm">عدد النتائج:</span>
+                    <span className="font-bold text-lg bg-gradient-to-r from-accent-purple to-primary-400 bg-clip-text text-transparent">
+                      {projects.length}
+                    </span>
+                  </div>
+                  <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+                </div>
+
+                {/* Projects Grid with stagger animation */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                  {projects.map((project, index) => (
+                    <div key={project.id} className="stagger-item">
+                      <ProjectCard {...project} />
+                    </div>
                   ))}
                 </div>
               </>

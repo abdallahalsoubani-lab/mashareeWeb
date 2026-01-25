@@ -40,41 +40,40 @@ const StatsBar: React.FC = () => {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 px-4 md:px-6">
+    <section className="relative py-16 md:py-24 px-4 md:px-6 bg-mesh">
       <div className="max-w-7xl mx-auto">
-        <div
-          className="rounded-3xl p-8 md:p-12 relative overflow-hidden border border-[#c9a227]/30"
-          style={{
-            background: 'linear-gradient(135deg, rgba(139, 115, 85, 0.1) 0%, rgba(92, 77, 58, 0.15) 100%)',
-            backdropFilter: 'blur(20px)',
-          }}
-        >
-          {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#c9a227]/5 rounded-full blur-3xl -z-10" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#d4b94c]/5 rounded-full blur-3xl -z-10" />
+        <div className="group relative animate-fade-in-scale">
+          {/* Enhanced Glow Effect */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-3xl opacity-30 blur-2xl group-hover:opacity-50 transition-all duration-700" />
+          
+          <div className="relative glass rounded-3xl p-8 md:p-12 overflow-hidden border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-md">
+            {/* Decorative Elements */}
+            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-accent-purple/10 via-primary-500/10 to-transparent rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-accent-teal/10 via-primary-500/10 to-transparent rounded-full blur-3xl" />
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div key={index} className="flex flex-col items-center text-center">
-                  <div className="mb-4 p-3 rounded-full bg-gradient-to-br from-[#c9a227]/20 to-[#d4b94c]/20">
-                    <Icon className="text-[#d4b94c]" size={24} />
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-6 relative z-10">
+              {stats.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div key={index} className="flex flex-col items-center text-center group/stat">
+                    <div className="mb-4 p-3.5 rounded-xl glass border border-primary/20 group-hover/stat:border-primary/40 transition-all duration-300 group-hover/stat:shadow-glow-sm">
+                      <Icon className="text-primary-400 group-hover/stat:text-accent-teal transition-colors" size={28} />
+                    </div>
+                    <p className="text-text-muted text-sm mb-3 font-medium">{stat.label}</p>
+                    <div className="text-3xl md:text-4xl font-black bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent">
+                      <AnimatedCounter
+                        target={stat.target}
+                        suffix={stat.suffix}
+                      />
+                    </div>
+                    {stat.suffix2 && (
+                      <span className="text-lg text-text-secondary mt-1 font-semibold">{stat.suffix2}</span>
+                    )}
                   </div>
-                  <p className="text-[#b0a090] text-sm mb-2">{stat.label}</p>
-                  <div className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d4b94c] to-[#c9a227]">
-                    <AnimatedCounter
-                      target={stat.target}
-                      suffix={stat.suffix}
-                    />
-                  </div>
-                  {stat.suffix2 && (
-                    <span className="text-lg text-[#b0a090] mt-1">{stat.suffix2}</span>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

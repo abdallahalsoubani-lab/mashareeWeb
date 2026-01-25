@@ -10,11 +10,11 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     const baseStyles = 'rounded-xl overflow-hidden';
 
     const variants = {
-      default: 'bg-[#5c4d3a]/20 border border-[#8b7355]/30',
+      default: 'glass border border-primary/20',
       glass:
-        'bg-rgba(92, 77, 58, 0.2) backdrop-blur-md border border-[#c9a227]/30',
+        'glass border border-primary/20',
       gradient:
-        'bg-gradient-to-br from-[#5c4d3a]/30 to-[#8b7355]/20 border border-[#c9a227]/20',
+        'bg-gradient-to-br from-background-secondary/80 to-background-tertiary/60 border border-primary/20',
     };
 
     return (

@@ -23,20 +23,24 @@ export function EmptyState({
   action,
 }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center py-16 text-center">
+    <div className="flex flex-col items-center justify-center py-20 text-center">
       {icon && (
-        <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mb-6 text-3xl">
-          {icon}
+        <div className="relative w-32 h-32 glass rounded-3xl flex items-center justify-center mb-8 text-5xl border border-primary/20 animate-float">
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/20 to-primary-500/20 rounded-3xl blur-xl" />
+          <span className="relative z-10">{icon}</span>
         </div>
       )}
-      <h3 className="text-lg font-semibold text-slate-900 mb-2">{title}</h3>
-      {description && <p className="text-slate-500 mb-6 max-w-sm">{description}</p>}
+      <h3 className="text-2xl font-bold text-text-primary mb-3">{title}</h3>
+      {description && (
+        <p className="text-text-muted mb-8 max-w-md text-lg">{description}</p>
+      )}
       {action && (
         <Link
           href={action.href}
-          className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-semibold"
+          className="group relative px-8 py-4 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold overflow-hidden transition-all hover:shadow-glow-md hover:scale-105"
         >
-          {action.label}
+          <span className="relative z-10">{action.label}</span>
+          <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </Link>
       )}
     </div>

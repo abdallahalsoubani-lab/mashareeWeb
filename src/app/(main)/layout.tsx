@@ -72,10 +72,13 @@ export default function DashboardLayout({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4" />
-          <p className="text-slate-600">جاري التحميل...</p>
+      <div className="min-h-screen bg-mesh flex items-center justify-center">
+        <div className="text-center animate-fade-in-scale">
+          <div className="relative mx-auto mb-6">
+            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary-500/20 border-t-primary-500" />
+            <div className="absolute inset-0 rounded-full bg-primary-500/20 blur-xl animate-pulse" />
+          </div>
+          <p className="text-text-secondary text-lg font-medium">جاري التحميل...</p>
         </div>
       </div>
     );
@@ -92,32 +95,32 @@ export default function DashboardLayout({
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-[#1a1a1a] dashboard font-tajawal flex"
+      className="min-h-screen bg-mesh dashboard font-tajawal flex"
     >
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed right-0 top-0 h-full w-64 z-40 flex-col bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] border-l border-[#c9a227]/20">
+      <aside className="hidden lg:flex fixed right-0 top-0 h-full w-64 z-40 flex-col glass border-l border-primary/20 shadow-2xl">
         {/* Logo */}
         <Link
           href="/projects"
-          className="p-6 flex items-center justify-center gap-3 border-b border-[#c9a227]/20 hover:bg-[#c9a227]/10 transition-colors"
+          className="p-6 flex items-center justify-center gap-3 border-b border-primary/20 hover:bg-primary/5 transition-all group"
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-[#c9a227] to-[#d4b94c] rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-[#1a1a1a] font-bold text-lg">م</span>
+          <div className="w-10 h-10 bg-gradient-to-br from-accent-purple to-primary-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-glow-sm group-hover:shadow-glow-md transition-all">
+            <span className="text-white font-bold text-lg">م</span>
           </div>
-          <span className="text-[#f5f0e8] font-bold text-lg">مشاريع</span>
+          <span className="text-text-primary font-bold text-lg group-hover:text-primary-400 transition-colors">مشاريع</span>
         </Link>
 
         {/* User Info */}
-        <div className="px-4 py-6 border-b border-[#c9a227]/20">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 bg-gradient-to-br from-[#c9a227] to-[#d4b94c] rounded-full flex items-center justify-center flex-shrink-0">
-              <User className="text-[#1a1a1a]" size={24} />
+        <div className="px-4 py-6 border-b border-primary/20">
+          <div className="flex items-center gap-3 p-3 rounded-xl glass border border-primary/10 hover:border-primary/30 transition-all group cursor-pointer">
+            <div className="w-12 h-12 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-sm group-hover:shadow-glow-md transition-all">
+              <User className="text-white" size={20} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[#f5f0e8] font-semibold text-sm truncate">
+              <p className="text-text-primary font-semibold text-sm truncate">
                 {user.name}
               </p>
-              <p className="text-[#b0a090] text-xs truncate">
+              <p className="text-text-muted text-xs truncate">
                 {user.role === 'ADMIN' ? 'مدير' : 'مستثمر'}
               </p>
             </div>
@@ -134,21 +137,24 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative overflow-hidden ${
                   active
-                    ? 'bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-semibold'
-                    : 'text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8]'
+                    ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
+                    : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
                 }`}
               >
-                <Icon size={20} />
-                <span>{item.label}</span>
+                {active && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                )}
+                <Icon size={20} className="relative z-10" />
+                <span className="relative z-10">{item.label}</span>
               </Link>
             );
           })}
         </nav>
 
         {/* Bottom Navigation */}
-        <div className="p-4 space-y-2 border-t border-[#c9a227]/20">
+        <div className="p-4 space-y-2 border-t border-primary/20">
           {bottomNavItems.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.href);
@@ -157,14 +163,17 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative overflow-hidden ${
                   active
-                    ? 'bg-gradient-to-r from-[#c9a227] to-[#d4b94c] text-[#1a1a1a] font-semibold'
-                    : 'text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8]'
+                    ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
+                    : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
                 }`}
               >
-                <Icon size={20} />
-                <span>{item.label}</span>
+                {active && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                )}
+                <Icon size={20} className="relative z-10" />
+                <span className="relative z-10">{item.label}</span>
               </Link>
             );
           })}
@@ -172,7 +181,7 @@ export default function DashboardLayout({
           {/* Download App */}
           <a
             href="#"
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8] transition-all"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-text-primary hover:bg-primary/10 transition-all border border-transparent hover:border-primary/20"
           >
             <Download size={20} />
             <span>تحميل التطبيق</span>
@@ -186,7 +195,7 @@ export default function DashboardLayout({
           >
             <button
               type="submit"
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8] transition-all"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
             >
               <LogOut size={20} />
               <span>تسجيل الخروج</span>
@@ -196,14 +205,14 @@ export default function DashboardLayout({
       </aside>
 
       {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 right-0 left-0 z-50 bg-white border-b border-slate-200 px-4 py-4 flex items-center justify-between">
+      <header className="lg:hidden fixed top-0 right-0 left-0 z-50 glass border-b border-primary/20 px-4 py-4 flex items-center justify-between backdrop-blur-xl shadow-lg">
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-lg hover:bg-slate-100 text-slate-900"
+          className="p-2 rounded-xl hover:bg-primary/10 text-text-primary transition-all border border-primary/10"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        <Link href="/projects" className="text-blue-600 font-bold text-lg">
+        <Link href="/projects" className="text-transparent bg-clip-text bg-gradient-to-r from-accent-purple to-primary-400 font-bold text-lg">
           مشاريع
         </Link>
         <div className="w-10" />
@@ -212,24 +221,24 @@ export default function DashboardLayout({
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/50"
+          className="lg:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm animate-fade-in-scale"
           onClick={() => setMobileMenuOpen(false)}
         >
           <aside
-            className="absolute right-0 top-16 bottom-0 w-64 bg-gradient-to-b from-blue-600 via-blue-700 to-blue-900 dashboard-sidebar flex flex-col overflow-y-auto"
+            className="absolute right-0 top-16 bottom-0 w-64 glass border-l border-primary/20 dashboard-sidebar flex flex-col overflow-y-auto shadow-2xl animate-slide-in-right"
             onClick={(e) => e.stopPropagation()}
           >
             {/* User Info */}
-            <div className="px-4 py-6 border-b border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                  <User className="text-white" size={24} />
+            <div className="px-4 py-6 border-b border-primary/20">
+              <div className="flex items-center gap-3 p-3 rounded-xl glass border border-primary/10">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-sm">
+                  <User className="text-white" size={20} />
                 </div>
                 <div>
-                  <p className="text-white font-semibold text-sm">
+                  <p className="text-text-primary font-semibold text-sm">
                     {user.name}
                   </p>
-                  <p className="text-white/60 text-xs">
+                  <p className="text-text-muted text-xs">
                     {user.role === 'ADMIN' ? 'مدير' : 'مستثمر'}
                   </p>
                 </div>
@@ -247,10 +256,10 @@ export default function DashboardLayout({
                     key={item.href}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all ${
                       active
-                        ? 'bg-white text-blue-600 font-semibold'
-                        : 'text-white/80 hover:bg-white/10'
+                        ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
+                        : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
                     }`}
                   >
                     <Icon size={20} />
@@ -261,10 +270,10 @@ export default function DashboardLayout({
             </nav>
 
             {/* Bottom Actions */}
-            <div className="p-4 space-y-2 border-t border-white/10">
+            <div className="p-4 space-y-2 border-t border-primary/20">
               <a
                 href="#"
-                className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/10 transition-all"
+                className="flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-text-primary hover:bg-primary/10 transition-all border border-transparent hover:border-primary/20"
               >
                 <Download size={20} />
                 <span>تحميل التطبيق</span>
@@ -273,7 +282,7 @@ export default function DashboardLayout({
               <form action="/api/auth/logout" method="POST" className="w-full">
                 <button
                   type="submit"
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:bg-white/10 transition-all"
+                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
                 >
                   <LogOut size={20} />
                   <span>تسجيل الخروج</span>
@@ -285,17 +294,17 @@ export default function DashboardLayout({
       )}
 
       {/* Main Content */}
-      <main className="flex-1 lg:mr-64 pt-20 lg:pt-0 bg-[#1a1a1a]">
+      <main className="flex-1 lg:mr-64 pt-20 lg:pt-0 bg-mesh">
         {/* Top Bar - Desktop Only */}
-        <header className="hidden lg:block bg-[#1a1a1a]/95 border-b border-[#c9a227]/20 px-8 py-4 sticky top-0 z-30 backdrop-blur-sm">
+        <header className="hidden lg:block glass border-b border-primary/20 px-8 py-4 sticky top-0 z-30 backdrop-blur-xl shadow-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <button className="px-3 py-1.5 text-sm text-[#b0a090] hover:bg-[#c9a227]/10 hover:text-[#f5f0e8] rounded-lg transition-colors">
+              <button className="px-4 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-primary/10 rounded-xl transition-all border border-primary/10 hover:border-primary/30 font-medium">
                 EN
               </button>
-              <button className="p-2 rounded-lg hover:bg-[#c9a227]/10 relative text-[#b0a090] hover:text-[#f5f0e8] transition-colors">
-                <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
-                🔔
+              <button className="p-2.5 rounded-xl hover:bg-primary/10 relative text-text-muted hover:text-text-primary transition-all border border-primary/10 hover:border-primary/30 group">
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-accent-pink rounded-full animate-pulse shadow-glow-sm" />
+                <span className="text-lg group-hover:scale-110 transition-transform inline-block">🔔</span>
               </button>
             </div>
           </div>
