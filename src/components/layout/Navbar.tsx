@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Building2, TrendingUp, Wallet, User, LogIn, LogOut } from 'lucide-react';
+import { Building2, TrendingUp, Wallet, User, LogIn, LogOut, Bell } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -34,29 +34,30 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { href: '/', label: 'الرئيسية', icon: Building2 },
     { href: '/projects', label: 'المشاريع', icon: TrendingUp },
     ...(user ? [
       { href: '/investments', label: 'استثماراتي', icon: Wallet },
+      { href: '/notifications', label: 'الإشعارات', icon: Bell },
       { href: '/profile', label: 'الملف الشخصي', icon: User },
     ] : []),
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b-2 border-primary/30 shadow-lg shadow-primary/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background-secondary/95 backdrop-blur-md border-b-2 border-primary/30 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo with enhanced glow */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-xl opacity-0 group-hover:opacity-60 blur-xl transition-all duration-500" />
-              <div className="relative p-2 bg-gradient-to-br from-accent-purple to-primary-500 rounded-xl">
-                <Building2 className="w-6 h-6 text-white" />
+              <div className="absolute -inset-2 bg-primary rounded-xl opacity-0 group-hover:opacity-40 blur-xl transition-all duration-500" />
+              <div className="relative w-12 h-12">
+                <img 
+                  src="/logo-icon.png" 
+                  alt="صخر" 
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
-            <span className="text-2xl font-black bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent">
-              مشاريع
-            </span>
           </Link>
 
           {/* Desktop Navigation with enhanced styling */}
@@ -70,13 +71,10 @@ export default function Navbar() {
                   href={link.href}
                   className={`relative group flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 ${
                     isActive
-                      ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
-                      : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/30'
+                      ? 'bg-primary text-background shadow-glow-gold'
+                      : 'text-secondary hover:text-white hover:bg-primary/10 border border-transparent hover:border-primary/30'
                   }`}
                 >
-                  {isActive && (
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  )}
                   <Icon className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">{link.label}</span>
                 </Link>
@@ -92,14 +90,14 @@ export default function Navbar() {
               <>
                 <Link
                   href="/wallet"
-                  className="hidden md:flex items-center gap-2 px-5 py-2.5 glass border border-primary/20 hover:border-accent-teal/50 text-text-secondary hover:text-accent-teal rounded-xl font-semibold transition-all duration-300 hover:shadow-glow-teal"
+                  className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-background border border-primary/20 hover:border-primary text-secondary hover:text-primary rounded-xl font-semibold transition-all duration-300"
                 >
                   <Wallet className="w-5 h-5" />
                   <span>المحفظة</span>
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 px-5 py-2.5 glass border-2 border-accent-pink/30 text-accent-pink hover:border-accent-pink hover:bg-accent-pink/10 rounded-xl font-semibold transition-all duration-300 hover:shadow-glow-md"
+                  className="flex items-center gap-2 px-5 py-2.5 bg-background border-2 border-primary/30 text-primary hover:border-primary hover:bg-primary/10 rounded-xl font-semibold transition-all duration-300"
                 >
                   <LogOut className="w-5 h-5" />
                   <span className="hidden md:inline">تسجيل خروج</span>
@@ -109,15 +107,15 @@ export default function Navbar() {
               <>
                 <Link
                   href="/register"
-                  className="px-5 py-2.5 text-text-secondary hover:text-text-primary transition-colors hidden md:block font-semibold"
+                  className="px-5 py-2.5 text-secondary hover:text-white transition-colors hidden md:block font-semibold"
                 >
                   إنشاء حساب
                 </Link>
                 <Link
                   href="/login"
-                  className="group relative flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-bold rounded-xl overflow-hidden transition-all duration-300 hover:shadow-glow-md hover:scale-105"
+                  className="group relative flex items-center gap-2 px-6 py-2.5 font-bold rounded-xl overflow-hidden transition-all duration-300 hover:scale-105"
+                  style={{ backgroundColor: '#8F7F5E', color: '#0A0A0A' }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <LogIn className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">تسجيل دخول</span>
                 </Link>
@@ -128,7 +126,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Navigation with enhanced design */}
-      <div className="md:hidden border-t-2 border-primary/30 glass">
+      <div className="md:hidden border-t-2 border-primary/30 bg-background-secondary/95 backdrop-blur-md">
         <div className="flex justify-around py-3 px-2">
           {navLinks.slice(0, 4).map((link) => {
             const Icon = link.icon;
@@ -139,15 +137,15 @@ export default function Navbar() {
                 href={link.href}
                 className={`relative flex flex-col items-center gap-1.5 px-4 py-2 rounded-xl transition-all duration-300 ${
                   isActive
-                    ? 'text-text-primary'
-                    : 'text-text-muted hover:text-text-primary'
+                    ? 'text-primary'
+                    : 'text-secondary hover:text-white'
                 }`}
               >
                 {isActive && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/20 to-primary-500/20 rounded-xl border border-primary/30" />
+                  <div className="absolute inset-0 bg-primary/10 rounded-xl border border-primary/30" />
                 )}
-                <Icon className={`w-6 h-6 relative z-10 ${isActive ? 'text-primary-400' : ''}`} />
-                <span className={`text-xs font-semibold relative z-10 ${isActive ? 'text-primary-400' : ''}`}>{link.label}</span>
+                <Icon className={`w-6 h-6 relative z-10`} />
+                <span className={`text-xs font-semibold relative z-10`}>{link.label}</span>
               </Link>
             );
           })}

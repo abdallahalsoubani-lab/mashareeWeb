@@ -21,12 +21,13 @@ interface FormData {
   riskLevel: string;
   status: string;
   isActive: boolean;
+  isFeatured: boolean;
 }
 
 export default function EditProjectPage() {
   const router = useRouter();
   const params = useParams();
-  const projectId = params.id as string;
+  const projectId = (params?.id ?? '') as string;
 
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -45,6 +46,7 @@ export default function EditProjectPage() {
     riskLevel: 'متوسطة',
     status: 'active',
     isActive: true,
+    isFeatured: false,
   });
 
   // Fetch project data on mount
@@ -69,6 +71,7 @@ export default function EditProjectPage() {
             riskLevel: data.project.riskLevel,
             status: data.project.status,
             isActive: data.project.isActive,
+            isFeatured: data.project.isFeatured || false,
           });
         } else {
           setError('فشل تحميل بيانات المشروع');
@@ -327,6 +330,23 @@ export default function EditProjectPage() {
               />
               <span className="text-slate-700">نشط</span>
             </label>
+          </div>
+
+          {/* Featured Toggle */}
+          <div>
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                name="isFeatured"
+                checked={formData.isFeatured}
+                onChange={handleChange}
+                className="w-5 h-5 rounded border-slate-300 text-blue-600"
+              />
+              <span className="text-slate-700">عرض في الصفحة الرئيسية (مميز)</span>
+            </label>
+            <p className="text-xs text-slate-500 mt-1 mr-8">
+              سيظهر هذا المشروع في بطاقة الاستثمار بالصفحة الرئيسية
+            </p>
           </div>
 
           {/* Buttons */}

@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     const search = searchParams.get('search');
     const category = searchParams.get('category');
     const type = searchParams.get('type');
+    const featured = searchParams.get('featured');
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '10');
 
@@ -34,6 +35,10 @@ export async function GET(req: NextRequest) {
       where.type = type;
     }
 
+    if (featured === 'true') {
+      where.isFeatured = true;
+    }
+
     // Fetch projects with pagination
     const [projects, total] = await Promise.all([
       prisma.project.findMany({
@@ -47,6 +52,7 @@ export async function GET(req: NextRequest) {
           type: true,
           location: true,
           image: true,
+          badges: true,
           fundedAmount: true,
           targetAmount: true,
           expectedReturn: true,

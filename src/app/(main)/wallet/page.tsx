@@ -140,33 +140,31 @@ export default function WalletPage() {
 
         {/* Balance Card */}
         <div className="relative group animate-fade-in-scale" style={{ animationDelay: '0.2s' }}>
-          <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-3xl opacity-30 blur-2xl group-hover:opacity-50 transition-all duration-500" />
-          <div className="relative glass border border-primary/30 rounded-3xl p-8 mb-8 overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-accent-purple/10 via-primary-500/10 to-transparent rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-accent-teal/10 via-primary-500/10 to-transparent rounded-full blur-3xl" />
+          <div className="absolute -inset-1 bg-primary rounded-3xl opacity-20 blur-2xl group-hover:opacity-35 transition-all duration-500" />
+          <div className="relative bg-background-secondary border border-primary/30 rounded-3xl p-8 mb-8 overflow-hidden">
             
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-text-muted text-sm font-medium">الرصيد الحالي</h2>
+                <h2 className="text-secondary text-sm font-medium">الرصيد الحالي</h2>
                 <button
                   onClick={() => setShowBalance(!showBalance)}
-                  className="p-2.5 rounded-xl glass hover:bg-primary/10 transition-all border border-primary/10 hover:border-primary/30"
+                  className="p-2.5 rounded-xl bg-background-tertiary hover:bg-primary/10 transition-all border border-primary/10 hover:border-primary/30"
                 >
                   {showBalance ? (
-                    <Eye className="text-primary-400" size={20} />
+                    <Eye className="text-primary" size={20} />
                   ) : (
-                    <EyeOff className="text-text-muted" size={20} />
+                    <EyeOff className="text-secondary" size={20} />
                   )}
                 </button>
               </div>
 
               <div className="mb-8">
                 {showBalance ? (
-                  <p className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent flex items-center gap-3">
-                    {formatCurrency(wallet.balance)} <RiyalSymbol size={40} className="text-primary-400" />
+                  <p className="text-4xl md:text-6xl font-bold text-primary flex items-center gap-3">
+                    {formatCurrency(wallet.balance)} <RiyalSymbol size={40} className="text-primary" />
                   </p>
                 ) : (
-                  <p className="text-4xl md:text-6xl font-bold text-text-primary">
+                  <p className="text-4xl md:text-6xl font-bold text-white">
                     •••••••
                   </p>
                 )}
@@ -176,26 +174,23 @@ export default function WalletPage() {
           <div className="grid grid-cols-3 gap-4">
             <button
               onClick={() => setShowDepositModal(true)}
-              className="group/btn relative flex flex-col items-center gap-3 p-6 rounded-2xl glass border border-accent-green/30 hover:border-accent-green hover:shadow-glow-teal transition-all duration-300 hover:scale-105 overflow-hidden"
+              className="group/btn relative flex flex-col items-center gap-3 p-6 rounded-2xl bg-background-tertiary border border-primary/30 hover:border-primary hover:shadow-glow-gold transition-all duration-300 hover:scale-105"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-green/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-              <Download className="text-accent-green relative z-10" size={28} />
-              <span className="text-accent-green text-sm font-bold relative z-10">إيداع</span>
+              <Download className="text-primary relative z-10" size={28} />
+              <span className="text-primary text-sm font-bold relative z-10">إيداع</span>
             </button>
 
             <button
               onClick={() => setShowWithdrawModal(true)}
-              className="group/btn relative flex flex-col items-center gap-3 p-6 rounded-2xl glass border border-accent-pink/30 hover:border-accent-pink hover:shadow-glow-md transition-all duration-300 hover:scale-105 overflow-hidden"
+              className="group/btn relative flex flex-col items-center gap-3 p-6 rounded-2xl bg-background-tertiary border border-primary/30 hover:border-primary hover:shadow-glow-gold transition-all duration-300 hover:scale-105"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-pink/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-              <Upload className="text-accent-pink relative z-10" size={28} />
-              <span className="text-accent-pink text-sm font-bold relative z-10">سحب</span>
+              <Upload className="text-secondary relative z-10" size={28} />
+              <span className="text-secondary text-sm font-bold relative z-10">سحب</span>
             </button>
 
-            <button className="group/btn relative flex flex-col items-center gap-3 p-6 rounded-2xl glass border border-primary-400/30 hover:border-primary-400 hover:shadow-glow-md transition-all duration-300 hover:scale-105 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-              <RefreshCw className="text-primary-400 relative z-10" size={28} />
-              <span className="text-primary-400 text-sm font-bold relative z-10">تحويل</span>
+            <button className="group/btn relative flex flex-col items-center gap-3 p-6 rounded-2xl bg-background-tertiary border border-primary/30 hover:border-primary hover:shadow-glow-gold transition-all duration-300 hover:scale-105">
+              <RefreshCw className="text-secondary relative z-10" size={28} />
+              <span className="text-secondary text-sm font-bold relative z-10">تحويل</span>
             </button>
           </div>
             </div>
@@ -205,46 +200,46 @@ export default function WalletPage() {
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
           <div className="group relative">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-green to-accent-teal rounded-2xl opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500" />
-            <div className="relative glass rounded-2xl p-6 border border-accent-green/20 group-hover:border-accent-green/40 hover:shadow-glow-teal transition-all duration-300">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2.5 rounded-xl bg-accent-green/10 border border-accent-green/20">
-                  <ArrowDownRight className="text-accent-green" size={20} />
-                </div>
-                <span className="text-text-muted text-sm font-medium">إجمالي الإيداعات</span>
-              </div>
-              <p className="text-2xl font-bold text-text-primary flex items-center gap-2">
-                {formatCurrency(wallet.totalDeposits)} <RiyalSymbol size={20} className="text-accent-green" />
-              </p>
-            </div>
-          </div>
-
-          <div className="group relative">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple to-primary-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500" />
-            <div className="relative glass rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 hover:shadow-glow-md transition-all duration-300">
+            <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+            <div className="relative bg-background-tertiary rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 hover:shadow-glow-gold transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
                 <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
-                  <TrendingUp className="text-primary-400" size={20} />
+                  <ArrowDownRight className="text-primary" size={20} />
                 </div>
-                <span className="text-text-muted text-sm font-medium">إجمالي الاستثمارات</span>
+                <span className="text-secondary text-sm font-medium">إجمالي الإيداعات</span>
               </div>
-              <p className="text-2xl font-bold text-text-primary flex items-center gap-2">
-                {formatCurrency(wallet.totalInvested)} <RiyalSymbol size={20} className="text-primary-400" />
+              <p className="text-2xl font-bold text-white flex items-center gap-2">
+                {formatCurrency(wallet.totalDeposits)} <RiyalSymbol size={20} className="text-primary" />
               </p>
             </div>
           </div>
 
           <div className="group relative">
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-pink to-accent-orange rounded-2xl opacity-0 group-hover:opacity-30 blur-xl transition-all duration-500" />
-            <div className="relative glass rounded-2xl p-6 border border-accent-pink/20 group-hover:border-accent-pink/40 hover:shadow-glow-md transition-all duration-300">
+            <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+            <div className="relative bg-background-tertiary rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 hover:shadow-glow-gold transition-all duration-300">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2.5 rounded-xl bg-accent-pink/10 border border-accent-pink/20">
-                  <ArrowUpRight className="text-accent-pink" size={20} />
+                <div className="p-2.5 rounded-xl bg-primary/10 border border-primary/20">
+                  <TrendingUp className="text-primary" size={20} />
                 </div>
-                <span className="text-text-muted text-sm font-medium">إجمالي السحوبات</span>
+                <span className="text-secondary text-sm font-medium">إجمالي الاستثمارات</span>
               </div>
-              <p className="text-2xl font-bold text-text-primary flex items-center gap-2">
-                {formatCurrency(wallet.totalWithdrawals)} <RiyalSymbol size={20} className="text-accent-pink" />
+              <p className="text-2xl font-bold text-white flex items-center gap-2">
+                {formatCurrency(wallet.totalInvested)} <RiyalSymbol size={20} className="text-primary" />
+              </p>
+            </div>
+          </div>
+
+          <div className="group relative">
+            <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+            <div className="relative bg-background-tertiary rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 hover:shadow-glow-gold transition-all duration-300">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2.5 rounded-xl bg-secondary/10 border border-secondary/20">
+                  <ArrowUpRight className="text-secondary" size={20} />
+                </div>
+                <span className="text-secondary text-sm font-medium">إجمالي السحوبات</span>
+              </div>
+              <p className="text-2xl font-bold text-white flex items-center gap-2">
+                {formatCurrency(wallet.totalWithdrawals)} <RiyalSymbol size={20} className="text-secondary" />
               </p>
             </div>
           </div>
@@ -268,14 +263,11 @@ export default function WalletPage() {
                 onClick={() => setActiveTab(tab.value)}
                 className={`relative px-5 py-2.5 rounded-xl font-bold text-sm transition-all overflow-hidden ${
                   activeTab === tab.value
-                    ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-sm'
-                    : 'glass text-text-muted hover:text-text-primary border border-primary/20 hover:border-primary/40'
+                    ? 'bg-primary text-background shadow-glow-gold'
+                    : 'bg-background-tertiary text-secondary hover:text-white border border-primary/20 hover:border-primary/40'
                 }`}
               >
                 <span className="relative z-10">{tab.label}</span>
-                {activeTab === tab.value && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 hover:opacity-100 transition-opacity duration-500" />
-                )}
               </button>
             ))}
           </div>
@@ -284,11 +276,10 @@ export default function WalletPage() {
           <div className="space-y-3">
             {filteredTransactions.length === 0 ? (
               <div className="text-center py-16">
-                <div className="relative w-20 h-20 glass rounded-3xl flex items-center justify-center mx-auto mb-6 border border-primary/20 animate-float">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/20 to-primary-500/20 rounded-3xl blur-xl" />
-                  <TrendingUp className="text-text-muted relative z-10" size={40} />
+                <div className="relative w-20 h-20 bg-background-tertiary rounded-3xl flex items-center justify-center mx-auto mb-6 border border-primary/20 animate-float">
+                  <TrendingUp className="text-secondary relative z-10" size={40} />
                 </div>
-                <p className="text-text-muted text-lg">لا توجد معاملات</p>
+                <p className="text-secondary text-lg">لا توجد معاملات</p>
               </div>
             ) : (
               filteredTransactions.map((transaction, index) => {
@@ -299,7 +290,7 @@ export default function WalletPage() {
                     className="group relative stagger-item"
                     style={{ animationDelay: `${0.05 * index}s` }}
                   >
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
+                    <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
                     <div className="relative flex items-center justify-between p-4 rounded-xl glass border border-primary/10 group-hover:border-primary/30 transition-all">
                       <div className="flex items-center gap-4">
                         <div className={`p-3 rounded-xl ${config.bg} border ${config.color.replace('text-', 'border-')}/30`}>
@@ -344,31 +335,31 @@ export default function WalletPage() {
         {showDepositModal && (
           <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in-scale">
             <div className="relative max-w-md w-full">
-              <div className="absolute -inset-1 bg-gradient-to-r from-accent-green to-accent-teal rounded-2xl opacity-50 blur-xl" />
-              <div className="relative glass border border-accent-green/30 rounded-2xl p-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-accent-green/10 border border-accent-green/30">
-                    <Download className="text-accent-green" size={24} />
+              <div className="absolute -inset-1 bg-primary rounded-2xl opacity-40 blur-xl" />
+              <div className="relative bg-background-secondary border border-primary/30 rounded-2xl p-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-primary/10 border border-primary/30">
+                    <Download className="text-primary" size={24} />
                   </div>
                   <span>إيداع رصيد</span>
                 </h3>
                 <div className="space-y-4 mb-8">
                   <div>
-                    <label className="block text-text-secondary text-sm mb-2 font-medium">المبلغ</label>
+                    <label className="block text-secondary text-sm mb-2 font-medium">المبلغ</label>
                     <input
                       type="number"
                       placeholder="1000"
-                      className="w-full px-4 py-4 glass border border-primary/20 rounded-xl text-text-primary focus:border-accent-green focus:shadow-glow-teal outline-none transition-all"
+                      className="w-full px-4 py-4 bg-background-tertiary border border-primary/20 rounded-xl text-white focus:border-primary outline-none transition-all"
                     />
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button className="flex-1 py-4 bg-gradient-to-r from-accent-green to-accent-teal text-white font-bold rounded-xl hover:shadow-glow-teal transition-all hover:scale-105">
+                  <button className="flex-1 py-4 bg-primary text-background font-bold rounded-xl hover:shadow-glow-gold transition-all hover:scale-105">
                     إيداع
                   </button>
                   <button
                     onClick={() => setShowDepositModal(false)}
-                    className="flex-1 py-4 glass text-text-muted hover:text-text-primary font-bold rounded-xl border border-primary/20 hover:border-primary/40 transition-all"
+                    className="flex-1 py-4 bg-background-tertiary text-secondary hover:text-white font-bold rounded-xl border border-primary/20 hover:border-primary/40 transition-all"
                   >
                     إلغاء
                   </button>
@@ -382,35 +373,35 @@ export default function WalletPage() {
         {showWithdrawModal && (
           <div className="fixed inset-0 bg-black/70 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in-scale">
             <div className="relative max-w-md w-full">
-              <div className="absolute -inset-1 bg-gradient-to-r from-accent-pink to-accent-orange rounded-2xl opacity-50 blur-xl" />
-              <div className="relative glass border border-accent-pink/30 rounded-2xl p-8">
-                <h3 className="text-2xl md:text-3xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-accent-pink/10 border border-accent-pink/30">
-                    <Upload className="text-accent-pink" size={24} />
+              <div className="absolute -inset-1 bg-primary rounded-2xl opacity-40 blur-xl" />
+              <div className="relative bg-background-secondary border border-primary/30 rounded-2xl p-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-secondary/10 border border-secondary/30">
+                    <Upload className="text-secondary" size={24} />
                   </div>
                   <span>سحب رصيد</span>
                 </h3>
                 <div className="space-y-4 mb-8">
                   <div>
-                    <label className="block text-text-secondary text-sm mb-2 font-medium">المبلغ</label>
+                    <label className="block text-secondary text-sm mb-2 font-medium">المبلغ</label>
                     <input
                       type="number"
                       placeholder="1000"
                       max={wallet.balance}
-                      className="w-full px-4 py-4 glass border border-primary/20 rounded-xl text-text-primary focus:border-accent-pink focus:shadow-glow-md outline-none transition-all"
+                      className="w-full px-4 py-4 bg-background-tertiary border border-primary/20 rounded-xl text-white focus:border-primary outline-none transition-all"
                     />
-                    <p className="text-text-muted text-xs mt-2 flex items-center gap-1">
-                      الرصيد المتاح: {formatCurrency(wallet.balance)} <RiyalSymbol size={12} className="text-primary-400" />
+                    <p className="text-secondary text-xs mt-2 flex items-center gap-1">
+                      الرصيد المتاح: {formatCurrency(wallet.balance)} <RiyalSymbol size={12} className="text-primary" />
                     </p>
                   </div>
                 </div>
                 <div className="flex gap-3">
-                  <button className="flex-1 py-4 bg-gradient-to-r from-accent-pink to-accent-orange text-white font-bold rounded-xl hover:shadow-glow-md transition-all hover:scale-105">
+                  <button className="flex-1 py-4 bg-primary text-background font-bold rounded-xl hover:shadow-glow-gold transition-all hover:scale-105">
                     سحب
                   </button>
                   <button
                     onClick={() => setShowWithdrawModal(false)}
-                    className="flex-1 py-4 glass text-text-muted hover:text-text-primary font-bold rounded-xl border border-primary/20 hover:border-primary/40 transition-all"
+                    className="flex-1 py-4 bg-background-tertiary text-secondary hover:text-white font-bold rounded-xl border border-primary/20 hover:border-primary/40 transition-all"
                   >
                     إلغاء
                   </button>

@@ -7,18 +7,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { ZodError } from 'zod';
 import { prisma } from '@/lib/db';
-import { signToken, setAuthCookie } from '@/lib/auth';
+import { signToken, setAuthCookieOnResponse } from '@/lib/auth';
 import { loginSchema } from '@/lib/validations/auth';
 
 export async function POST(req: NextRequest) {
   try {
-    // Parse request body
-    const body = await req.json();
+    if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
+      console.error('[Login] JWT_SECRET is missing or too short. Set JWT_SECRET in .env (min 32 chars).');
+      return NextResponse.json(
+        { success: false, error: 'حدث خطأ في تسجيل الدخول' },
+        { status: 500 }
+      );
+    }
 
-    // Validate input
+    const body = await req.json();
     const validated = loginSchema.parse(body);
 
-    // Find user by email
     const user = await prisma.user.findUnique({
       where: { email: validated.email },
       select: {
@@ -36,15 +40,11 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        {
-          success: false,
-          error: 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
-        },
+        { success: false, error: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' },
         { status: 401 }
       );
     }
 
-    // Verify password
     const isValidPassword = await bcrypt.compare(
       validated.password,
       user.passwordHash
@@ -52,28 +52,19 @@ export async function POST(req: NextRequest) {
 
     if (!isValidPassword) {
       return NextResponse.json(
-        {
-          success: false,
-          error: 'البريد الإلكتروني أو كلمة المرور غير صحيحة',
-        },
+        { success: false, error: 'البريد الإلكتروني أو كلمة المرور غير صحيحة' },
         { status: 401 }
       );
     }
 
-    // Generate JWT token
     const token = signToken({
       userId: user.id,
       email: user.email,
       role: user.role,
     });
 
-    // Set authentication cookie
-    await setAuthCookie(token);
-
-    // Return user data without password
     const { passwordHash, ...safeUser } = user;
-
-    return NextResponse.json(
+    const res = NextResponse.json(
       {
         success: true,
         message: 'تم تسجيل الدخول بنجاح',
@@ -81,8 +72,10 @@ export async function POST(req: NextRequest) {
       },
       { status: 200 }
     );
+    setAuthCookieOnResponse(res, token);
+    return res;
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('[Login] Error:', error);
 
     // Handle validation errors
     if (error instanceof ZodError) {

@@ -60,7 +60,7 @@ export async function POST(req: NextRequest) {
         email: validated.email,
         phone: validated.phone || null,
         passwordHash,
-        wallet: {
+        Wallet: {
           create: {
             balance: 0,
           },

@@ -168,8 +168,8 @@ export default function NewProjectPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="group relative animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-500" />
-        <div className="relative glass border border-primary/20 rounded-2xl p-6 md:p-8 group-hover:border-primary/30 transition-all duration-300">
+        <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-500" />
+        <div className="relative bg-background-secondary border border-primary/20 rounded-2xl p-6 md:p-8 group-hover:border-primary/30 transition-all duration-300">
           <div className="space-y-6">
             {/* Basic Info Section */}
             <div>
@@ -343,7 +343,7 @@ export default function NewProjectPage() {
                     <button
                       type="button"
                       onClick={handleAddImage}
-                      className="px-4 bg-gradient-to-r from-accent-purple to-primary-500 text-white rounded-xl font-bold hover:shadow-glow-sm transition-all hover:scale-105"
+                      className="px-4 bg-primary text-background rounded-xl font-bold hover:shadow-glow-gold transition-all hover:scale-105"
                     >
                       <Plus size={20} />
                     </button>
@@ -544,7 +544,7 @@ export default function NewProjectPage() {
                 <button
                   type="button"
                   onClick={handleAddBadge}
-                  className="px-4 bg-gradient-to-r from-accent-purple to-primary-500 text-white rounded-xl font-bold hover:shadow-glow-sm transition-all hover:scale-105"
+                  className="px-4 bg-primary text-background rounded-xl font-bold hover:shadow-glow-gold transition-all hover:scale-105"
                 >
                   <Plus size={20} />
                 </button>
@@ -588,19 +588,16 @@ export default function NewProjectPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative px-8 py-4 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold overflow-hidden transition-all duration-300 hover:shadow-glow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                className="group relative px-8 py-4 bg-primary text-background rounded-xl font-bold overflow-hidden transition-all duration-300 hover:shadow-glow-gold hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
               >
                 <span className="relative z-10">
                   {loading ? 'جاري الحفظ...' : 'إضافة المشروع'}
                 </span>
-                {!loading && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                )}
               </button>
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-8 py-4 glass border border-primary/20 text-text-muted hover:text-text-primary rounded-xl font-bold hover:border-primary/40 hover:bg-primary/10 transition-all"
+                className="px-8 py-4 bg-background-tertiary border border-primary/20 text-secondary hover:text-white rounded-xl font-bold hover:border-primary/40 hover:bg-primary/10 transition-all"
               >
                 إلغاء
               </button>

@@ -89,7 +89,8 @@ export default function DashboardLayout({
   }
 
   const isActive = (href: string) => {
-    return pathname === href || pathname.startsWith(href + '/');
+    const p = pathname ?? '';
+    return p === href || p.startsWith(href + '/');
   };
 
   return (
@@ -104,23 +105,22 @@ export default function DashboardLayout({
           href="/projects"
           className="p-6 flex items-center justify-center gap-3 border-b border-primary/20 hover:bg-primary/5 transition-all group"
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-accent-purple to-primary-500 rounded-xl flex items-center justify-center flex-shrink-0 shadow-glow-sm group-hover:shadow-glow-md transition-all">
-            <span className="text-white font-bold text-lg">م</span>
+          <div className="w-16 h-16 flex-shrink-0 shadow-glow-sm group-hover:shadow-glow-md transition-all">
+            <img src="/logo-icon.png" alt="صخر" className="w-full h-full object-contain" />
           </div>
-          <span className="text-text-primary font-bold text-lg group-hover:text-primary-400 transition-colors">مشاريع</span>
         </Link>
 
         {/* User Info */}
         <div className="px-4 py-6 border-b border-primary/20">
-          <div className="flex items-center gap-3 p-3 rounded-xl glass border border-primary/10 hover:border-primary/30 transition-all group cursor-pointer">
-            <div className="w-12 h-12 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-sm group-hover:shadow-glow-md transition-all">
-              <User className="text-white" size={20} />
+          <div className="flex items-center gap-3 p-3 rounded-xl bg-background-tertiary border border-primary/10 hover:border-primary/30 transition-all group cursor-pointer">
+            <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-gold transition-all">
+              <User className="text-background" size={20} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-text-primary font-semibold text-sm truncate">
+              <p className="text-white font-semibold text-sm truncate">
                 {user.name}
               </p>
-              <p className="text-text-muted text-xs truncate">
+              <p className="text-secondary text-xs truncate">
                 {user.role === 'ADMIN' ? 'مدير' : 'مستثمر'}
               </p>
             </div>
@@ -137,16 +137,15 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative overflow-hidden ${
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative ${
                   active
-                    ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
-                    : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
+                    ? 'bg-primary text-background font-semibold shadow-glow-gold'
+                    : 'text-secondary hover:text-white hover:bg-primary/10 border border-transparent hover:border-primary/20'
                 }`}
               >
-                {active && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                )}
-                <Icon size={20} className="relative z-10" />
+                <span className="relative z-10">
+                  <Icon size={20} />
+                </span>
                 <span className="relative z-10">{item.label}</span>
               </Link>
             );
@@ -163,16 +162,15 @@ export default function DashboardLayout({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative overflow-hidden ${
+                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative ${
                   active
-                    ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
-                    : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
+                    ? 'bg-primary text-background font-semibold shadow-glow-gold'
+                    : 'text-secondary hover:text-white hover:bg-primary/10 border border-transparent hover:border-primary/20'
                 }`}
               >
-                {active && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                )}
-                <Icon size={20} className="relative z-10" />
+                <span className="relative z-10">
+                  <Icon size={20} />
+                </span>
                 <span className="relative z-10">{item.label}</span>
               </Link>
             );
@@ -212,7 +210,7 @@ export default function DashboardLayout({
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-        <Link href="/projects" className="text-transparent bg-clip-text bg-gradient-to-r from-accent-purple to-primary-400 font-bold text-lg">
+        <Link href="/projects" className="text-primary font-bold text-lg">
           مشاريع
         </Link>
         <div className="w-10" />
@@ -230,15 +228,15 @@ export default function DashboardLayout({
           >
             {/* User Info */}
             <div className="px-4 py-6 border-b border-primary/20">
-              <div className="flex items-center gap-3 p-3 rounded-xl glass border border-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-sm">
-                  <User className="text-white" size={20} />
+              <div className="flex items-center gap-3 p-3 rounded-xl bg-background-tertiary border border-primary/10">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-gold">
+                  <User className="text-background" size={20} />
                 </div>
                 <div>
-                  <p className="text-text-primary font-semibold text-sm">
+                  <p className="text-white font-semibold text-sm">
                     {user.name}
                   </p>
-                  <p className="text-text-muted text-xs">
+                  <p className="text-secondary text-xs">
                     {user.role === 'ADMIN' ? 'مدير' : 'مستثمر'}
                   </p>
                 </div>
@@ -258,8 +256,8 @@ export default function DashboardLayout({
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all ${
                       active
-                        ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
-                        : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
+                        ? 'bg-primary text-background font-semibold shadow-glow-gold'
+                        : 'text-secondary hover:text-white hover:bg-primary/10 border border-transparent hover:border-primary/20'
                     }`}
                   >
                     <Icon size={20} />
@@ -311,7 +309,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <div className="w-full">{children}</div>
+        <div className="w-full pt-6 lg:pt-8">{children}</div>
       </main>
     </div>
   );

@@ -78,7 +78,7 @@ const AnimatedCounter = ({ target, suffix = '', prefix = '' }: { target: number;
 
   return (
     <div ref={ref} className="text-center">
-      <div className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent">
+      <div className="text-3xl md:text-4xl font-bold text-primary">
         {prefix}
         {toArabicNumeral(count)}
         {suffix}
@@ -98,11 +98,11 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
 
   const getBadgeStyle = (badgeType: string) => {
     const styles: Record<string, string> = {
-      جديد: 'bg-accent-green/10 text-accent-green border border-accent-green/30',
-      مميز: 'bg-accent-orange/10 text-accent-orange border border-accent-orange/30',
-      حصري: 'bg-accent-purple/10 text-accent-purple border border-accent-purple/30',
-      'عوائد دورية': 'bg-primary-500/10 text-primary-400 border border-primary/30',
-      'متوافق مع الشريعة': 'bg-accent-teal/10 text-accent-teal border border-accent-teal/30',
+      جديد: 'bg-primary/10 text-primary border border-primary/30',
+      مميز: 'bg-primary/10 text-primary border border-primary/30',
+      حصري: 'bg-primary/10 text-primary border border-primary/30',
+      'عوائد دورية': 'bg-primary/10 text-primary border border-primary/30',
+      'متوافق مع الشريعة': 'bg-primary/10 text-primary border border-primary/30',
     };
     return styles[badgeType] || 'bg-primary-500/10 text-primary-400 border border-primary/30';
   };
@@ -111,11 +111,10 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
     <Link href={`/projects/${project.id}`}>
       <div className="group relative h-full">
         {/* Enhanced Glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-60 blur-2xl transition-all duration-700 animate-glow" />
-        <div className="absolute -inset-0.5 bg-gradient-to-br from-accent-purple/50 to-primary-500/50 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500" />
+        <div className="absolute -inset-1 bg-primary rounded-2xl opacity-0 group-hover:opacity-40 blur-2xl transition-all duration-700" />
         
         {/* Main card */}
-        <div className="relative h-full glass rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer group-hover:-translate-y-3 group-hover:scale-[1.02] group-hover:shadow-glow-lg border-2 border-primary/30 group-hover:border-primary/70 group-hover:bg-background-card/80">
+        <div className="relative h-full bg-background-secondary rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer group-hover:-translate-y-3 group-hover:scale-[1.02] group-hover:shadow-glow-gold border-2 border-primary/30 group-hover:border-primary/70">
         {/* Image Container with overlay gradient */}
         <div className="relative h-52 overflow-hidden">
           {/* Image */}
@@ -150,7 +149,7 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
         <div className="p-5 space-y-4">
           {/* Title */}
           <div>
-            <h3 className="text-lg font-bold text-text-primary line-clamp-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent-purple group-hover:to-primary-400 transition-all duration-300">
+            <h3 className="text-lg font-bold text-white line-clamp-2 transition-all duration-300">
               {project.title}
             </h3>
           </div>
@@ -165,13 +164,13 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
 
           {/* Stats Grid */}
           <div className="grid grid-cols-2 gap-3 pt-3 border-t border-primary/10">
-            <div className="glass rounded-xl p-3 border border-accent-teal/10">
+            <div className="bg-background-tertiary rounded-xl p-3 border border-primary/10">
               <p className="text-xs text-text-muted mb-1">العائد المتوقع</p>
-              <p className="text-base font-bold text-accent-teal">{project.expectedReturn}٪</p>
+              <p className="text-base font-bold text-primary">{project.expectedReturn}٪</p>
             </div>
-            <div className="glass rounded-xl p-3 border border-primary/10">
+            <div className="bg-background-tertiary rounded-xl p-3 border border-primary/10">
               <p className="text-xs text-text-muted mb-1">مدة الاستثمار</p>
-              <p className="text-base font-bold text-text-primary">{project.durationMonths} شهر</p>
+              <p className="text-base font-bold text-white">{project.durationMonths} شهر</p>
             </div>
           </div>
 
@@ -183,9 +182,9 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
                 {Math.round(progress)}%
               </span>
             </div>
-            <div className="relative w-full h-2.5 bg-background-tertiary rounded-full overflow-hidden">
+            <div className="relative w-full h-2.5 bg-background rounded-full overflow-hidden">
               <div
-                className="absolute inset-0 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-full transition-all duration-1000 shimmer"
+                className="absolute inset-0 bg-primary rounded-full transition-all duration-1000"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -195,13 +194,11 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
           </div>
 
           {/* CTA Button */}
-          <button className="w-full relative py-3.5 px-4 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold text-sm overflow-hidden transition-all duration-300 group-hover:shadow-glow-md group-hover:scale-[1.02] mt-4">
+          <button className="w-full relative py-3.5 px-4 rounded-xl font-bold text-sm overflow-hidden transition-all duration-300 group-hover:shadow-glow-gold group-hover:scale-[1.02] mt-4" style={{ backgroundColor: '#8F7F5E', color: '#0A0A0A' }}>
             <span className="relative z-10 flex items-center justify-center gap-2">
               <span>تفاصيل الفرصة</span>
               <TrendingUp size={16} className="group-hover:translate-x-1 transition-transform" />
             </span>
-            {/* Animated gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </button>
         </div>
         </div>
@@ -251,52 +248,52 @@ export default function Home() {
       id: 1,
       icon: Landmark,
       title: 'الصناديق العقارية',
-      description: 'استثمر في صناديق عقارية متنوعة تديرها شركات مرخصة من هيئة السوق المالية، مع عوائد دورية وشفافية كاملة.',
+      description: 'استثمر في صناديق عقارية متنوعة بإدارة احترافية مرخصة، واحصل على عوائد دورية مع شفافية كاملة في جميع العمليات.',
       features: [
-        'عوائد سنوية تصل إلى ٢٥٪',
-        'إدارة احترافية معتمدة',
-        'تقارير دورية شفافة',
-        'تنويع المخاطر',
+        'عوائد سنوية مجزية تصل إلى ٢٥٪',
+        'إدارة من شركات معتمدة',
+        'تقارير شفافة كل ربع سنة',
+        'تنويع محفظتك وتقليل المخاطر',
       ],
-      buttonText: 'استكشف الصناديق',
+      buttonText: 'تصفح الصناديق المتاحة',
     },
     {
       id: 2,
       icon: FileText,
       title: 'الصكوك الاستثمارية',
-      description: 'أدوات دين متوافقة مع الشريعة الإسلامية تمكنك من تمويل المشاريع والحصول على عوائد مجزية.',
+      description: 'أدوات تمويل إسلامية مضمونة تتيح لك المشاركة في مشاريع عقارية كبرى مع عوائد ثابتة ومجدولة.',
       features: [
-        'تمويل يصل إلى ٣٠ مليون ريال',
-        'مدة تصل إلى ١٠ سنوات',
-        'جدول سداد مرن',
-        'سداد مبكر بدون رسوم',
+        'تمويل مشاريع بقيمة تصل ٣٠ مليون ريال',
+        'فترات استثمار مرنة حتى ١٠ سنوات',
+        'عوائد ثابتة ومضمونة',
+        'إمكانية الخروج المبكر بسهولة',
       ],
-      buttonText: 'تعرف على الصكوك',
+      buttonText: 'اطلع على الصكوك المتاحة',
     },
     {
       id: 3,
       icon: Users,
       title: 'التمويل الجماعي',
-      description: 'شارك مع آلاف المستثمرين في تمويل مشاريع واعدة بمبالغ تبدأ من ٥٠٠ ريال فقط.',
+      description: 'انضم لآلاف المستثمرين في دعم مشاريع عقارية واعدة بمبالغ صغيرة، وكن شريكاً في النجاح.',
       features: [
-        'حد أدنى ٥٠٠ ريال فقط',
-        'مشاريع مدروسة بعناية',
-        'متابعة لحظية للاستثمار',
-        'سحب الأرباح في أي وقت',
+        'ابدأ بـ ٥٠٠ ريال فقط',
+        'مشاريع محددة ومدروسة بدقة',
+        'تتبع استثمارك بشكل فوري',
+        'سحب أرباحك متى شئت',
       ],
-      buttonText: 'ابدأ التمويل',
+      buttonText: 'استثمر الآن',
     },
   ];
 
   const features = [
-    { id: 1, icon: Clock, title: 'موافقة خلال ٣ أيام', description: 'نقدم لك عرض تمويلي خلال ٣ أيام فقط من تقديم الطلب' },
-    { id: 2, icon: WalletIcon, title: 'استثمر من ٥٠٠ ريال', description: 'ابدأ رحلتك الاستثمارية بمبلغ بسيط يناسب ميزانيتك' },
-    { id: 3, icon: TrendingUp, title: 'عوائد تصل ٢٥٪', description: 'حقق عوائد استثنائية مع فرص مدروسة بعناية فائقة' },
-    { id: 4, icon: Shield, title: '١٠٠٪ حلال', description: 'جميع استثماراتنا معتمدة من هيئة شرعية مستقلة' },
-    { id: 5, icon: PieChart, title: 'كل استثماراتك في مكان واحد', description: 'تابع صناديقك وصكوكك وأسهمك من محفظة واحدة' },
-    { id: 6, icon: DollarSign, title: 'اسحب أرباحك في أي وقت', description: 'حرية كاملة في سحب أرباحك أو إعادة استثمارها' },
-    { id: 7, icon: FileText, title: 'تحديثات دورية', description: 'احصل على تقارير مفصلة من مدراء الصناديق بشكل منتظم' },
-    { id: 8, icon: Headphones, title: 'دعم على مدار الساعة', description: 'فريق دعم متخصص جاهز لمساعدتك في أي وقت' },
+    { id: 1, icon: Clock, title: 'ابدأ بسرعة', description: 'افتح حسابك واستثمر في دقائق معدودة بدون تعقيدات' },
+    { id: 2, icon: WalletIcon, title: 'استثمر من ٥٠٠ ريال', description: 'ابدأ باستثمارات صغيرة تناسب جميع الميزانيات' },
+    { id: 3, icon: TrendingUp, title: 'عوائد مجزية تصل ٢٥٪', description: 'عوائد سنوية مرتفعة من مشاريع مدروسة بعناية' },
+    { id: 4, icon: Shield, title: 'متوافق مع الشريعة', description: 'جميع المشاريع معتمدة من هيئة رقابة شرعية مستقلة' },
+    { id: 5, icon: PieChart, title: 'محفظة استثمارية واحدة', description: 'أدر جميع استثماراتك من مكان واحد بكل سهولة' },
+    { id: 6, icon: DollarSign, title: 'سيولة عالية', description: 'اسحب أرباحك أو أعد استثمارها متى شئت بكل مرونة' },
+    { id: 7, icon: FileText, title: 'شفافية كاملة', description: 'تقارير تفصيلية دورية عن أداء استثماراتك' },
+    { id: 8, icon: Headphones, title: 'دعم فني متميز', description: 'فريق متخصص جاهز لمساعدتك في أي استفسار' },
   ];
 
   const testimonials = [
@@ -319,7 +316,7 @@ export default function Home() {
     {
       id: 3,
       rating: 5,
-      quote: 'كرجل أعمال، كنت أبحث عن تمويل سريع لمشروعي. منصة مشاريع وفرت لي التمويل خلال أسبوع فقط! عملية سلسة ومهنية من البداية للنهاية.',
+      quote: 'كرجل أعمال، كنت أبحث عن تمويل سريع لمشروعي. منصة صخر وفرت لي التمويل خلال أسبوع فقط! عملية سلسة ومهنية من البداية للنهاية.',
       name: 'عبدالله الشمري',
       title: 'صاحب مشروع ممول',
       initials: 'ع ش',
@@ -338,15 +335,15 @@ export default function Home() {
       <section className="py-16 md:py-32 px-4 md:px-6 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12 md:mb-16 animate-fade-in-up">
-            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
-              <div className="w-2 h-2 rounded-full bg-accent-teal animate-pulse" />
-              <span className="text-sm text-text-secondary font-medium">استثمر بثقة</span>
+            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-background-secondary rounded-full border border-primary/20">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm text-secondary font-medium">فرص استثمارية مميزة</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
-              الفرص الاستثمارية المتاحة
+              اكتشف فرصتك الاستثمارية
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto text-base md:text-lg">
-              اختر من بين مجموعة متنوعة من الفرص الاستثمارية المدروسة بعناية والمتوافقة مع الشريعة الإسلامية
+              مشاريع عقارية متنوعة تم دراستها بعناية من قبل خبراء متخصصين، مع ضمان التوافق الكامل مع الشريعة الإسلامية
             </p>
           </div>
 
@@ -358,14 +355,11 @@ export default function Home() {
                 onClick={() => setActiveFilter(filter)}
                 className={`relative px-6 md:px-8 py-2.5 md:py-3 rounded-xl font-bold text-sm md:text-base transition-all duration-300 overflow-hidden ${
                   activeFilter === filter
-                    ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
-                    : 'glass text-text-muted hover:text-text-primary border border-primary/20 hover:border-primary/40'
+                    ? 'bg-primary text-background shadow-glow-gold'
+                    : 'bg-background-secondary text-secondary hover:text-white border border-primary/20 hover:border-primary/40'
                 }`}
               >
                 <span className="relative z-10">{filter}</span>
-                {activeFilter === filter && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 hover:opacity-100 transition-opacity duration-500" />
-                )}
               </button>
             ))}
           </div>
@@ -396,10 +390,9 @@ export default function Home() {
 
               <div className="flex justify-center mt-12 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <Link href="/projects">
-                  <button className="group relative px-10 md:px-12 py-4 glass border-2 border-primary/40 text-text-primary font-bold text-base md:text-lg rounded-xl hover:border-primary/60 hover:shadow-glow-md transition-all duration-300 flex items-center gap-3 overflow-hidden">
+                  <button className="group relative px-10 md:px-12 py-4 bg-background-secondary border-2 border-primary/40 text-white font-bold text-base md:text-lg rounded-xl hover:border-primary hover:bg-primary/10 transition-all duration-300 flex items-center gap-3">
                     <span className="relative z-10">عرض جميع الفرص</span>
                     <ArrowLeft size={20} className="relative z-10 group-hover:-translate-x-1 transition-transform" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-accent-purple/10 via-primary-500/10 to-accent-teal/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </button>
                 </Link>
               </div>
@@ -433,7 +426,7 @@ export default function Home() {
                   className="group relative stagger-item"
                   style={{ animationDelay: `${0.1 * (index + 1)}s` }}
                 >
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+                  <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
                   <div className="relative glass rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-glow-md border border-primary/20 group-hover:border-primary/40">
                   <div className="p-8 flex flex-col h-full">
                     <div className="mb-6 p-4 rounded-xl glass border border-primary/20 w-fit">
@@ -448,14 +441,13 @@ export default function Home() {
                     <div className="mb-8 space-y-3">
                       {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <CheckCircle size={18} className="text-accent-teal mt-0.5 flex-shrink-0" />
+                          <CheckCircle size={18} className="text-primary mt-0.5 flex-shrink-0" />
                           <span className="text-text-secondary text-sm">{feature}</span>
                         </div>
                       ))}
                     </div>
-                    <button className="group relative w-full py-3.5 rounded-xl bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-bold overflow-hidden transition-all duration-300 hover:shadow-glow-md hover:scale-105">
+                    <button className="group relative w-full py-3.5 rounded-xl font-bold overflow-hidden transition-all duration-300 hover:scale-105" style={{ backgroundColor: '#8F7F5E', color: '#0A0A0A', boxShadow: '0 0 35px rgba(143, 127, 94, 0.4)' }}>
                       <span className="relative z-10">{service.buttonText}</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </button>
                   </div>
                   </div>
@@ -471,14 +463,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
-              <div className="w-2 h-2 rounded-full bg-accent-purple animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm text-text-secondary font-medium">مميزاتنا التنافسية</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
-              لماذا تختار مشاريع؟
+              لماذا تستثمر معنا؟
             </h2>
             <p className="text-text-muted max-w-2xl mx-auto text-base md:text-lg">
-              جمعنا لك أفضل المميزات من منصات الاستثمار الرائدة في مكان واحد
+              نوفر لك تجربة استثمارية متكاملة تجمع بين السهولة والأمان والشفافية
             </p>
           </div>
 
@@ -491,7 +483,7 @@ export default function Home() {
                   className="group relative stagger-item"
                   style={{ animationDelay: `${0.05 * (index + 1)}s` }}
                 >
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
+                  <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
                   <div className="relative glass rounded-xl p-6 border border-primary/10 group-hover:border-primary/30 transition-all duration-300 hover:shadow-glow-sm">
                     <div className="mb-4 p-2.5 rounded-xl glass border border-primary/20 w-fit">
                       <IconComponent className="text-primary-400" size={24} />
@@ -540,9 +532,9 @@ export default function Home() {
                 return (
                   <div key={idx} className="flex flex-col items-center text-center stagger-item" style={{ animationDelay: `${0.1 * (idx + 1)}s` }}>
                     <div className="relative mb-6">
-                      <div className="absolute -inset-2 bg-gradient-to-r from-accent-purple to-primary-500 rounded-full blur-xl opacity-40" />
-                      <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-accent-purple to-primary-500 flex items-center justify-center shadow-glow-md">
-                        <span className="text-white text-4xl font-black">
+                      <div className="absolute -inset-2 bg-primary rounded-full blur-xl opacity-30" />
+                      <div className="relative w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-glow-gold">
+                        <span className="text-background text-4xl font-black">
                           {step.number}
                         </span>
                       </div>
@@ -585,12 +577,12 @@ export default function Home() {
                 className="group relative stagger-item"
                 style={{ animationDelay: `${0.1 * (index + 1)}s` }}
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
-                <div className="relative glass rounded-2xl p-6 md:p-8 flex flex-col items-center text-center border border-primary/10 group-hover:border-primary/30 transition-all duration-300">
-                  <div className="mb-4 p-3.5 rounded-xl glass border border-primary/20">
-                    <badge.icon className="text-primary-400" size={28} />
+                <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
+                <div className="relative bg-background-secondary rounded-2xl p-6 md:p-8 flex flex-col items-center text-center border border-primary/10 group-hover:border-primary/30 transition-all duration-300">
+                  <div className="mb-4 p-3.5 rounded-xl bg-background-tertiary border border-primary/20">
+                    <badge.icon className="text-primary" size={28} />
                   </div>
-                  <p className="text-text-primary font-semibold text-sm md:text-base">
+                  <p className="text-white font-semibold text-sm md:text-base">
                     {badge.label}
                   </p>
                 </div>
@@ -605,7 +597,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
-              <div className="w-2 h-2 rounded-full bg-accent-pink animate-pulse" />
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm text-text-secondary font-medium">قصص نجاح</span>
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
@@ -620,12 +612,12 @@ export default function Home() {
                 className="group relative stagger-item"
                 style={{ animationDelay: `${0.1 * (index + 1)}s` }}
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
-                <div className="relative glass rounded-2xl p-8 border border-primary/10 group-hover:border-primary/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow-sm">
-                  <Quote className="text-primary-400 mb-4" size={32} />
+                <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
+                <div className="relative bg-background-secondary rounded-2xl p-8 border border-primary/10 group-hover:border-primary/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow-gold">
+                  <Quote className="text-primary mb-4" size={32} />
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (
-                      <Star key={i} size={18} className="text-accent-orange fill-current" />
+                      <Star key={i} size={18} className="text-primary fill-current" />
                     ))}
                   </div>
                   <p className="text-text-secondary mb-6 text-right leading-relaxed">
@@ -637,9 +629,9 @@ export default function Home() {
                       <p className="text-text-muted text-xs">{testimonial.title}</p>
                     </div>
                     <div className="relative">
-                      <div className="absolute -inset-1 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full blur-md opacity-50" />
-                      <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-accent-purple to-primary-500 flex items-center justify-center shadow-glow-sm">
-                        <span className="text-white font-bold text-sm">{testimonial.initials}</span>
+                      <div className="absolute -inset-1 bg-primary rounded-full blur-md opacity-40" />
+                      <div className="relative w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-glow-gold">
+                        <span className="text-background font-bold text-sm">{testimonial.initials}</span>
                       </div>
                     </div>
                   </div>
@@ -654,36 +646,35 @@ export default function Home() {
       <section className="py-20 md:py-32 px-4 md:px-6 relative overflow-hidden">
         {/* Background Image */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url(/hero-bg.jpg)',
-        }}
+          className="absolute inset-0 bg-cover bg-center opacity-30"
+          style={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&q=80)',
+          }}
         />
         
-        {/* Enhanced Overlay with better contrast */}
-        <div className="absolute inset-0 bg-gradient-to-br from-background/98 via-background-secondary/95 to-background-tertiary/98" />
-        <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/40 via-primary-500/30 to-accent-teal/40" />
+        {/* Modern Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background-secondary/90 to-background/95" />
 
         <div className="max-w-3xl mx-auto text-center relative z-10 animate-fade-in-scale">
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+          <h2 className="text-4xl md:text-5xl font-black text-white mb-4 drop-shadow-2xl">
             ابدأ رحلتك الاستثمارية اليوم
           </h2>
-          <p className="text-lg md:text-xl text-white mb-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
+          <p className="text-lg md:text-xl text-white mb-10 drop-shadow-lg font-semibold">
             انضم إلى أكثر من ٤٥,٠٠٠ مستثمر يثقون بنا
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/register">
-              <button className="group relative px-8 py-4 rounded-xl bg-white text-primary-600 font-bold hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105">
+              <button className="group relative px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105" style={{ backgroundColor: '#8F7F5E', color: '#0A0A0A', boxShadow: '0 0 35px rgba(143, 127, 94, 0.4)' }}>
                 <span className="relative z-10">إنشاء حساب مجاني</span>
               </button>
             </Link>
-            <button className="px-8 py-4 rounded-xl border-2 border-white text-white font-bold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
+            <button className="px-8 py-4 rounded-xl border-2 border-primary text-white font-bold hover:bg-primary/10 transition-all duration-300">
               تحدث مع مستشار
             </button>
           </div>
 
-          <p className="text-sm text-white mt-6 font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+          <p className="text-sm text-white/80 mt-6 font-medium">
             التسجيل مجاني ولا يتطلب أي التزام
           </p>
         </div>
@@ -696,14 +687,11 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple to-primary-500 rounded-xl blur-md opacity-50" />
-                  <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-accent-purple to-primary-500 flex items-center justify-center">
-                    <Building2 size={20} className="text-white" />
+                  <div className="absolute -inset-1 bg-primary rounded-xl blur-md opacity-40" />
+                  <div className="relative w-16 h-16">
+                    <img src="/logo-icon.png" alt="صخر" className="w-full h-full object-contain" />
                   </div>
                 </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-accent-purple to-primary-400 bg-clip-text text-transparent">
-                  مشاريع
-                </span>
               </div>
               <p className="text-text-muted text-sm leading-relaxed">
                 منصة الاستثمار العقاري الرائدة في المملكة العربية السعودية.
@@ -713,7 +701,7 @@ export default function Home() {
             <div>
               <h4 className="text-text-primary font-bold mb-6">روابط سريعة</h4>
               <ul className="space-y-3">
-                {['الرئيسية', 'المشاريع', 'من نحن', 'تواصل معنا'].map((link, idx) => (
+                {['المشاريع', 'من نحن', 'تواصل معنا'].map((link, idx) => (
                   <li key={idx}>
                     <a href="#" className="text-text-muted hover:text-primary-400 transition-colors text-sm">
                       {link}
@@ -758,7 +746,7 @@ export default function Home() {
           <div className="border-t border-primary/20 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <p className="text-text-muted text-sm">
-                © ٢٠٢٦ مشاريع. جميع الحقوق محفوظة
+                © ٢٠٢٦ صخر. جميع الحقوق محفوظة
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <span className="px-4 py-2 glass rounded-full border border-primary/20 text-primary-400 text-xs font-semibold">
@@ -776,8 +764,8 @@ export default function Home() {
           onClick={scrollToTop}
           className="group fixed bottom-8 left-8 z-40 animate-fade-in-scale"
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple to-primary-500 rounded-full blur-md opacity-50 group-hover:opacity-70 transition-all duration-300" />
-          <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-accent-purple to-primary-500 text-white flex items-center justify-center hover:shadow-glow-md transition-all duration-300 hover:scale-110">
+          <div className="absolute -inset-1 bg-primary rounded-full blur-md opacity-40 group-hover:opacity-60 transition-all duration-300" />
+          <div className="relative w-14 h-14 rounded-full bg-primary text-background flex items-center justify-center hover:shadow-glow-gold transition-all duration-300 hover:scale-110">
             <ArrowUp size={24} />
           </div>
         </button>

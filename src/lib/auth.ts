@@ -5,10 +5,14 @@
 
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 import { prisma } from './db';
 
-const JWT_SECRET = process.env.JWT_SECRET!;
+const JWT_SECRET = process.env.JWT_SECRET;
 const COOKIE_NAME = 'masharee_token';
+
+/** Use secure cookies only when explicitly using HTTPS (e.g. production behind SSL). */
+const USE_SECURE_COOKIE = process.env.USE_HTTPS === 'true';
 
 // JWT Payload Interface
 export interface JWTPayload {
@@ -35,6 +39,9 @@ export interface SafeUser {
  * Sign JWT token
  */
 export function signToken(payload: JWTPayload): string {
+  if (!JWT_SECRET || JWT_SECRET.length < 32) {
+    throw new Error('JWT_SECRET is not set or too short (min 32 chars). Add it to .env on the server.');
+  }
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
 }
 
@@ -43,6 +50,7 @@ export function signToken(payload: JWTPayload): string {
  */
 export function verifyToken(token: string): JWTPayload | null {
   try {
+    if (!JWT_SECRET || JWT_SECRET.length < 32) return null;
     return jwt.verify(token, JWT_SECRET) as JWTPayload;
   } catch (error) {
     console.error('Token verification failed:', error);
@@ -52,18 +60,27 @@ export function verifyToken(token: string): JWTPayload | null {
 
 // ========== COOKIE MANAGEMENT ==========
 
+const AUTH_COOKIE_OPTIONS = {
+  httpOnly: true,
+  secure: USE_SECURE_COOKIE,
+  sameSite: 'lax' as const,
+  maxAge: 60 * 60 * 24 * 7, // 7 days
+  path: '/',
+};
+
 /**
- * Set authentication cookie
+ * Set authentication cookie (via next/headers). Use setAuthCookieOnResponse in Route Handlers when returning JSON.
  */
 export async function setAuthCookie(token: string): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.set(COOKIE_NAME, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
-    path: '/',
-  });
+  cookieStore.set(COOKIE_NAME, token, AUTH_COOKIE_OPTIONS);
+}
+
+/**
+ * Set auth cookie on a NextResponse. Use this in login API so the cookie is on the same response.
+ */
+export function setAuthCookieOnResponse(res: NextResponse, token: string): void {
+  res.cookies.set(COOKIE_NAME, token, AUTH_COOKIE_OPTIONS);
 }
 
 /**

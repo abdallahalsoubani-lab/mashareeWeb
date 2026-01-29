@@ -1,0 +1,56 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular pattern with people -->
+  <circle cx="100" cy="100" r="80" fill="url(#circleGradient)"/>
+  
+  <!-- People/dots around circle -->
+  <circle cx="70" cy="50" r="8" fill="#8b5cf6"/>
+  <circle cx="90" cy="40" r="6" fill="#a855f7"/>
+  <circle cx="130" cy="50" r="8" fill="#06b6d4"/>
+  <circle cx="150" cy="60" r="6" fill="#22d3ee"/>
+  <circle cx="160" cy="90" r="7" fill="#0ea5e9"/>
+  <circle cx="150" cy="140" r="8" fill="#3b82f6"/>
+  <circle cx="130" cy="155" r="6" fill="#2563eb"/>
+  <circle cx="70" cy="155" r="8" fill="#1e40af"/>
+  <circle cx="50" cy="140" r="6" fill="#1e3a8a"/>
+  <circle cx="40" cy="90" r="7" fill="#7c3aed"/>
+  
+  <!-- Curved sections forming circle -->
+  <path d="M 100 40 Q 140 50, 155 85 L 145 92 Q 135 62, 105 52 Z" fill="url(#sectionGradient1)"/>
+  <path d="M 155 85 Q 165 120, 152 145 L 142 140 Q 152 115, 145 92 Z" fill="url(#sectionGradient2)"/>
+  <path d="M 152 145 Q 130 165, 95 160 L 97 150 Q 125 155, 142 140 Z" fill="url(#sectionGradient3)"/>
+  <path d="M 95 160 Q 60 155, 48 125 L 58 120 Q 68 145, 97 150 Z" fill="url(#sectionGradient4)"/>
+  <path d="M 48 125 Q 35 90, 48 60 L 58 65 Q 48 90, 58 120 Z" fill="url(#sectionGradient5)"/>
+  <path d="M 48 60 Q 65 42, 100 40 L 100 50 Q 72 52, 58 65 Z" fill="url(#sectionGradient6)"/>
+  
+  <defs>
+    <linearGradient id="circleGradient" x1="50" y1="50" x2="150" y2="150">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="sectionGradient1" x1="100" y1="40" x2="155" y2="85">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="sectionGradient2" x1="155" y1="85" x2="152" y2="145">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="sectionGradient3" x1="152" y1="145" x2="95" y2="160">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1e40af"/>
+    </linearGradient>
+    <linearGradient id="sectionGradient4" x1="95" y1="160" x2="48" y2="125">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="sectionGradient5" x1="48" y1="125" x2="48" y2="60">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <linearGradient id="sectionGradient6" x1="48" y1="60" x2="100" y2="40">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+</svg>

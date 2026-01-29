@@ -74,9 +74,12 @@ export async function GET() {
       prisma.investment.findMany({
         take: 5,
         orderBy: { createdAt: 'desc' },
-        include: {
-          user: { select: { name: true, email: true } },
-          project: { select: { title: true } },
+        select: {
+          id: true,
+          amount: true,
+          createdAt: true,
+          User: { select: { name: true, email: true } },
+          Project: { select: { title: true } },
         },
       }),
 
@@ -105,7 +108,13 @@ export async function GET() {
       },
       recentActivity: {
         users: recentUsers,
-        investments: recentInvestments,
+        investments: recentInvestments.map((inv: any) => ({
+          id: inv.id,
+          amount: inv.amount,
+          createdAt: inv.createdAt,
+          user: { name: inv.User.name, email: inv.User.email },
+          project: { title: inv.Project.title },
+        })),
       },
     });
   } catch (error) {

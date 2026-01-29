@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const wallet = await prisma.wallet.findUnique({
       where: { userId: user.id },
       include: {
-        transactions: {
+        Transaction: {
           orderBy: { createdAt: 'desc' },
           take: 50,
         },
@@ -38,18 +38,18 @@ export async function GET(req: NextRequest) {
     // Calculate summary
     const walletSummary = {
       balance: wallet.balance,
-      totalDeposits: wallet.transactions
+      totalDeposits: wallet.Transaction
         .filter((t: any) => t.type === 'DEPOSIT' && t.status === 'COMPLETED')
         .reduce((sum: number, t: any) => sum + t.amount, 0),
-      totalWithdrawals: wallet.transactions
+      totalWithdrawals: wallet.Transaction
         .filter((t: any) => t.type === 'WITHDRAW' && t.status === 'COMPLETED')
         .reduce((sum: number, t: any) => sum + t.amount, 0),
-      totalInvested: wallet.transactions
+      totalInvested: wallet.Transaction
         .filter((t: any) => t.type === 'INVEST' && t.status === 'COMPLETED')
         .reduce((sum: number, t: any) => sum + t.amount, 0),
     };
 
-    const formattedTransactions = wallet.transactions.map((t: any) => ({
+    const formattedTransactions = wallet.Transaction.map((t: any) => ({
       id: t.id,
       type: t.type,
       amount: t.amount,
@@ -62,7 +62,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       success: true,
       wallet: walletSummary,
-      transactions: formattedTransactions,
+      Transaction: formattedTransactions,
     });
   } catch (error) {
     console.error('Error fetching wallet:', error);

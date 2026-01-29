@@ -139,8 +139,8 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Recent Users */}
         <div className="group relative animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-500" />
-          <div className="relative glass rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/30 transition-all duration-300">
+          <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-500" />
+          <div className="relative bg-background-secondary rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/30 transition-all duration-300">
             <div className="px-6 py-4 border-b border-primary/20 flex items-center justify-between">
               <h3 className="text-lg font-bold text-text-primary">آخر التسجيلات</h3>
               <Link
@@ -189,8 +189,8 @@ export default function AdminDashboard() {
 
         {/* Recent Investments */}
         <div className="group relative animate-slide-in-right" style={{ animationDelay: '0.4s' }}>
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-500" />
-          <div className="relative glass rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/30 transition-all duration-300">
+          <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-all duration-500" />
+          <div className="relative bg-background-secondary rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/30 transition-all duration-300">
             <div className="px-6 py-4 border-b border-primary/20 flex items-center justify-between">
               <h3 className="text-lg font-bold text-text-primary">آخر الاستثمارات</h3>
               <Link

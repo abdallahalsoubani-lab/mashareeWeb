@@ -25,6 +25,7 @@ const projectUpdateSchema = z.object({
   riskLevel: z.string().optional(),
   badges: z.array(z.string()).optional(),
   isActive: z.boolean().optional(),
+  isFeatured: z.boolean().optional(),
   status: z.string().optional(),
 });
 

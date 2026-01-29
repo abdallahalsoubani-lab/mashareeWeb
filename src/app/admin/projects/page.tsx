@@ -83,13 +83,12 @@ export default function AdminProjectsPage() {
         </div>
         <Link
           href="/admin/projects/new"
-          className="group relative flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold transition-all duration-300 hover:shadow-glow-md hover:scale-105 overflow-hidden"
+          className="group relative flex items-center gap-2 px-6 py-3 bg-primary text-background rounded-xl font-bold transition-all duration-300 hover:shadow-glow-gold hover:scale-105"
         >
           <span className="relative z-10 flex items-center gap-2">
             <Plus size={20} />
             إضافة مشروع جديد
           </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </Link>
       </div>
 

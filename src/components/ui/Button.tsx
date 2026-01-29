@@ -13,13 +13,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white hover:shadow-glow-lg hover:scale-105',
+        'bg-primary text-background hover:shadow-glow-gold hover:scale-105',
       secondary:
-        'glass text-primary-400 border border-primary/30 hover:border-primary/50 hover:bg-primary/10',
+        'bg-background-tertiary text-primary border border-primary/30 hover:border-primary/50 hover:bg-primary/10',
       outline:
-        'glass border-2 border-primary/40 text-text-primary hover:border-primary/60 hover:bg-primary/10 hover:shadow-glow-sm',
+        'bg-background-secondary border-2 border-primary/40 text-white hover:border-primary hover:bg-primary/10',
       ghost:
-        'text-text-muted hover:bg-primary/10 hover:text-text-primary',
+        'text-secondary hover:bg-primary/10 hover:text-white',
     };
 
     const sizes = {

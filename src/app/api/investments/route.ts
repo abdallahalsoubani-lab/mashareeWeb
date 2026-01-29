@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
     const investments = await prisma.investment.findMany({
       where: { userId: user.id },
       include: {
-        project: {
+        Project: {
           select: {
             id: true,
             title: true,

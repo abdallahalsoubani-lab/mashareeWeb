@@ -10,7 +10,7 @@ import { Filter } from 'lucide-react';
 
 interface AuditLog {
   id: string;
-  admin: { email: string };
+  User: { email: string };
   action: 'CREATE' | 'UPDATE' | 'DELETE';
   entity: string;
   entityId: string;
@@ -112,7 +112,7 @@ export default function AdminAuditLogsPage() {
               {logs.map((log, index) => (
                 <tr key={log.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-6 py-4 text-sm text-slate-500">{index + 1}</td>
-                  <td className="px-6 py-4 text-sm text-slate-900">{log.admin.email}</td>
+                  <td className="px-6 py-4 text-sm text-slate-900">{log.User.email}</td>
                   <td className="px-6 py-4">
                     <span
                       className={`px-3 py-1 rounded-full text-xs font-medium ${

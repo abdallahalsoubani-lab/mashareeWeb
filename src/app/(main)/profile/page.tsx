@@ -111,12 +111,12 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Profile Card */}
         <div className="relative group animate-fade-in-scale" style={{ animationDelay: '0.2s' }}>
-          <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-3xl opacity-30 blur-2xl group-hover:opacity-50 transition-all duration-500" />
-          <div className="relative glass p-8 rounded-3xl text-center border border-primary/20">
+          <div className="absolute -inset-1 bg-primary rounded-3xl opacity-20 blur-2xl group-hover:opacity-35 transition-all duration-500" />
+          <div className="relative bg-background-secondary p-8 rounded-3xl text-center border border-primary/20">
             {/* Avatar */}
             <div className="relative w-28 h-28 mx-auto mb-6">
-              <div className="absolute -inset-2 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-full opacity-50 blur-xl animate-pulse" />
-              <div className="relative w-full h-full rounded-full overflow-hidden bg-gradient-to-br from-accent-purple to-primary-500 flex items-center justify-center shadow-glow-md">
+              <div className="absolute -inset-2 bg-primary rounded-full opacity-30 blur-xl animate-pulse" />
+              <div className="relative w-full h-full rounded-full overflow-hidden bg-primary flex items-center justify-center shadow-glow-gold">
                 {profile.avatar ? (
                   <img
                     src={profile.avatar}
@@ -227,14 +227,14 @@ export default function ProfilePage() {
                 <div className="flex gap-4 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 py-4 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold hover:shadow-glow-md transition-all hover:scale-105"
+                    className="flex-1 py-4 bg-primary text-background rounded-xl font-bold hover:shadow-glow-gold transition-all hover:scale-105"
                   >
                     حفظ التغييرات
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsEditing(false)}
-                    className="flex-1 py-4 glass text-text-muted hover:text-text-primary font-bold rounded-xl border border-primary/20 hover:border-primary/40 transition-all"
+                    className="flex-1 py-4 bg-background-tertiary text-secondary hover:text-white font-bold rounded-xl border border-primary/20 hover:border-primary/40 transition-all"
                   >
                     إلغاء
                   </button>
@@ -272,9 +272,9 @@ export default function ProfilePage() {
                 )}
 
                 {/* Account Type */}
-                <div className="glass p-5 rounded-2xl border border-primary/10">
-                  <p className="text-sm text-text-muted mb-2 font-medium">نوع الحساب</p>
-                  <p className="text-lg font-bold bg-gradient-to-r from-accent-purple to-primary-400 bg-clip-text text-transparent">
+                <div className="bg-background-tertiary p-5 rounded-2xl border border-primary/10">
+                  <p className="text-sm text-secondary mb-2 font-medium">نوع الحساب</p>
+                  <p className="text-lg font-bold text-primary">
                     {profile.role === 'ADMIN' ? 'حساب إداري' : 'حساب مستثمر'}
                   </p>
                 </div>

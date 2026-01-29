@@ -143,7 +143,7 @@ export default function ProjectDetailsPage({
           <p className="text-red-400 font-semibold mb-6 text-lg">{error || 'فشل تحميل المشروع'}</p>
           <Link 
             href="/projects" 
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-bold rounded-xl hover:shadow-glow-md transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-background font-bold rounded-xl hover:shadow-glow-gold transition-all hover:scale-105"
           >
             العودة إلى الصناديق
           </Link>
@@ -179,11 +179,11 @@ export default function ProjectDetailsPage({
           <div className="lg:col-span-2 space-y-6">
             {/* Header Card with Badges */}
             <div className="group relative animate-fade-in-scale">
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+              <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
               <div className="relative glass rounded-2xl p-6 md:p-8 border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
                 {/* Type Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-bold mb-4 border border-accent-green/30 text-accent-green">
-                  <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-background-tertiary rounded-full text-sm font-bold mb-4 border border-primary/30 text-primary">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   {project.type}
                 </div>
 
@@ -201,7 +201,7 @@ export default function ProjectDetailsPage({
                   </div>
                 )}
 
-                <h1 className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent mb-4">
+                <h1 className="text-2xl md:text-4xl font-bold text-primary mb-4">
                   {project.title}
                 </h1>
 
@@ -220,7 +220,7 @@ export default function ProjectDetailsPage({
 
             {/* Image Gallery */}
             <div className="group relative animate-slide-in-right" style={{ animationDelay: '0.1s' }}>
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+              <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
               <div className="relative glass rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
                 {/* Main Image */}
                 <div className="relative h-96 bg-background-tertiary overflow-hidden">
@@ -238,7 +238,7 @@ export default function ProjectDetailsPage({
                           onClick={() => setSelectedImage(idx)}
                           className={`h-2 rounded-full transition-all ${
                             selectedImage === idx 
-                              ? 'bg-gradient-to-r from-accent-purple to-primary-500 w-8' 
+                              ? 'bg-primary w-8' 
                               : 'bg-text-dimmed/50 w-2 hover:bg-text-dimmed'
                           }`}
                         />
@@ -273,10 +273,10 @@ export default function ProjectDetailsPage({
 
             {/* التفاصيل - Details Section */}
             <div className="group relative animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
+              <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
               <div className="relative glass rounded-2xl p-6 md:p-8 border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
                 <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-gradient-to-br from-accent-purple to-primary-500">
+                  <div className="p-2 rounded-xl bg-primary">
                     <FileText className="text-white" size={24} />
                   </div>
                   <span>التفاصيل</span>
@@ -293,8 +293,8 @@ export default function ProjectDetailsPage({
                     </p>
                   </div>
                   <div className="glass p-4 rounded-xl border border-primary/10">
-                    <p className="text-text-muted text-sm mb-2">تغطية عملاء منصة مشاريع</p>
-                    <p className="text-xl font-bold bg-gradient-to-r from-accent-purple to-primary-400 bg-clip-text text-transparent">
+                    <p className="text-text-muted text-sm mb-2">تغطية عملاء منصة صخر</p>
+                    <p className="text-xl font-bold text-primary">
                       {Math.round(progress)}%
                     </p>
                   </div>
@@ -308,7 +308,7 @@ export default function ProjectDetailsPage({
                   <div className="glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
                     <p className="text-text-muted text-sm mb-3">مدير الصندوق</p>
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-gradient-to-br from-accent-purple/20 to-primary-500/20 border border-primary/20">
+                      <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
                         <Building2 size={18} className="text-primary-400" />
                       </div>
                       <p className="font-bold text-text-primary">{project.fundManager || 'غير محدد'}</p>
@@ -318,8 +318,8 @@ export default function ProjectDetailsPage({
                   <div className="glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
                     <p className="text-text-muted text-sm mb-3">موزع الوحدات</p>
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-gradient-to-br from-accent-purple/20 to-primary-500/20 border border-primary/20">
-                        <Building2 size={18} className="text-accent-teal" />
+                      <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                        <Building2 size={18} className="text-primary" />
                       </div>
                       <p className="font-bold text-text-primary">{project.distributor || 'غير محدد'}</p>
                     </div>
@@ -328,8 +328,8 @@ export default function ProjectDetailsPage({
                   <div className="glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
                     <p className="text-text-muted text-sm mb-3">الرقابة</p>
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-gradient-to-br from-accent-purple/20 to-primary-500/20 border border-primary/20">
-                        <Shield size={18} className="text-accent-green" />
+                      <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                        <Shield size={18} className="text-primary" />
                       </div>
                       <p className="font-bold text-text-primary">{project.supervisor}</p>
                     </div>
@@ -362,7 +362,7 @@ export default function ProjectDetailsPage({
                   <div className="space-y-3">
                     {Object.entries(project.boardMembers).map(([key, member]: [string, any], idx) => (
                       <div key={idx} className="flex items-center gap-4 glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
-                        <div className="w-12 h-12 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-sm">
+                        <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-gold">
                           <Users size={20} className="text-white" />
                         </div>
                         <div>
@@ -380,7 +380,7 @@ export default function ProjectDetailsPage({
                 <h3 className="text-xl font-bold text-text-primary mb-4">المرفقات</h3>
                 <div className="space-y-3">
                   <div className="group relative">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple to-primary-500 rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
+                    <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
                     <div className="relative flex items-center justify-between p-4 glass rounded-xl border border-primary/10 hover:border-primary/30 transition-all cursor-pointer">
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
@@ -398,7 +398,7 @@ export default function ProjectDetailsPage({
                   </div>
 
                   <div className="group relative">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple to-primary-500 rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
+                    <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
                     <div className="relative flex items-center justify-between p-4 glass rounded-xl border border-primary/10 hover:border-primary/30 transition-all cursor-pointer">
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
@@ -424,10 +424,10 @@ export default function ProjectDetailsPage({
           <div className="space-y-6">
             {/* Chart/Stats Card - Moved to top */}
             <div className="group relative animate-fade-in-scale" style={{ animationDelay: '0.3s' }}>
-              <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-30 blur-2xl group-hover:opacity-50 transition-all duration-700" />
+              <div className="absolute -inset-1 bg-primary rounded-2xl opacity-20 blur-2xl group-hover:opacity-35 transition-all duration-700" />
               <div className="relative glass rounded-2xl p-6 border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-sm">
                 <h3 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-gradient-to-br from-accent-purple to-primary-500 shadow-glow-md">
+                  <div className="p-2.5 rounded-xl bg-primary shadow-glow-gold">
                     <PieChart size={20} className="text-white" />
                   </div>
                   <span>مخطط هيكل الصندوق</span>
@@ -446,18 +446,18 @@ export default function ProjectDetailsPage({
                         stroke="rgba(10, 14, 26, 0.8)"
                         strokeWidth="36"
                       />
-                      {/* Main progress circle with gradient */}
+                      {/* Main progress circle */}
                       <circle
                         cx="112"
                         cy="112"
                         r="90"
                         fill="none"
-                        stroke="url(#chartGradient)"
+                        stroke="#8F7F5E"
                         strokeWidth="36"
                         strokeDasharray={`${(progress / 100) * 565.49} 565.49`}
                         strokeLinecap="round"
                         style={{
-                          filter: 'drop-shadow(0 0 8px rgba(139, 92, 246, 0.6))',
+                          filter: 'drop-shadow(0 0 8px rgba(143, 127, 94, 0.6))',
                           transition: 'all 1s ease-in-out'
                         }}
                       />
@@ -467,36 +467,24 @@ export default function ProjectDetailsPage({
                         cy="112"
                         r="90"
                         fill="none"
-                        stroke="url(#chartGradient2)"
+                        stroke="#af9f77"
                         strokeWidth="4"
                         strokeDasharray={`${(progress / 100) * 565.49} 565.49`}
                         strokeLinecap="round"
                         opacity="0.6"
                       />
-                      <defs>
-                        <linearGradient id="chartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#8b5cf6" />
-                          <stop offset="50%" stopColor="#3b82f6" />
-                          <stop offset="100%" stopColor="#06b6d4" />
-                        </linearGradient>
-                        <linearGradient id="chartGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#a855f7" />
-                          <stop offset="50%" stopColor="#60a5fa" />
-                          <stop offset="100%" stopColor="#22d3ee" />
-                        </linearGradient>
-                      </defs>
                     </svg>
                     
                     {/* Center content with enhanced styling */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <div className="relative">
-                        <div className="absolute -inset-4 bg-gradient-to-r from-accent-purple/20 via-primary-500/20 to-accent-teal/20 rounded-full blur-xl" />
-                        <p className="relative text-5xl font-black bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent mb-2">
+                        <div className="absolute -inset-4 bg-primary/20 rounded-full blur-xl" />
+                        <p className="relative text-5xl font-black text-primary mb-2">
                           {Math.round(progress)}%
                         </p>
                       </div>
                       <p className="text-text-muted text-sm font-medium text-center px-4 max-w-[120px]">
-                        تغطية عملاء منصة مشاريع
+                        تغطية عملاء منصة صخر
                       </p>
                     </div>
                   </div>
@@ -506,13 +494,13 @@ export default function ProjectDetailsPage({
                 <div className="mt-6 pt-6 border-t border-primary/20 grid grid-cols-2 gap-4">
                   <div className="glass p-3 rounded-xl border border-primary/10">
                     <p className="text-text-muted text-xs mb-1">المبلغ المجموع</p>
-                    <p className="text-sm font-bold text-accent-purple flex items-center gap-1">
+                    <p className="text-sm font-bold text-primary flex items-center gap-1">
                       {formatCurrency(project.fundedAmount)} <RiyalSymbol size={12} />
                     </p>
                   </div>
                   <div className="glass p-3 rounded-xl border border-primary/10">
                     <p className="text-text-muted text-xs mb-1">المبلغ المستهدف</p>
-                    <p className="text-sm font-bold text-accent-teal flex items-center gap-1">
+                    <p className="text-sm font-bold text-primary flex items-center gap-1">
                       {formatCurrency(project.targetAmount)} <RiyalSymbol size={12} />
                     </p>
                   </div>
@@ -522,15 +510,15 @@ export default function ProjectDetailsPage({
 
             {/* Investment Calculator Card */}
             <div className="group relative animate-fade-in-scale" style={{ animationDelay: '0.4s' }}>
-              <div className="absolute -inset-1 bg-gradient-to-br from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-30 blur-2xl transition-all duration-700" />
+              <div className="absolute -inset-1 bg-primary rounded-2xl opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-700" />
               <div className="relative glass rounded-2xl p-6 border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-sm">
                 {/* Type Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full text-sm font-bold mb-4 border border-accent-green/30 text-accent-green">
-                  <div className="w-2 h-2 rounded-full bg-accent-green animate-pulse" />
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-background-tertiary rounded-full text-sm font-bold mb-4 border border-primary/30 text-primary">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                   صندوق ملكية خاصة
                 </div>
 
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-accent-purple via-primary-400 to-accent-teal bg-clip-text text-transparent mb-6">
+                <h2 className="text-2xl font-bold text-primary mb-6">
                   {project.title}
                 </h2>
 
@@ -538,13 +526,13 @@ export default function ProjectDetailsPage({
                 <div className="mb-6">
                   <div className="flex justify-between items-center mb-3">
                     <span className="text-text-muted text-sm font-medium">نسبة التغطية</span>
-                    <span className="text-2xl font-bold bg-gradient-to-r from-accent-purple to-primary-500 bg-clip-text text-transparent">
+                    <span className="text-2xl font-bold text-primary">
                       {Math.round(progress)}%
                     </span>
                   </div>
                   <div className="relative w-full h-3 bg-background-tertiary rounded-full overflow-hidden">
                     <div
-                      className="absolute inset-0 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-full transition-all duration-700 shimmer"
+                      className="absolute inset-0 bg-primary rounded-full transition-all duration-700"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -696,10 +684,10 @@ export default function ProjectDetailsPage({
                   !investmentAmount ||
                   parseFloat(investmentAmount) < project.minimumAmount
                 }
-                className={`group relative w-full py-4 rounded-xl font-bold text-lg transition-all overflow-hidden ${
+                className={`group relative w-full py-4 rounded-xl font-bold text-lg transition-all ${
                   project.status === 'completed' || !investmentAmount || parseFloat(investmentAmount) < project.minimumAmount
-                    ? 'glass border border-primary/10 text-text-dimmed cursor-not-allowed'
-                    : 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white hover:shadow-glow-lg hover:scale-105'
+                    ? 'bg-background-tertiary border border-primary/10 text-secondary cursor-not-allowed'
+                    : 'bg-primary text-background hover:shadow-glow-gold hover:scale-105'
                 }`}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
@@ -710,9 +698,6 @@ export default function ProjectDetailsPage({
                     </>
                   )}
                 </span>
-                {!(project.status === 'completed' || !investmentAmount || parseFloat(investmentAmount) < project.minimumAmount) && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                )}
               </button>
               </div>
             </div>

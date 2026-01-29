@@ -1,0 +1,31 @@
+<svg width="180" height="200" viewBox="0 0 180 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Two hands holding a leaf -->
+  
+  <!-- Left hand (blue) -->
+  <path d="M 45 120 Q 30 100, 25 85 Q 22 75, 30 70 Q 35 67, 40 72 L 45 80 Q 42 75, 40 70 Q 38 63, 43 58 Q 48 53, 53 58 L 58 68 Q 56 62, 55 56 Q 54 48, 60 45 Q 65 42, 70 48 L 73 58 Q 72 50, 73 43 Q 74 35, 81 35 Q 87 35, 88 43 L 88 85 Q 88 95, 82 105 L 75 115 L 65 125 Q 55 130, 45 120 Z" fill="url(#handLeft)"/>
+  
+  <!-- Right hand (cyan) -->
+  <path d="M 135 120 Q 150 100, 155 85 Q 158 75, 150 70 Q 145 67, 140 72 L 135 80 Q 138 75, 140 70 Q 142 63, 137 58 Q 132 53, 127 58 L 122 68 Q 124 62, 125 56 Q 126 48, 120 45 Q 115 42, 110 48 L 107 58 Q 108 50, 107 43 Q 106 35, 99 35 Q 93 35, 92 43 L 92 85 Q 92 95, 98 105 L 105 115 L 115 125 Q 125 130, 135 120 Z" fill="url(#handRight)"/>
+  
+  <!-- Green leaf -->
+  <ellipse cx="90" cy="70" rx="25" ry="40" fill="url(#leafGradient)" transform="rotate(-15 90 70)"/>
+  <path d="M 90 40 Q 92 55, 90 70 Q 88 55, 90 40" stroke="white" stroke-width="2" fill="none" opacity="0.4"/>
+  
+  <defs>
+    <linearGradient id="handLeft" x1="25" y1="70" x2="88" y2="125">
+      <stop offset="0%" stop-color="#1e40af"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="handRight" x1="155" y1="70" x2="92" y2="125">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="50%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="leafGradient" x1="65" y1="40" x2="115" y2="100">
+      <stop offset="0%" stop-color="#86efac"/>
+      <stop offset="50%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -84,13 +84,20 @@ function LoginPageContent() {
 
   return (
     <div className="group relative animate-fade-in-scale">
-      <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-3xl opacity-30 blur-2xl" />
-      <div className="relative glass rounded-3xl border-2 border-primary/30 backdrop-blur-xl p-8 shadow-glow-md">
+      <div className="absolute -inset-1 bg-primary rounded-3xl opacity-20 blur-2xl" />
+      <div className="relative bg-background-secondary rounded-3xl border-2 border-primary/30 backdrop-blur-xl p-8 shadow-glow-gold">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
-            <div className="w-2 h-2 rounded-full bg-accent-teal animate-pulse" />
-            <span className="text-sm text-text-secondary font-medium">تسجيل الدخول</span>
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <div className="relative w-20 h-20">
+              <div className="absolute -inset-2 bg-primary rounded-2xl opacity-40 blur-xl" />
+              <img src="/logo-icon.png" alt="صخر" className="relative w-full h-full object-contain" />
+            </div>
+          </div>
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 bg-background-tertiary rounded-full border border-primary/20">
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-sm text-secondary font-medium">تسجيل الدخول</span>
           </div>
           <h1 className="text-4xl font-black gradient-text mb-2">أهلاً بعودتك</h1>
           <p className="text-text-muted text-sm">سجل دخولك للوصول إلى حسابك</p>
@@ -105,17 +112,14 @@ function LoginPageContent() {
             onClick={() => quickLogin('admin')}
             className={`relative p-5 rounded-xl border-2 transition-all overflow-hidden ${
               selectedUserType === 'admin'
-                ? 'border-accent-purple bg-accent-purple/10'
-                : 'border-primary/30 hover:border-primary/50 glass'
+                ? 'border-primary bg-primary/10'
+                : 'border-primary/30 hover:border-primary/50 bg-background-tertiary'
             }`}
           >
-            {selectedUserType === 'admin' && (
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/10 to-transparent" />
-            )}
             <div className="text-center relative z-10">
               <div className="text-3xl mb-2">👨‍💼</div>
-              <p className="text-text-primary font-bold text-sm mb-1">مسؤول</p>
-              <p className="text-text-muted text-xs">Admin</p>
+              <p className="text-white font-bold text-sm mb-1">مسؤول</p>
+              <p className="text-secondary text-xs">Admin</p>
             </div>
           </button>
 
@@ -124,17 +128,14 @@ function LoginPageContent() {
             onClick={() => quickLogin('user')}
             className={`relative p-5 rounded-xl border-2 transition-all overflow-hidden ${
               selectedUserType === 'user'
-                ? 'border-primary-400 bg-primary-500/10'
-                : 'border-primary/30 hover:border-primary/50 glass'
+                ? 'border-primary bg-primary/10'
+                : 'border-primary/30 hover:border-primary/50 bg-background-tertiary'
             }`}
           >
-            {selectedUserType === 'user' && (
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 to-transparent" />
-            )}
             <div className="text-center relative z-10">
               <div className="text-3xl mb-2">👤</div>
-              <p className="text-text-primary font-bold text-sm mb-1">مستخدم</p>
-              <p className="text-text-muted text-xs">User</p>
+              <p className="text-white font-bold text-sm mb-1">مستخدم</p>
+              <p className="text-secondary text-xs">User</p>
             </div>
           </button>
         </div>
@@ -229,7 +230,8 @@ function LoginPageContent() {
         <button
           type="submit"
           disabled={isLoading || !email || !password}
-          className="group relative w-full py-4 mt-6 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white rounded-xl font-bold overflow-hidden transition-all duration-300 hover:shadow-glow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          className="group relative w-full py-4 mt-6 rounded-xl font-bold overflow-hidden transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+          style={{ backgroundColor: '#8F7F5E', color: '#0A0A0A', boxShadow: '0 0 35px rgba(143, 127, 94, 0.4)' }}
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
             {isLoading ? (
@@ -241,9 +243,6 @@ function LoginPageContent() {
               'تسجيل الدخول'
             )}
           </span>
-          {!isLoading && (
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          )}
         </button>
 
         {/* Divider */}

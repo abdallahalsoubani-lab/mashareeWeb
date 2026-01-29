@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
     const logs = await prisma.adminAuditLog.findMany({
       where,
       include: {
-        admin: { select: { email: true } },
+        User: { select: { email: true } },
       },
       orderBy: { createdAt: 'desc' },
       take: 100,

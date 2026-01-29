@@ -126,8 +126,8 @@ export default function InvestmentsPage() {
             className="group relative stagger-item"
             style={{ animationDelay: `${0.1 * (index + 1)}s` }}
           >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500" />
-            <div className="relative glass rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 hover:shadow-glow-sm">
+            <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
+            <div className="relative bg-background-secondary rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 hover:shadow-glow-gold">
               <div className="flex items-start justify-between mb-4">
                 <div className={`p-3.5 rounded-xl glass border transition-all ${
                   card.color === 'primary' ? 'border-primary/30 bg-primary/10' :
@@ -149,29 +149,23 @@ export default function InvestmentsPage() {
       <div className="flex gap-3 mb-8">
         <button
           onClick={() => setActiveTab('active')}
-          className={`relative px-8 py-3.5 font-bold rounded-xl transition-all overflow-hidden ${
+          className={`relative px-8 py-3.5 font-bold rounded-xl transition-all ${
             activeTab === 'active'
-              ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
-              : 'glass text-text-muted hover:text-text-primary border border-primary/20 hover:border-primary/40'
+              ? 'bg-primary text-background shadow-glow-gold'
+              : 'bg-background-tertiary text-secondary hover:text-white border border-primary/20 hover:border-primary/40'
           }`}
         >
           <span className="relative z-10">استثماراتي الحالية</span>
-          {activeTab === 'active' && (
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 hover:opacity-100 transition-opacity duration-500" />
-          )}
         </button>
         <button
           onClick={() => setActiveTab('completed')}
-          className={`relative px-8 py-3.5 font-bold rounded-xl transition-all overflow-hidden ${
+          className={`relative px-8 py-3.5 font-bold rounded-xl transition-all ${
             activeTab === 'completed'
-              ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white shadow-glow-md'
-              : 'glass text-text-muted hover:text-text-primary border border-primary/20 hover:border-primary/40'
+              ? 'bg-primary text-background shadow-glow-gold'
+              : 'bg-background-tertiary text-secondary hover:text-white border border-primary/20 hover:border-primary/40'
           }`}
         >
           <span className="relative z-10">استثماراتي السابقة</span>
-          {activeTab === 'completed' && (
-            <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 hover:opacity-100 transition-opacity duration-500" />
-          )}
         </button>
       </div>
 
@@ -219,30 +213,30 @@ export default function InvestmentsPage() {
               className="group relative stagger-item"
               style={{ animationDelay: `${0.1 * index}s` }}
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-2xl opacity-0 group-hover:opacity-20 blur-lg transition-all duration-500" />
-              <div className="relative glass rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-glow-sm">
+              <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-lg transition-all duration-500" />
+              <div className="relative bg-background-secondary rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 group-hover:shadow-glow-gold">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-bold text-text-primary group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent-purple group-hover:to-primary-400 transition-all">
+                    <h3 className="text-lg font-bold text-white transition-all">
                       {investment.projectTitle}
                     </h3>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-text-muted">
+                    <div className="flex items-center gap-4 mt-2 text-sm text-secondary">
                       <span className="flex items-center gap-1.5">
-                        <Calendar size={14} className="text-primary-400" />
+                        <Calendar size={14} className="text-primary" />
                         {investment.date}
                       </span>
                       {investment.units && (
-                        <span className="px-2 py-1 bg-primary/10 rounded-lg text-primary-400 text-xs font-semibold">
+                        <span className="px-2 py-1 bg-primary/10 rounded-lg text-primary text-xs font-semibold">
                           {investment.units} وحدة
                         </span>
                       )}
                     </div>
                   </div>
                   <div className="text-left">
-                    <p className="text-2xl font-bold text-text-primary">
+                    <p className="text-2xl font-bold text-white">
                       {formatCurrency(investment.amount)}
                     </p>
-                    <p className="text-sm text-accent-green font-bold mt-1 flex items-center gap-1">
+                    <p className="text-sm text-primary font-bold mt-1 flex items-center gap-1">
                       <TrendingUp size={14} />
                       عائد: {formatCurrency(investment.returns)}
                     </p>
@@ -251,14 +245,14 @@ export default function InvestmentsPage() {
 
                 <div className="flex items-center justify-between pt-4 border-t border-primary/10">
                   <div className="flex items-center gap-2">
-                    <div className={`w-2.5 h-2.5 rounded-full ${investment.status === 'ACTIVE' ? 'bg-accent-green' : 'bg-accent-purple'} animate-pulse`} />
-                    <span className="text-sm text-text-secondary font-medium">
+                    <div className={`w-2.5 h-2.5 rounded-full ${investment.status === 'ACTIVE' ? 'bg-primary' : 'bg-secondary'} animate-pulse`} />
+                    <span className="text-sm text-secondary font-medium">
                       {investment.status === 'ACTIVE'
                         ? 'استثمار نشط'
                         : 'اكتمل'}
                     </span>
                   </div>
-                  <button className="px-4 py-2 bg-gradient-to-r from-accent-purple to-primary-500 text-white rounded-lg font-semibold text-sm hover:shadow-glow-sm transition-all hover:scale-105">
+                  <button className="px-4 py-2 bg-primary text-background rounded-lg font-semibold text-sm hover:shadow-glow-gold transition-all hover:scale-105">
                     عرض التفاصيل
                   </button>
                 </div>

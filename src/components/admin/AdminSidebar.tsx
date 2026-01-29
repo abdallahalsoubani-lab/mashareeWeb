@@ -59,10 +59,11 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href: string, exact?: boolean) => {
+    const p = pathname ?? '';
     if (exact) {
-      return pathname === href;
+      return p === href;
     }
-    return pathname.startsWith(href);
+    return p.startsWith(href);
   };
 
   const sidebarContent = (
@@ -71,29 +72,29 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
       <div className="p-6 border-b border-primary/20">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-accent-purple to-primary-500 rounded-xl blur-md opacity-50" />
-            <div className="relative w-10 h-10 bg-gradient-to-br from-accent-purple to-primary-500 rounded-xl flex items-center justify-center shadow-glow-sm">
-              <Shield size={20} className="text-white" />
+            <div className="absolute -inset-1 bg-primary rounded-xl blur-md opacity-40" />
+            <div className="relative w-16 h-16 shadow-glow-gold">
+              <img src="/logo-icon.png" alt="صخر" className="w-full h-full object-contain" />
             </div>
           </div>
           <div>
-            <p className="font-bold text-lg text-text-primary">لوحة التحكم</p>
-            <p className="text-text-muted text-xs">مشاريع Admin</p>
+            <p className="font-bold text-lg text-white">لوحة التحكم</p>
+            <p className="text-secondary text-xs">صخر Admin</p>
           </div>
         </div>
       </div>
 
       {/* Admin Info */}
       <div className="p-4 border-b border-primary/20">
-        <div className="flex items-center gap-3 p-3 rounded-xl glass border border-primary/10 hover:border-primary/30 transition-all">
-          <div className="w-10 h-10 bg-gradient-to-br from-accent-purple to-primary-500 rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-sm">
-            <Shield className="text-white" size={20} />
+        <div className="flex items-center gap-3 p-3 rounded-xl bg-background-tertiary border border-primary/10 hover:border-primary/30 transition-all">
+          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-glow-gold">
+            <Shield className="text-background" size={20} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm text-text-primary truncate">
+            <p className="font-semibold text-sm text-white truncate">
               {userEmail.split('@')[0]}
             </p>
-            <p className="text-text-muted text-xs">مسؤول النظام</p>
+            <p className="text-secondary text-xs">مسؤول النظام</p>
           </div>
         </div>
       </div>
@@ -109,15 +110,12 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
               key={item.href}
               href={item.href}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative overflow-hidden ${
+              className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all group relative ${
                 active
-                  ? 'bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal text-white font-semibold shadow-glow-sm'
-                  : 'text-text-muted hover:text-text-primary hover:bg-primary/10 border border-transparent hover:border-primary/20'
+                  ? 'bg-primary text-background font-semibold shadow-glow-gold'
+                  : 'text-secondary hover:text-white hover:bg-primary/10 border border-transparent hover:border-primary/20'
               }`}
             >
-              {active && (
-                <div className="absolute inset-0 bg-gradient-to-r from-accent-teal via-primary-600 to-accent-purple opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              )}
               <Icon size={20} className="relative z-10" />
               <span className="font-medium relative z-10">{item.label}</span>
               {active && <ChevronRight size={18} className="ml-auto relative z-10" />}
@@ -164,10 +162,10 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-gradient-to-br from-accent-purple to-primary-500">
-            <Shield size={18} className="text-white" />
+          <div className="p-1.5 rounded-lg bg-primary">
+            <Shield size={18} className="text-background" />
           </div>
-          <span className="font-bold bg-gradient-to-r from-accent-purple to-primary-400 bg-clip-text text-transparent">لوحة التحكم</span>
+          <span className="font-bold text-primary">لوحة التحكم</span>
         </div>
         <div className="w-10" />
       </div>

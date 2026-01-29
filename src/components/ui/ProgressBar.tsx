@@ -22,25 +22,25 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <div className="w-full">
       {/* Header */}
       <div className="flex justify-between items-center mb-3">
-        {label && <span className="text-text-muted text-sm font-medium">{label}</span>}
+        {label && <span className="text-secondary text-sm font-medium">{label}</span>}
         {showPercentage && (
-          <span className="text-primary-400 font-bold text-sm">
+          <span className="text-primary font-bold text-sm">
             {toArabicNumeral(Math.min(progress, 100))}٪
           </span>
         )}
       </div>
 
       {/* Progress Bar */}
-      <div className="relative w-full h-2.5 bg-background-tertiary rounded-full overflow-hidden">
+      <div className="relative w-full h-2.5 bg-background rounded-full overflow-hidden">
         <div
-          className="absolute inset-0 bg-gradient-to-r from-accent-purple via-primary-500 to-accent-teal rounded-full transition-all duration-1000 shimmer"
+          className="absolute inset-0 bg-primary rounded-full transition-all duration-1000"
           style={{ width: `${Math.min(progress, 100)}%` }}
         />
       </div>
 
       {/* Amount Info */}
       {showAmount && current !== undefined && total !== undefined && (
-        <p className="text-text-muted text-xs mt-2 text-right">
+        <p className="text-secondary text-xs mt-2 text-right">
           {toArabicNumeral(current)} من {toArabicNumeral(total)} ريال
         </p>
       )}

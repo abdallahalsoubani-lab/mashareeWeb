@@ -135,6 +135,7 @@ async function main() {
       distributionPolicy: 'عند التصفية',
       status: 'active',
       isActive: true,
+      isFeatured: true,
       latitude: 24.7136,
       longitude: 46.6753,
       boardMembers: JSON.stringify([
@@ -412,13 +413,15 @@ async function main() {
   // ============================================
   console.log('\n💰 Creating sample investments...');
   const sampleInvestments = [
-    { userIndex: 0, projectIndex: 0, amount: 25000 },
-    { userIndex: 0, projectIndex: 1, amount: 15000 },
-    { userIndex: 1, projectIndex: 0, amount: 50000 },
-    { userIndex: 2, projectIndex: 3, amount: 100000 },
-    { userIndex: 4, projectIndex: 5, amount: 200000 },
-    { userIndex: 1, projectIndex: 4, amount: 30000 },
-    { userIndex: 3, projectIndex: 2, amount: 20000 },
+    { userIndex: 0, projectIndex: 0, amount: 25000, returns: 5000 },
+    { userIndex: 0, projectIndex: 1, amount: 15000, returns: 2700 },
+    { userIndex: 0, projectIndex: 2, amount: 30000, returns: 7500 },
+    { userIndex: 0, projectIndex: 4, amount: 20000, returns: 3400 },
+    { userIndex: 1, projectIndex: 0, amount: 50000, returns: 10000 },
+    { userIndex: 2, projectIndex: 3, amount: 100000, returns: 15000 },
+    { userIndex: 4, projectIndex: 5, amount: 200000, returns: 44000 },
+    { userIndex: 1, projectIndex: 4, amount: 30000, returns: 5100 },
+    { userIndex: 3, projectIndex: 2, amount: 20000, returns: 5000 },
   ];
 
   for (const inv of sampleInvestments) {
@@ -433,14 +436,15 @@ async function main() {
           projectId: project.id,
           amount: inv.amount,
           status: 'ACTIVE',
+          returns: inv.returns,
         },
       });
 
       // Create transaction
-      if (user.wallet) {
+      if (user.Wallet) {
         await prisma.transaction.create({
           data: {
-            walletId: user.wallet.id,
+            walletId: user.Wallet.id,
             type: 'INVEST',
             amount: inv.amount,
             status: 'COMPLETED',
@@ -456,16 +460,46 @@ async function main() {
   }
 
   // ============================================
-  // 6. Create Sample Transactions
+  // 6. Create Sample Transactions for mohammed@test.com
   // ============================================
   console.log('\n💳 Creating sample transactions...');
-  for (const user of investorUsers.slice(0, 3)) {
-    if (user.wallet) {
+  
+  // Add more transactions for mohammed@test.com (first user)
+  const mohammedUser = investorUsers[0];
+  if (mohammedUser && mohammedUser.Wallet) {
+    const transactions = [
+      { type: 'DEPOSIT', amount: 50000, description: 'إيداع عن طريق التحويل البنكي' },
+      { type: 'DEPOSIT', amount: 30000, description: 'إيداع عن طريق Apple Pay' },
+      { type: 'DEPOSIT', amount: 20000, description: 'إيداع عن طريق مدى' },
+      { type: 'RETURN', amount: 5000, description: 'عوائد من صندوق الرياض السكني الأول' },
+      { type: 'RETURN', amount: 2700, description: 'عوائد من صكوك التعمير المتقدمة' },
+      { type: 'DIVIDEND', amount: 1500, description: 'أرباح دورية - صندوق الرياض' },
+      { type: 'WITHDRAW', amount: 10000, description: 'سحب إلى حساب بنكي' },
+    ];
+
+    for (const tx of transactions) {
       await prisma.transaction.create({
         data: {
-          walletId: user.wallet.id,
+          walletId: mohammedUser.Wallet.id,
+          type: tx.type as any,
+          amount: tx.amount,
+          status: 'COMPLETED',
+          description: tx.description,
+          reference: `${tx.type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        },
+      });
+    }
+    console.log(`  ✅ Created ${transactions.length} transactions for ${mohammedUser.name}`);
+  }
+
+  // Create deposit transactions for other users
+  for (const user of investorUsers.slice(1, 3)) {
+    if (user.Wallet) {
+      await prisma.transaction.create({
+        data: {
+          walletId: user.Wallet.id,
           type: 'DEPOSIT',
-          amount: user.wallet.balance,
+          amount: user.Wallet.balance,
           status: 'COMPLETED',
           description: 'إيداع أولي',
           reference: `DEP-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
