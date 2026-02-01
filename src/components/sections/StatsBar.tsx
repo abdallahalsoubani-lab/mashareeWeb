@@ -94,7 +94,7 @@ const StatsBar: React.FC = () => {
           {/* Enhanced Glow Effect */}
           <div className="absolute -inset-1 bg-primary rounded-3xl opacity-20 blur-2xl group-hover:opacity-35 transition-all duration-700" />
           
-          <div className="relative bg-background-secondary rounded-3xl p-8 md:p-12 overflow-hidden border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-gold">
+          <div className="relative bg-background-secondary rounded-3xl p-8 md:p-12 overflow-hidden border-2 border-primary/70 group-hover:border-primary transition-all duration-300 shadow-card group-hover:shadow-card-hover">
 
             {/* Stats Grid with Drag Support */}
             <div 
@@ -112,8 +112,8 @@ const StatsBar: React.FC = () => {
                 const Icon = stat.icon;
                 return (
                   <div key={index} className="flex flex-col items-center text-center group/stat md:min-w-[200px] lg:min-w-[180px] flex-shrink-0">
-                    <div className="mb-4 p-3.5 rounded-xl bg-background-tertiary border border-primary/20 group-hover/stat:border-primary/40 transition-all duration-300 group-hover/stat:shadow-glow-gold">
-                      <Icon className="text-primary transition-colors" size={28} />
+                    <div className="mb-4 p-3.5 rounded-xl bg-background-tertiary border-2 border-primary/60 group-hover/stat:border-primary transition-all duration-300 group-hover/stat:shadow-card shadow-input">
+                      <Icon className="text-primary transition-colors drop-shadow-lg" size={28} />
                     </div>
                     <p className="text-secondary text-sm mb-3 font-medium">{stat.label}</p>
                     <div className="text-3xl md:text-4xl font-black text-primary">

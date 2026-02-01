@@ -24,6 +24,7 @@ import {
   Percent,
   Home,
   PieChart,
+  CheckCircle,
 } from 'lucide-react';
 
 interface Project {
@@ -70,6 +71,9 @@ export default function ProjectDetailsPage({
   const [investmentAmount, setInvestmentAmount] = useState('');
   const [selectedImage, setSelectedImage] = useState(0);
   const [projectId, setProjectId] = useState<string>('');
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [investing, setInvesting] = useState(false);
+  const [investmentSuccess, setInvestmentSuccess] = useState(false);
 
   useEffect(() => {
     const unwrapParams = async () => {
@@ -118,6 +122,42 @@ export default function ProjectDetailsPage({
   };
 
   const returns = calculateReturns();
+
+  const handleInvestment = async () => {
+    if (!project) return;
+    
+    try {
+      setInvesting(true);
+      const response = await fetch('/api/investments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          projectId: project.id,
+          amount: parseFloat(investmentAmount),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setInvestmentSuccess(true);
+        setShowConfirmPopup(false);
+        // Refresh project data
+        const projectResponse = await fetch(`/api/projects/${projectId}`);
+        const projectData = await projectResponse.json();
+        if (projectData.success) {
+          setProject(projectData.project);
+        }
+      } else {
+        alert(data.error || 'فشل إضافة الاستثمار');
+      }
+    } catch (error) {
+      console.error('Error investing:', error);
+      alert('حدث خطأ في إضافة الاستثمار');
+    } finally {
+      setInvesting(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -180,7 +220,7 @@ export default function ProjectDetailsPage({
             {/* Header Card with Badges */}
             <div className="group relative animate-fade-in-scale">
               <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
-              <div className="relative glass rounded-2xl p-6 md:p-8 border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+              <div className="relative glass rounded-2xl p-6 md:p-8 border-2 border-primary/70 group-hover:border-primary transition-all duration-300 shadow-card group-hover:shadow-card-hover">
                 {/* Type Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-background-tertiary rounded-full text-sm font-bold mb-4 border border-primary/30 text-primary">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -221,7 +261,7 @@ export default function ProjectDetailsPage({
             {/* Image Gallery */}
             <div className="group relative animate-slide-in-right" style={{ animationDelay: '0.1s' }}>
               <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
-              <div className="relative glass rounded-2xl overflow-hidden border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+              <div className="relative glass rounded-2xl overflow-hidden border-2 border-primary/70 group-hover:border-primary transition-all duration-300 shadow-card group-hover:shadow-card-hover">
                 {/* Main Image */}
                 <div className="relative h-96 bg-background-tertiary overflow-hidden">
                   <img
@@ -274,27 +314,27 @@ export default function ProjectDetailsPage({
             {/* التفاصيل - Details Section */}
             <div className="group relative animate-slide-in-right" style={{ animationDelay: '0.2s' }}>
               <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
-              <div className="relative glass rounded-2xl p-6 md:p-8 border border-primary/20 group-hover:border-primary/40 transition-all duration-300">
+              <div className="relative glass rounded-2xl p-6 md:p-8 border-2 border-primary/70 group-hover:border-primary transition-all duration-300 shadow-card group-hover:shadow-card-hover">
                 <h2 className="text-2xl md:text-3xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                  <div className="p-2 rounded-xl bg-primary">
-                    <FileText className="text-white" size={24} />
+                  <div className="p-2 rounded-xl bg-primary shadow-glow-sm">
+                    <FileText className="text-white drop-shadow-lg" size={24} />
                   </div>
-                  <span>التفاصيل</span>
+                  <span className="drop-shadow-lg">التفاصيل</span>
                 </h2>
 
               {/* Fund Structure */}
               <div className="mb-8">
                 <h3 className="text-xl font-bold text-text-primary mb-4">هيكل الصندوق</h3>
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="glass p-4 rounded-xl border border-primary/10">
+                  <div className="glass p-4 rounded-xl border-2 border-primary/60 shadow-input">
                     <p className="text-text-muted text-sm mb-2">حجم الصندوق المستهدف</p>
-                    <p className="text-xl font-bold text-text-primary flex items-center gap-2">
-                      {formatCurrency(project.targetAmount)} <RiyalSymbol size={18} className="text-primary-400" />
+                    <p className="text-xl font-bold text-text-primary flex items-center gap-2 drop-shadow-lg">
+                      {formatCurrency(project.targetAmount)} <RiyalSymbol size={18} className="text-primary-400 drop-shadow-lg" />
                     </p>
                   </div>
-                  <div className="glass p-4 rounded-xl border border-primary/10">
+                  <div className="glass p-4 rounded-xl border-2 border-primary/60 shadow-input">
                     <p className="text-text-muted text-sm mb-2">تغطية عملاء منصة صخر</p>
-                    <p className="text-xl font-bold text-primary">
+                    <p className="text-xl font-bold text-primary drop-shadow-lg">
                       {Math.round(progress)}%
                     </p>
                   </div>
@@ -305,7 +345,7 @@ export default function ProjectDetailsPage({
               <div className="mb-8">
                 <h3 className="text-xl font-bold text-text-primary mb-4">الأطراف ذات العلاقة</h3>
                 <div className="grid md:grid-cols-3 gap-4">
-                  <div className="glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
+                  <div className="glass p-4 rounded-xl border-2 border-primary/60 hover:border-primary transition-all shadow-input hover:shadow-card">
                     <p className="text-text-muted text-sm mb-3">مدير الصندوق</p>
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
@@ -315,7 +355,7 @@ export default function ProjectDetailsPage({
                     </div>
                   </div>
 
-                  <div className="glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
+                  <div className="glass p-4 rounded-xl border-2 border-primary/60 hover:border-primary transition-all shadow-input hover:shadow-card">
                     <p className="text-text-muted text-sm mb-3">موزع الوحدات</p>
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
@@ -325,7 +365,7 @@ export default function ProjectDetailsPage({
                     </div>
                   </div>
 
-                  <div className="glass p-4 rounded-xl border border-primary/10 hover:border-primary/30 transition-all">
+                  <div className="glass p-4 rounded-xl border-2 border-primary/60 hover:border-primary transition-all shadow-input hover:shadow-card">
                     <p className="text-text-muted text-sm mb-3">الرقابة</p>
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
@@ -381,7 +421,7 @@ export default function ProjectDetailsPage({
                 <div className="space-y-3">
                   <div className="group relative">
                     <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
-                    <div className="relative flex items-center justify-between p-4 glass rounded-xl border border-primary/10 hover:border-primary/30 transition-all cursor-pointer">
+                    <div className="relative flex items-center justify-between p-4 glass rounded-xl border-2 border-primary/60 hover:border-primary transition-all cursor-pointer shadow-input hover:shadow-card">
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
                           <FileText className="text-primary-400" size={20} />
@@ -399,7 +439,7 @@ export default function ProjectDetailsPage({
 
                   <div className="group relative">
                     <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
-                    <div className="relative flex items-center justify-between p-4 glass rounded-xl border border-primary/10 hover:border-primary/30 transition-all cursor-pointer">
+                    <div className="relative flex items-center justify-between p-4 glass rounded-xl border-2 border-primary/60 hover:border-primary transition-all cursor-pointer shadow-input hover:shadow-card">
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
                           <FileText className="text-primary-400" size={20} />
@@ -425,39 +465,39 @@ export default function ProjectDetailsPage({
             {/* Chart/Stats Card - Moved to top */}
             <div className="group relative animate-fade-in-scale" style={{ animationDelay: '0.3s' }}>
               <div className="absolute -inset-1 bg-primary rounded-2xl opacity-20 blur-2xl group-hover:opacity-35 transition-all duration-700" />
-              <div className="relative glass rounded-2xl p-6 border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-sm">
-                <h3 className="text-xl font-bold text-text-primary mb-6 flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-primary shadow-glow-gold">
-                    <PieChart size={20} className="text-white" />
+              <div className="relative glass rounded-2xl p-8 border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-sm overflow-visible">
+                <h3 className="text-lg font-bold text-text-primary mb-6 flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-primary shadow-glow-gold">
+                    <PieChart size={18} className="text-white" />
                   </div>
                   <span>مخطط هيكل الصندوق</span>
                 </h3>
                 
-                <div className="flex items-center justify-center py-8">
-                  <div className="relative w-56 h-56">
-                    {/* Enhanced Donut Chart with multiple layers */}
-                    <svg className="w-full h-full -rotate-90">
+                <div className="flex items-center justify-center py-6">
+                  <div className="relative w-48 h-48">
+                    {/* Enhanced Donut Chart with multiple layers - مصغر */}
+                    <svg className="w-full h-full -rotate-90" viewBox="0 0 224 224">
                       {/* Background shadow circle */}
                       <circle
                         cx="112"
                         cy="112"
-                        r="90"
+                        r="85"
                         fill="none"
                         stroke="rgba(10, 14, 26, 0.8)"
-                        strokeWidth="36"
+                        strokeWidth="30"
                       />
                       {/* Main progress circle */}
                       <circle
                         cx="112"
                         cy="112"
-                        r="90"
+                        r="85"
                         fill="none"
                         stroke="#8F7F5E"
-                        strokeWidth="36"
-                        strokeDasharray={`${(progress / 100) * 565.49} 565.49`}
+                        strokeWidth="30"
+                        strokeDasharray={`${(progress / 100) * 534.07} 534.07`}
                         strokeLinecap="round"
                         style={{
-                          filter: 'drop-shadow(0 0 8px rgba(143, 127, 94, 0.6))',
+                          filter: 'drop-shadow(0 0 6px rgba(143, 127, 94, 0.6))',
                           transition: 'all 1s ease-in-out'
                         }}
                       />
@@ -465,43 +505,43 @@ export default function ProjectDetailsPage({
                       <circle
                         cx="112"
                         cy="112"
-                        r="90"
+                        r="85"
                         fill="none"
                         stroke="#af9f77"
-                        strokeWidth="4"
-                        strokeDasharray={`${(progress / 100) * 565.49} 565.49`}
+                        strokeWidth="3"
+                        strokeDasharray={`${(progress / 100) * 534.07} 534.07`}
                         strokeLinecap="round"
                         opacity="0.6"
                       />
                     </svg>
                     
-                    {/* Center content with enhanced styling */}
+                    {/* Center content with enhanced styling - مصغر */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <div className="relative">
-                        <div className="absolute -inset-4 bg-primary/20 rounded-full blur-xl" />
-                        <p className="relative text-5xl font-black text-primary mb-2">
+                        <div className="absolute -inset-3 bg-primary/20 rounded-full blur-lg" />
+                        <p className="relative text-4xl font-black text-primary mb-1">
                           {Math.round(progress)}%
                         </p>
                       </div>
-                      <p className="text-text-muted text-sm font-medium text-center px-4 max-w-[120px]">
+                      <p className="text-text-muted text-xs font-medium text-center px-3 max-w-[100px]">
                         تغطية عملاء منصة صخر
                       </p>
                     </div>
                   </div>
                 </div>
 
-                {/* Legend/Stats below chart */}
-                <div className="mt-6 pt-6 border-t border-primary/20 grid grid-cols-2 gap-4">
-                  <div className="glass p-3 rounded-xl border border-primary/10">
-                    <p className="text-text-muted text-xs mb-1">المبلغ المجموع</p>
-                    <p className="text-sm font-bold text-primary flex items-center gap-1">
-                      {formatCurrency(project.fundedAmount)} <RiyalSymbol size={12} />
+                {/* Legend/Stats below chart - مصغر */}
+                <div className="mt-4 pt-4 border-t border-primary/30 grid grid-cols-2 gap-3">
+                  <div className="glass p-2.5 rounded-xl border-2 border-primary/60 shadow-input">
+                    <p className="text-text-muted text-[10px] mb-0.5">المبلغ المجموع</p>
+                    <p className="text-xs font-bold text-primary flex items-center gap-1 drop-shadow-lg">
+                      {formatCurrency(project.fundedAmount)} <RiyalSymbol size={10} />
                     </p>
                   </div>
-                  <div className="glass p-3 rounded-xl border border-primary/10">
-                    <p className="text-text-muted text-xs mb-1">المبلغ المستهدف</p>
-                    <p className="text-sm font-bold text-primary flex items-center gap-1">
-                      {formatCurrency(project.targetAmount)} <RiyalSymbol size={12} />
+                  <div className="glass p-2.5 rounded-xl border-2 border-primary/60 shadow-input">
+                    <p className="text-text-muted text-[10px] mb-0.5">المبلغ المستهدف</p>
+                    <p className="text-xs font-bold text-primary flex items-center gap-1 drop-shadow-lg">
+                      {formatCurrency(project.targetAmount)} <RiyalSymbol size={10} />
                     </p>
                   </div>
                 </div>
@@ -511,7 +551,7 @@ export default function ProjectDetailsPage({
             {/* Investment Calculator Card */}
             <div className="group relative animate-fade-in-scale" style={{ animationDelay: '0.4s' }}>
               <div className="absolute -inset-1 bg-primary rounded-2xl opacity-0 group-hover:opacity-20 blur-2xl transition-all duration-700" />
-              <div className="relative glass rounded-2xl p-6 border-2 border-primary/30 group-hover:border-primary/50 transition-all duration-300 shadow-glow-sm">
+              <div className="relative glass rounded-2xl p-6 border-2 border-primary/40 group-hover:border-primary transition-all duration-300 shadow-card group-hover:shadow-card-hover">
                 {/* Type Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-background-tertiary rounded-full text-sm font-bold mb-4 border border-primary/30 text-primary">
                   <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -530,9 +570,9 @@ export default function ProjectDetailsPage({
                       {Math.round(progress)}%
                     </span>
                   </div>
-                  <div className="relative w-full h-3 bg-background-tertiary rounded-full overflow-hidden">
+                  <div className="relative w-full h-3 bg-background-tertiary rounded-full overflow-hidden border-2 border-primary/50 shadow-input">
                     <div
-                      className="absolute inset-0 bg-primary rounded-full transition-all duration-700"
+                      className="absolute inset-0 bg-primary rounded-full transition-all duration-700 shadow-glow-sm"
                       style={{ width: `${progress}%` }}
                     />
                   </div>
@@ -540,13 +580,13 @@ export default function ProjectDetailsPage({
 
               {/* Amounts */}
               <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="glass p-4 rounded-xl border border-primary/10">
+                <div className="glass p-4 rounded-xl border-2 border-primary/60 shadow-input">
                   <p className="text-text-muted text-xs mb-2">نقطة مشاريع</p>
-                  <p className="text-lg font-bold text-text-primary">
+                  <p className="text-lg font-bold text-text-primary drop-shadow-lg">
                     {formatCurrency(project.fundedAmount)}
                   </p>
                 </div>
-                <div className="glass p-4 rounded-xl border border-primary/10">
+                <div className="glass p-4 rounded-xl border-2 border-primary/60 shadow-input">
                   <p className="text-text-muted text-xs mb-2">مدير الصندوق</p>
                   <p className="text-lg font-bold text-text-primary">
                     {formatCurrency(project.targetAmount - project.fundedAmount)}
@@ -556,29 +596,29 @@ export default function ProjectDetailsPage({
 
               {/* Key Metrics Grid */}
               <div className="grid grid-cols-2 gap-3 mb-6 pb-6 border-b border-primary/20">
-                <div className="text-center p-4 glass rounded-xl border border-accent-teal/20 hover:border-accent-teal/40 transition-all">
+                <div className="text-center p-4 glass rounded-xl border-2 border-accent-teal/60 hover:border-accent-teal transition-all shadow-input hover:shadow-card">
                   <p className="text-text-muted text-xs mb-2">سعر الوحدة</p>
-                  <p className="text-lg font-bold text-accent-teal flex items-center justify-center gap-1">
+                  <p className="text-lg font-bold text-accent-teal flex items-center justify-center gap-1 drop-shadow-lg">
                     {formatCurrency(project.unitPrice || project.minimumAmount)} <RiyalSymbol size={16} />
                   </p>
                 </div>
-                <div className="text-center p-4 glass rounded-xl border border-primary/20 hover:border-primary/40 transition-all">
+                <div className="text-center p-4 glass rounded-xl border-2 border-primary/60 hover:border-primary transition-all shadow-input hover:shadow-card">
                   <p className="text-text-muted text-xs mb-2">مدة الفرصة</p>
-                  <p className="text-lg font-bold text-text-primary flex items-center justify-center gap-1">
-                    <Clock size={16} className="text-primary-400" />
+                  <p className="text-lg font-bold text-text-primary flex items-center justify-center gap-1 drop-shadow-lg">
+                    <Clock size={16} className="text-primary-400 drop-shadow-lg" />
                     {project.durationMonths} شهر
                   </p>
                 </div>
-                <div className="text-center p-4 glass rounded-xl border border-accent-green/20 hover:border-accent-green/40 transition-all">
+                <div className="text-center p-4 glass rounded-xl border-2 border-accent-green/60 hover:border-accent-green transition-all shadow-input hover:shadow-card">
                   <p className="text-text-muted text-xs mb-2">نصائح العائد للمستثمار</p>
-                  <p className="text-lg font-bold text-accent-green flex items-center justify-center gap-1">
+                  <p className="text-lg font-bold text-accent-green flex items-center justify-center gap-1 drop-shadow-lg">
                     <TrendingUp size={16} />
                     {project.expectedReturn}%
                   </p>
                 </div>
-                <div className="text-center p-4 glass rounded-xl border border-accent-purple/20 hover:border-accent-purple/40 transition-all">
+                <div className="text-center p-4 glass rounded-xl border-2 border-accent-purple/60 hover:border-accent-purple transition-all shadow-input hover:shadow-card">
                   <p className="text-text-muted text-xs mb-2">الحد الأدنى للاستثمار</p>
-                  <p className="text-lg font-bold text-accent-purple flex items-center justify-center gap-1">
+                  <p className="text-lg font-bold text-accent-purple flex items-center justify-center gap-1 drop-shadow-lg">
                     {formatCurrency(project.minimumAmount)} <RiyalSymbol size={14} />
                   </p>
                 </div>
@@ -586,24 +626,24 @@ export default function ProjectDetailsPage({
 
               {/* Distribution Policy */}
               <div className="mb-6 space-y-3">
-                <div className="flex items-center justify-between p-4 glass rounded-xl border border-primary/10">
+                <div className="flex items-center justify-between p-4 glass rounded-xl border-2 border-primary/60 shadow-input">
                   <span className="text-text-muted text-sm font-medium">حالة الصندوق</span>
-                  <span className={`font-bold px-3 py-1 rounded-lg ${
+                  <span className={`font-bold px-3 py-1 rounded-lg shadow-input border-2 ${
                     project.status === 'completed' 
-                      ? 'bg-accent-green/10 text-accent-green' 
-                      : 'bg-primary/10 text-primary-400'
+                      ? 'bg-accent-green/10 text-accent-green border-accent-green/50' 
+                      : 'bg-primary/10 text-primary-400 border-primary/50'
                   }`}>
                     {project.status === 'completed' ? 'مكتمل' : 'نشط'}
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-4 glass rounded-xl border border-primary/10">
+                <div className="flex items-center justify-between p-4 glass rounded-xl border-2 border-primary/60 shadow-input">
                   <span className="text-text-muted text-sm font-medium">سياسة التوزيع</span>
-                  <span className="font-bold text-text-primary">{project.distributionPolicy}</span>
+                  <span className="font-bold text-text-primary drop-shadow-lg">{project.distributionPolicy}</span>
                 </div>
               </div>
 
               {/* Calculator Section */}
-              <div className="mb-6 p-5 glass rounded-xl border-2 border-primary/30 bg-gradient-to-br from-primary/5 to-accent-purple/5">
+              <div className="mb-6 p-5 glass rounded-xl border-2 border-primary/60 bg-gradient-to-br from-primary/5 to-accent-purple/5 shadow-card">
                 <h3 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
                   <div className="p-1.5 rounded-lg bg-gradient-to-br from-accent-purple to-primary-500">
                     <TrendingUp className="text-white" size={18} />
@@ -625,7 +665,7 @@ export default function ProjectDetailsPage({
                     value={investmentAmount}
                     onChange={(e) => setInvestmentAmount(e.target.value)}
                     min={project.minimumAmount}
-                    className="w-full px-4 py-3.5 glass border-2 border-primary/20 rounded-xl focus:border-primary-500 focus:shadow-glow-sm outline-none text-text-primary font-semibold transition-all"
+                    className="w-full px-4 py-3.5 glass border-2 border-primary/60 rounded-xl focus:border-primary focus:shadow-input-focus outline-none text-text-primary font-semibold transition-all shadow-input"
                     placeholder={formatCurrency(project.minimumAmount)}
                   />
                 </div>
@@ -633,19 +673,19 @@ export default function ProjectDetailsPage({
                 {/* Results */}
                 {investmentAmount && parseFloat(investmentAmount) >= project.minimumAmount && (
                   <div className="space-y-3 mt-4">
-                    <div className="flex justify-between items-center p-3 glass rounded-lg border border-primary/10">
+                    <div className="flex justify-between items-center p-3 glass rounded-lg border-2 border-primary/60 shadow-input">
                       <span className="text-text-muted text-sm">مبلغ الاستثمار</span>
-                      <span className="font-bold text-text-primary flex items-center gap-1">
-                        {formatCurrency(parseFloat(investmentAmount))} <RiyalSymbol size={14} className="text-primary-400" />
+                      <span className="font-bold text-text-primary flex items-center gap-1 drop-shadow-lg">
+                        {formatCurrency(parseFloat(investmentAmount))} <RiyalSymbol size={14} className="text-primary-400 drop-shadow-lg" />
                       </span>
                     </div>
-                    <div className="flex justify-between items-center p-3 glass rounded-lg border border-accent-green/10">
+                    <div className="flex justify-between items-center p-3 glass rounded-lg border-2 border-accent-green/60 shadow-input">
                       <span className="text-text-muted text-sm">العوائد</span>
-                      <span className="font-bold text-accent-green flex items-center gap-1">
+                      <span className="font-bold text-accent-green flex items-center gap-1 drop-shadow-lg">
                         {formatCurrency(returns.total)} <RiyalSymbol size={14} />
                       </span>
                     </div>
-                    <div className="flex justify-between items-center p-3 glass rounded-lg border border-primary/10">
+                    <div className="flex justify-between items-center p-3 glass rounded-lg border-2 border-primary/60 shadow-input">
                       <span className="text-text-muted text-sm">المدة</span>
                       <span className="font-bold text-text-primary">{project.durationMonths} شهر</span>
                     </div>
@@ -679,6 +719,7 @@ export default function ProjectDetailsPage({
 
               {/* Investment Button */}
               <button
+                onClick={() => setShowConfirmPopup(true)}
                 disabled={
                   project.status === 'completed' ||
                   !investmentAmount ||
@@ -704,6 +745,94 @@ export default function ProjectDetailsPage({
           </div>
         </div>
       </div>
+
+      {/* Confirmation Popup */}
+      {showConfirmPopup && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in-scale">
+          <div className="relative max-w-md w-full">
+            <div className="absolute -inset-1 bg-primary rounded-2xl opacity-30 blur-2xl" />
+            <div className="relative bg-background-secondary border-2 border-primary/70 rounded-2xl p-8 shadow-card-hover">
+              <h3 className="text-2xl font-bold text-primary mb-4 text-center">
+                تأكيد الاستثمار
+              </h3>
+              
+              <div className="space-y-4 mb-6">
+                <div className="glass p-4 rounded-xl border-2 border-primary/60 shadow-input">
+                  <p className="text-text-muted text-sm mb-1">المشروع</p>
+                  <p className="text-lg font-bold text-text-primary">{project.title}</p>
+                </div>
+                
+                <div className="glass p-4 rounded-xl border-2 border-primary/60 shadow-input">
+                  <p className="text-text-muted text-sm mb-1">مبلغ الاستثمار</p>
+                  <p className="text-xl font-bold text-primary flex items-center gap-2">
+                    {formatCurrency(parseFloat(investmentAmount))} <RiyalSymbol size={18} />
+                  </p>
+                </div>
+
+                <div className="glass p-4 rounded-xl border-2 border-accent-green/60 shadow-input">
+                  <p className="text-text-muted text-sm mb-1">العائد المتوقع</p>
+                  <p className="text-xl font-bold text-accent-green flex items-center gap-2">
+                    {formatCurrency(returns.total)} <RiyalSymbol size={18} />
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleInvestment}
+                  disabled={investing}
+                  className="flex-1 py-4 bg-primary text-background rounded-xl font-bold hover:shadow-glow-gold transition-all hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {investing ? 'جاري التنفيذ...' : 'تأكيد الاستثمار'}
+                </button>
+                <button
+                  onClick={() => setShowConfirmPopup(false)}
+                  disabled={investing}
+                  className="flex-1 py-4 bg-background-tertiary border-2 border-primary/60 text-secondary hover:text-white rounded-xl font-bold hover:border-primary transition-all"
+                >
+                  إلغاء
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Popup */}
+      {investmentSuccess && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in-scale">
+          <div className="relative max-w-md w-full">
+            <div className="absolute -inset-1 bg-accent-green rounded-2xl opacity-30 blur-2xl" />
+            <div className="relative bg-background-secondary border-2 border-accent-green/70 rounded-2xl p-8 shadow-card-hover text-center">
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-accent-green/20 border-2 border-accent-green flex items-center justify-center">
+                <CheckCircle size={40} className="text-accent-green" />
+              </div>
+              
+              <h3 className="text-2xl font-bold text-accent-green mb-3">
+                تم الاستثمار بنجاح!
+              </h3>
+              
+              <p className="text-text-secondary mb-6">
+                تم إضافة استثمارك بنجاح. يمكنك متابعة استثماراتك من صفحة "استثماراتي"
+              </p>
+
+              <div className="flex gap-3">
+                <Link href="/investments" className="flex-1">
+                  <button className="w-full py-4 bg-accent-green text-background rounded-xl font-bold hover:shadow-glow-sm transition-all hover:scale-105">
+                    عرض استثماراتي
+                  </button>
+                </Link>
+                <button
+                  onClick={() => setInvestmentSuccess(false)}
+                  className="flex-1 py-4 bg-background-tertiary border-2 border-primary/60 text-secondary hover:text-white rounded-xl font-bold hover:border-primary transition-all"
+                >
+                  إغلاق
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

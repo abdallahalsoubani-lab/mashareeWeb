@@ -59,7 +59,7 @@ export function StatsCard({
   return (
     <div className="group relative">
       <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
-      <div className="relative bg-background-secondary rounded-2xl p-6 border border-primary/20 group-hover:border-primary/40 transition-all duration-300 hover:shadow-glow-gold">
+      <div className="relative bg-background-secondary rounded-2xl p-6 border-2 border-primary/70 group-hover:border-primary transition-all duration-300 hover:shadow-card shadow-input">
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <p className="text-secondary text-sm mb-2 font-medium">{title}</p>
@@ -77,8 +77,8 @@ export function StatsCard({
               </p>
             )}
           </div>
-          <div className={`p-3.5 rounded-xl bg-background-tertiary border ${colors.border} ${colors.bg} flex-shrink-0`}>
-            <div className={colors.icon}>
+          <div className={`p-3.5 rounded-xl bg-background-tertiary border-2 border-primary/60 ${colors.bg} flex-shrink-0 shadow-input`}>
+            <div className={`${colors.icon} drop-shadow-lg`}>
               {icon}
             </div>
           </div>

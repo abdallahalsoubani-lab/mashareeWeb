@@ -114,7 +114,7 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
         <div className="absolute -inset-1 bg-primary rounded-2xl opacity-0 group-hover:opacity-40 blur-2xl transition-all duration-700" />
         
         {/* Main card */}
-        <div className="relative h-full bg-background-secondary rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer group-hover:-translate-y-3 group-hover:scale-[1.02] group-hover:shadow-glow-gold border-2 border-primary/30 group-hover:border-primary/70">
+        <div className="relative h-full bg-background-secondary rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer group-hover:-translate-y-3 group-hover:scale-[1.02] group-hover:shadow-card-hover border-2 border-primary/70 group-hover:border-primary shadow-card">
         {/* Image Container with overlay gradient */}
         <div className="relative h-52 overflow-hidden">
           {/* Image */}
@@ -163,14 +163,14 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-primary/10">
-            <div className="bg-background-tertiary rounded-xl p-3 border border-primary/10">
+          <div className="grid grid-cols-2 gap-3 pt-3 border-t border-primary/20">
+            <div className="bg-background-tertiary rounded-xl p-3 border-2 border-primary/60 shadow-input">
               <p className="text-xs text-text-muted mb-1">العائد المتوقع</p>
-              <p className="text-base font-bold text-primary">{project.expectedReturn}٪</p>
+              <p className="text-base font-bold text-primary drop-shadow-lg">{project.expectedReturn}٪</p>
             </div>
-            <div className="bg-background-tertiary rounded-xl p-3 border border-primary/10">
+            <div className="bg-background-tertiary rounded-xl p-3 border-2 border-primary/60 shadow-input">
               <p className="text-xs text-text-muted mb-1">مدة الاستثمار</p>
-              <p className="text-base font-bold text-white">{project.durationMonths} شهر</p>
+              <p className="text-base font-bold text-white drop-shadow-lg">{project.durationMonths} شهر</p>
             </div>
           </div>
 
@@ -182,12 +182,12 @@ const InvestmentOpportunityCard = ({ project }: { project: any }) => {
                 {Math.round(progress)}%
               </span>
             </div>
-            <div className="relative w-full h-2.5 bg-background rounded-full overflow-hidden">
-              <div
-                className="absolute inset-0 bg-primary rounded-full transition-all duration-1000"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
+              <div className="relative w-full h-2.5 bg-background-tertiary rounded-full overflow-hidden border-2 border-primary/50 shadow-input">
+                <div
+                  className="absolute inset-0 bg-primary rounded-full transition-all duration-1000 shadow-glow-sm"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             <p className="text-xs text-text-muted mt-2 flex items-center justify-end gap-1">
               {new Intl.NumberFormat('ar-SA').format(project.fundedAmount)} من {new Intl.NumberFormat('ar-SA').format(project.targetAmount)} <RiyalSymbol size={12} className="text-primary-400" />
             </p>
@@ -426,12 +426,12 @@ export default function Home() {
                   className="group relative stagger-item"
                   style={{ animationDelay: `${0.1 * (index + 1)}s` }}
                 >
-                  <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
-                  <div className="relative glass rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-glow-md border border-primary/20 group-hover:border-primary/40">
+                <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
+                <div className="relative glass rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-card-hover border-2 border-primary/70 group-hover:border-primary shadow-card">
                   <div className="p-8 flex flex-col h-full">
-                    <div className="mb-6 p-4 rounded-xl glass border border-primary/20 w-fit">
-                      <IconComponent className="text-primary-400" size={32} />
-                    </div>
+                  <div className="mb-6 p-4 rounded-xl glass border-2 border-primary/60 w-fit shadow-input">
+                    <IconComponent className="text-primary-400 drop-shadow-lg" size={32} />
+                  </div>
                     <h3 className="text-2xl font-bold text-text-primary mb-4">
                       {service.title}
                     </h3>
@@ -484,9 +484,9 @@ export default function Home() {
                   style={{ animationDelay: `${0.05 * (index + 1)}s` }}
                 >
                   <div className="absolute -inset-0.5 bg-primary rounded-xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
-                  <div className="relative glass rounded-xl p-6 border border-primary/10 group-hover:border-primary/30 transition-all duration-300 hover:shadow-glow-sm">
-                    <div className="mb-4 p-2.5 rounded-xl glass border border-primary/20 w-fit">
-                      <IconComponent className="text-primary-400" size={24} />
+                  <div className="relative glass rounded-xl p-6 border-2 border-primary/70 group-hover:border-primary transition-all duration-300 hover:shadow-card shadow-input">
+                    <div className="mb-4 p-2.5 rounded-xl glass border-2 border-primary/60 w-fit shadow-input">
+                      <IconComponent className="text-primary-400 drop-shadow-lg" size={24} />
                     </div>
                     <h4 className="text-lg font-bold text-text-primary mb-2">
                       {feature.title}
@@ -539,8 +539,8 @@ export default function Home() {
                         </span>
                       </div>
                     </div>
-                    <div className="mb-4 p-3.5 rounded-xl glass border border-primary/20">
-                      <StepIcon className="text-primary-400" size={28} />
+                    <div className="mb-4 p-3.5 rounded-xl glass border-2 border-primary/60 shadow-input">
+                      <StepIcon className="text-primary-400 drop-shadow-lg" size={28} />
                     </div>
                     <h4 className="text-xl font-bold text-text-primary mb-2">
                       {step.title}
@@ -578,9 +578,9 @@ export default function Home() {
                 style={{ animationDelay: `${0.1 * (index + 1)}s` }}
               >
                 <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-10 blur transition-all duration-300" />
-                <div className="relative bg-background-secondary rounded-2xl p-6 md:p-8 flex flex-col items-center text-center border border-primary/10 group-hover:border-primary/30 transition-all duration-300">
-                  <div className="mb-4 p-3.5 rounded-xl bg-background-tertiary border border-primary/20">
-                    <badge.icon className="text-primary" size={28} />
+                <div className="relative bg-background-secondary rounded-2xl p-6 md:p-8 flex flex-col items-center text-center border-2 border-primary/70 group-hover:border-primary transition-all duration-300 shadow-card hover:shadow-card-hover">
+                  <div className="mb-4 p-3.5 rounded-xl bg-background-tertiary border-2 border-primary/60 shadow-input">
+                    <badge.icon className="text-primary drop-shadow-lg" size={28} />
                   </div>
                   <p className="text-white font-semibold text-sm md:text-base">
                     {badge.label}
@@ -613,7 +613,7 @@ export default function Home() {
                 style={{ animationDelay: `${0.1 * (index + 1)}s` }}
               >
                 <div className="absolute -inset-0.5 bg-primary rounded-2xl opacity-0 group-hover:opacity-15 blur-xl transition-all duration-500" />
-                <div className="relative bg-background-secondary rounded-2xl p-8 border border-primary/10 group-hover:border-primary/30 transition-all duration-300 hover:-translate-y-2 hover:shadow-glow-gold">
+                <div className="relative bg-background-secondary rounded-2xl p-8 border-2 border-primary/70 group-hover:border-primary transition-all duration-300 hover:-translate-y-2 hover:shadow-card-hover shadow-card">
                   <Quote className="text-primary mb-4" size={32} />
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: testimonial.rating }).map((_, i) => (

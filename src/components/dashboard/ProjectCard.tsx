@@ -53,7 +53,7 @@ export function ProjectCard({
         <div className="absolute -inset-1 bg-primary rounded-2xl opacity-0 group-hover:opacity-40 blur-2xl transition-all duration-700" />
         
         {/* Main card */}
-        <div className="relative h-full bg-background-secondary rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer group-hover:-translate-y-3 group-hover:scale-[1.02] group-hover:shadow-glow-gold border-2 border-primary/30 group-hover:border-primary/70">
+        <div className="relative h-full bg-background-secondary rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer group-hover:-translate-y-3 group-hover:scale-[1.02] group-hover:shadow-card-hover border-2 border-primary/70 group-hover:border-primary shadow-card">
           {/* Image Container with overlay gradient */}
           <div className="relative h-52 overflow-hidden">
             {/* Image */}
@@ -105,34 +105,34 @@ export function ProjectCard({
                   {Math.round(progress)}%
                 </span>
               </div>
-              <div className="relative w-full h-2.5 bg-background rounded-full overflow-hidden">
+              <div className="relative w-full h-2.5 bg-background-tertiary rounded-full overflow-hidden border-2 border-primary/50 shadow-input">
                 <div
-                  className="absolute inset-0 bg-primary rounded-full transition-all duration-700"
+                  className="absolute inset-0 bg-primary rounded-full transition-all duration-700 shadow-glow-sm"
                   style={{ width: `${progress}%` }}
                 />
               </div>
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-primary/10">
+            <div className="grid grid-cols-2 gap-3 pt-3 border-t border-primary/30">
               {/* Funded Amount */}
-              <div className="bg-background-tertiary rounded-xl p-3 border border-primary/10">
+              <div className="bg-background-tertiary rounded-xl p-3 border-2 border-primary/60 shadow-input">
                 <p className="text-xs text-secondary mb-1">المبلغ المجموع</p>
                 <div className="flex items-center gap-1">
-                  <p className="text-base font-bold text-white">
+                  <p className="text-base font-bold text-white drop-shadow-lg">
                     {formatCurrency(fundedAmount)}
                   </p>
-                  <RiyalSymbol size={14} className="text-primary" />
+                  <RiyalSymbol size={14} className="text-primary drop-shadow-lg" />
                 </div>
               </div>
 
               {/* Expected Return */}
-              <div className="bg-background-tertiary rounded-xl p-3 border border-primary/10">
+              <div className="bg-background-tertiary rounded-xl p-3 border-2 border-primary/60 shadow-input">
                 <p className="text-xs text-secondary mb-1 flex items-center gap-1">
-                  <TrendingUp size={12} className="text-primary" />
+                  <TrendingUp size={12} className="text-primary drop-shadow-lg" />
                   <span>العائد المتوقع</span>
                 </p>
-                <p className="text-base font-bold text-primary">
+                <p className="text-base font-bold text-primary drop-shadow-lg">
                   {expectedReturn}%
                 </p>
               </div>

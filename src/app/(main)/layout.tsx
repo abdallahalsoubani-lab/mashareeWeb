@@ -98,8 +98,8 @@ export default function DashboardLayout({
       dir="rtl"
       className="min-h-screen bg-mesh dashboard font-tajawal flex"
     >
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed right-0 top-0 h-full w-64 z-40 flex-col glass border-l border-primary/20 shadow-2xl">
+      {/* Desktop Sidebar - يبدأ تحت الـ navbar */}
+      <aside className="hidden lg:flex fixed right-0 top-16 h-[calc(100vh-4rem)] w-64 z-40 flex-col glass border-l border-primary/20 shadow-2xl">
         {/* Logo */}
         <Link
           href="/projects"
@@ -202,8 +202,8 @@ export default function DashboardLayout({
         </div>
       </aside>
 
-      {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 right-0 left-0 z-50 glass border-b border-primary/20 px-4 py-4 flex items-center justify-between backdrop-blur-xl shadow-lg">
+      {/* Mobile Header - تحت الـ navbar الرئيسي */}
+      <header className="lg:hidden fixed top-16 right-0 left-0 z-50 glass border-b border-primary/20 px-4 py-4 flex items-center justify-between backdrop-blur-xl shadow-lg">
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="p-2 rounded-xl hover:bg-primary/10 text-text-primary transition-all border border-primary/10"
@@ -219,11 +219,11 @@ export default function DashboardLayout({
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm animate-fade-in-scale"
+          className="lg:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm pt-32 animate-fade-in-scale"
           onClick={() => setMobileMenuOpen(false)}
         >
           <aside
-            className="absolute right-0 top-16 bottom-0 w-64 glass border-l border-primary/20 dashboard-sidebar flex flex-col overflow-y-auto shadow-2xl animate-slide-in-right"
+            className="absolute right-0 top-32 bottom-0 w-64 glass border-l border-primary/20 dashboard-sidebar flex flex-col overflow-y-auto shadow-2xl animate-slide-in-right"
             onClick={(e) => e.stopPropagation()}
           >
             {/* User Info */}
@@ -292,9 +292,9 @@ export default function DashboardLayout({
       )}
 
       {/* Main Content */}
-      <main className="flex-1 lg:mr-64 pt-20 lg:pt-0 bg-mesh">
+      <main className="flex-1 lg:mr-64 pt-32 lg:pt-16 bg-mesh">
         {/* Top Bar - Desktop Only */}
-        <header className="hidden lg:block glass border-b border-primary/20 px-8 py-4 sticky top-0 z-30 backdrop-blur-xl shadow-lg">
+        <header className="hidden lg:block glass border-b border-primary/20 px-8 py-4 sticky top-16 z-30 backdrop-blur-xl shadow-lg">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button className="px-4 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-primary/10 rounded-xl transition-all border border-primary/10 hover:border-primary/30 font-medium">

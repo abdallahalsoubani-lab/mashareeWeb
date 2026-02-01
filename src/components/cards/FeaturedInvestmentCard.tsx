@@ -82,7 +82,7 @@ export default function FeaturedInvestmentCard() {
         <div className="absolute -inset-1 bg-primary rounded-2xl opacity-30 blur-2xl group-hover:opacity-50 transition-all duration-700" />
         
         {/* Card */}
-        <div className="relative bg-background-secondary rounded-2xl overflow-hidden border-2 border-primary/40 shadow-glow-gold transition-all duration-500 hover:scale-105">
+        <div className="relative bg-background-secondary rounded-2xl overflow-hidden border-2 border-primary/70 shadow-card hover:shadow-card-hover transition-all duration-500 hover:scale-105">
           {/* Header with image */}
           <div className="relative h-40 overflow-hidden">
             <img
@@ -128,19 +128,19 @@ export default function FeaturedInvestmentCard() {
 
             {/* Stats */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-background-tertiary rounded-lg p-3 border border-primary/10">
+              <div className="bg-background-tertiary rounded-lg p-3 border-2 border-primary/60 shadow-input">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <TrendingUp size={14} className="text-primary" />
+                  <TrendingUp size={14} className="text-primary drop-shadow-lg" />
                   <span className="text-xs text-text-muted">العائد</span>
                 </div>
-                <p className="text-lg font-bold text-primary">{project.expectedReturn}%</p>
+                <p className="text-lg font-bold text-primary drop-shadow-lg">{project.expectedReturn}%</p>
               </div>
-              <div className="bg-background-tertiary rounded-lg p-3 border border-primary/10">
+              <div className="bg-background-tertiary rounded-lg p-3 border-2 border-primary/60 shadow-input">
                 <div className="flex items-center gap-1.5 mb-1">
-                  <Clock size={14} className="text-secondary" />
+                  <Clock size={14} className="text-secondary drop-shadow-lg" />
                   <span className="text-xs text-text-muted">المدة</span>
                 </div>
-                <p className="text-lg font-bold text-white">{project.durationMonths} شهر</p>
+                <p className="text-lg font-bold text-white drop-shadow-lg">{project.durationMonths} شهر</p>
               </div>
             </div>
 
@@ -152,9 +152,9 @@ export default function FeaturedInvestmentCard() {
                   {Math.round(progress)}%
                 </span>
               </div>
-              <div className="relative w-full h-2 bg-background rounded-full overflow-hidden">
+              <div className="relative w-full h-2 bg-background-tertiary rounded-full overflow-hidden border-2 border-primary/50 shadow-input">
                 <div
-                  className="absolute inset-0 bg-primary rounded-full transition-all duration-1000"
+                  className="absolute inset-0 bg-primary rounded-full transition-all duration-1000 shadow-glow-sm"
                   style={{ width: `${progress}%` }}
                 />
               </div>

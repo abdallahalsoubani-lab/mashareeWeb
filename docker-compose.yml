@@ -1,48 +1,72 @@
 version: '3.8'
 
 services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: masharee-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: masharee_user
+      POSTGRES_PASSWORD: masharee_password_secure_2026
+      POSTGRES_DB: masharee_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    networks:
+      - masharee-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U masharee_user -d masharee_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   # Next.js Application
-  web:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
+    container_name: masharee-app
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env.production
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/masharee
-      - JWT_SECRET=${JWT_SECRET:-your-super-secret-jwt-key-min-32-chars}
+    ports:
+      - "3000:3000"
+    networks:
+      - masharee-network
+    volumes:
+      - app_data:/app/data
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: masharee-nginx
+    restart: always
     depends_on:
-      db:
-        condition: service_healthy
-    restart: unless-stopped
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
     networks:
       - masharee-network
 
-  # PostgreSQL Database
-  db:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: masharee
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d masharee"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
-    restart: unless-stopped
-    networks:
-      - masharee-network
+volumes:
+  postgres_data:
+    driver: local
+  app_data:
+    driver: local
 
 networks:
   masharee-network:
     driver: bridge
-
-volumes:
-  postgres_data:

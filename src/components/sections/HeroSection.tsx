@@ -46,7 +46,7 @@ const HeroSection: React.FC = () => {
           `}</style>
 
           {/* Badge */}
-          <div className="hero-subtitle inline-flex items-center gap-2 mb-6 px-4 py-2 bg-background-secondary rounded-full border border-primary/20">
+          <div className="hero-subtitle inline-flex items-center gap-2 mb-6 px-4 py-2 bg-background-secondary rounded-full border-2 border-primary/60 shadow-card">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-sm text-secondary font-medium">مرخصة من هيئة السوق المالية</span>
           </div>
@@ -83,7 +83,7 @@ const HeroSection: React.FC = () => {
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-float">
-        <div className="flex flex-col items-center gap-2 bg-background-secondary px-4 py-3 rounded-full border border-primary/20">
+        <div className="flex flex-col items-center gap-2 bg-background-secondary px-4 py-3 rounded-full border-2 border-primary/60 shadow-card">
           <span className="text-secondary text-sm font-medium">اسحب للأسفل</span>
           <div className="animate-shimmer">
             <ChevronDown size={24} className="text-primary" />

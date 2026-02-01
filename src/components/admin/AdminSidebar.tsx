@@ -133,28 +133,34 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
           <Building2 size={20} />
           <span className="font-medium">عرض الموقع</span>
         </Link>
-        <form action="/api/auth/logout" method="POST" className="w-full">
-          <button
-            type="submit"
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
-          >
-            <LogOut size={20} />
-            <span className="font-medium">تسجيل الخروج</span>
-          </button>
-        </form>
+        <button
+          onClick={async () => {
+            try {
+              await fetch('/api/auth/logout', { method: 'POST' });
+              window.location.href = '/';
+            } catch (error) {
+              console.error('Logout error:', error);
+              window.location.href = '/';
+            }
+          }}
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all border border-transparent hover:border-red-500/20"
+        >
+          <LogOut size={20} />
+          <span className="font-medium">تسجيل الخروج</span>
+        </button>
       </div>
     </>
   );
 
   return (
     <>
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex fixed right-0 top-0 h-full w-64 glass border-l border-primary/20 shadow-2xl z-40 flex-col">
+      {/* Desktop Sidebar - يبدأ تحت الـ navbar */}
+      <aside className="hidden lg:flex fixed right-0 top-16 h-[calc(100vh-4rem)] w-64 glass border-l border-primary/20 shadow-2xl z-40 flex-col">
         {sidebarContent}
       </aside>
 
-      {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 right-0 left-0 z-50 glass border-b border-primary/20 px-4 py-3 flex items-center justify-between backdrop-blur-xl shadow-lg">
+      {/* Mobile Header - تحت الـ navbar الرئيسي */}
+      <div className="lg:hidden fixed top-16 right-0 left-0 z-50 glass border-b border-primary/20 px-4 py-3 flex items-center justify-between backdrop-blur-xl shadow-lg">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="p-2 rounded-xl hover:bg-primary/10 text-text-primary transition-all border border-primary/10"
@@ -173,10 +179,10 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
       {/* Mobile Menu Overlay */}
       {mobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm pt-16 animate-fade-in-scale"
+          className="lg:hidden fixed inset-0 z-40 bg-black/70 backdrop-blur-sm pt-32 animate-fade-in-scale"
           onClick={() => setMobileOpen(false)}
         >
-          <aside className="absolute right-0 top-16 bottom-0 w-64 glass border-l border-primary/20 flex flex-col overflow-y-auto shadow-2xl animate-slide-in-right">
+          <aside className="absolute right-0 top-32 bottom-0 w-64 glass border-l border-primary/20 flex flex-col overflow-y-auto shadow-2xl animate-slide-in-right">
             {sidebarContent}
           </aside>
         </div>

@@ -70,7 +70,7 @@ export default function ProjectsPage() {
       <div className="w-full px-4 md:px-8 max-w-7xl mx-auto">
         {/* Header with animation */}
         <div className="mb-10 pt-8 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border border-primary/20">
+          <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 glass rounded-full border-2 border-primary/60 shadow-card">
             <div className="w-2 h-2 rounded-full bg-accent-teal animate-pulse" />
             <span className="text-sm text-text-secondary">فرص استثمارية مميزة</span>
           </div>
@@ -95,7 +95,7 @@ export default function ProjectsPage() {
               placeholder="ابحث عن صندوق استثماري..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-4 pr-12 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all text-text-primary placeholder-text-dimmed"
+              className="w-full pl-4 pr-12 py-4 glass rounded-xl border-2 border-primary/60 focus:border-primary focus:shadow-input-focus outline-none transition-all text-text-primary placeholder-text-dimmed shadow-input"
             />
           </div>
 
@@ -103,7 +103,7 @@ export default function ProjectsPage() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary/40"
+            className="px-4 py-4 glass rounded-xl border-2 border-primary/60 focus:border-primary focus:shadow-input-focus outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary shadow-input"
           >
             <option value="all" className="bg-background-secondary">جميع الفئات</option>
             <option value="residential" className="bg-background-secondary">سكني</option>
@@ -116,7 +116,7 @@ export default function ProjectsPage() {
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="px-4 py-4 glass rounded-xl border border-primary/20 focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary/40"
+            className="px-4 py-4 glass rounded-xl border-2 border-primary/60 focus:border-primary focus:shadow-input-focus outline-none text-text-primary font-semibold cursor-pointer transition-all hover:border-primary shadow-input"
           >
             <option value="all" className="bg-background-secondary">جميع الأنواع</option>
             <option value="fund" className="bg-background-secondary">صندوق عقاري</option>

@@ -34,8 +34,8 @@ export async function GET(req: NextRequest) {
       status: inv.status,
       returns: inv.returns,
       createdAt: inv.createdAt,
-      user: { name: inv.User.name, email: inv.User.email },
-      project: { title: inv.Project.title },
+      user: { name: inv.User?.name || 'غير معروف', email: inv.User?.email || '' },
+      project: { title: inv.Project?.title || 'مشروع محذوف' },
     }));
 
     return NextResponse.json({

@@ -32,7 +32,7 @@ export default async function AdminLayout({
   return (
     <div
       dir="rtl"
-      className="min-h-screen bg-mesh font-tajawal lg:mr-64 pt-16 lg:pt-0"
+      className="min-h-screen bg-mesh font-tajawal lg:mr-64 pt-32 lg:pt-16"
     >
       <AdminSidebar userEmail={user.email} />
 

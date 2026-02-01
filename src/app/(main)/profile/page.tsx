@@ -112,7 +112,7 @@ export default function ProfilePage() {
         {/* Profile Card */}
         <div className="relative group animate-fade-in-scale" style={{ animationDelay: '0.2s' }}>
           <div className="absolute -inset-1 bg-primary rounded-3xl opacity-20 blur-2xl group-hover:opacity-35 transition-all duration-500" />
-          <div className="relative bg-background-secondary p-8 rounded-3xl text-center border border-primary/20">
+          <div className="relative bg-background-secondary p-8 rounded-3xl text-center border-2 border-primary/70 shadow-card">
             {/* Avatar */}
             <div className="relative w-28 h-28 mx-auto mb-6">
               <div className="absolute -inset-2 bg-primary rounded-full opacity-30 blur-xl animate-pulse" />
@@ -158,7 +158,7 @@ export default function ProfilePage() {
 
         {/* Profile Info and Edit */}
         <div className="lg:col-span-2 animate-slide-in-right" style={{ animationDelay: '0.3s' }}>
-          <div className="glass p-8 rounded-3xl border border-primary/20">
+          <div className="glass p-8 rounded-3xl border-2 border-primary/70 shadow-card">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-bold text-text-primary">
                 المعلومات الشخصية
@@ -191,7 +191,7 @@ export default function ProfilePage() {
                     onChange={(e) =>
                       setFormData({ ...formData, name: e.target.value })
                     }
-                    className="w-full px-4 py-4 glass border border-primary/20 rounded-xl focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary transition-all"
+                    className="w-full px-4 py-4 glass border-2 border-primary/60 rounded-xl focus:border-primary focus:shadow-input-focus outline-none text-text-primary transition-all shadow-input"
                   />
                 </div>
 
@@ -206,7 +206,7 @@ export default function ProfilePage() {
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
                     }
-                    className="w-full px-4 py-4 glass border border-primary/20 rounded-xl focus:border-primary-400 focus:shadow-glow-sm outline-none text-text-primary transition-all"
+                    className="w-full px-4 py-4 glass border-2 border-primary/60 rounded-xl focus:border-primary focus:shadow-input-focus outline-none text-text-primary transition-all shadow-input"
                   />
                 </div>
 
@@ -219,7 +219,7 @@ export default function ProfilePage() {
                     type="email"
                     value={profile.email}
                     disabled
-                    className="w-full px-4 py-4 glass border border-primary/10 rounded-xl text-text-muted cursor-not-allowed"
+                    className="w-full px-4 py-4 glass border-2 border-primary/30 rounded-xl text-text-muted cursor-not-allowed shadow-input"
                   />
                 </div>
 
@@ -244,37 +244,37 @@ export default function ProfilePage() {
               // View Mode
               <div className="space-y-6">
                 {/* Name */}
-                <div className="glass p-5 rounded-2xl border border-primary/10">
+                <div className="glass p-5 rounded-2xl border-2 border-primary/60 shadow-input">
                   <p className="text-sm text-text-muted mb-2 font-medium">الاسم الكامل</p>
-                  <p className="text-lg font-bold text-text-primary">
+                  <p className="text-lg font-bold text-text-primary drop-shadow-lg">
                     {profile.name}
                   </p>
                 </div>
 
                 {/* Email */}
-                <div className="glass p-5 rounded-2xl border border-primary/10">
+                <div className="glass p-5 rounded-2xl border-2 border-primary/60 shadow-input">
                   <p className="text-sm text-text-muted mb-2 font-medium">البريد الإلكتروني</p>
                   <p className="text-lg font-bold text-text-primary flex items-center gap-2">
-                    <Mail size={18} className="text-primary-400" />
-                    {profile.email}
+                    <Mail size={18} className="text-primary-400 drop-shadow-lg" />
+                    <span className="drop-shadow-lg">{profile.email}</span>
                   </p>
                 </div>
 
                 {/* Phone */}
                 {profile.phone && (
-                  <div className="glass p-5 rounded-2xl border border-primary/10">
+                  <div className="glass p-5 rounded-2xl border-2 border-primary/60 shadow-input">
                     <p className="text-sm text-text-muted mb-2 font-medium">رقم الهاتف</p>
                     <p className="text-lg font-bold text-text-primary flex items-center gap-2">
-                      <Phone size={18} className="text-accent-teal" />
-                      {profile.phone}
+                      <Phone size={18} className="text-accent-teal drop-shadow-lg" />
+                      <span className="drop-shadow-lg">{profile.phone}</span>
                     </p>
                   </div>
                 )}
 
                 {/* Account Type */}
-                <div className="bg-background-tertiary p-5 rounded-2xl border border-primary/10">
+                <div className="bg-background-tertiary p-5 rounded-2xl border-2 border-primary/40 shadow-input">
                   <p className="text-sm text-secondary mb-2 font-medium">نوع الحساب</p>
-                  <p className="text-lg font-bold text-primary">
+                  <p className="text-lg font-bold text-primary drop-shadow-lg">
                     {profile.role === 'ADMIN' ? 'حساب إداري' : 'حساب مستثمر'}
                   </p>
                 </div>

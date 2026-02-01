@@ -1,52 +1,48 @@
 # Dependencies
 node_modules
-.pnp
-.pnp.js
-
-# Testing
-coverage
+npm-debug.log
+yarn-error.log
+.pnpm-debug.log
 
 # Next.js
 .next
 out
-
-# Production
 build
 
-# Misc
-.DS_Store
-*.pem
-
-# Debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Local env files
+# Environment
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# Vercel
-.vercel
-
-# IDE
-.idea
-.vscode
-*.swp
-*.swo
+.env*.local
 
 # Git
 .git
 .gitignore
 
-# Docker
-Dockerfile*
-docker-compose*
-.docker
-
-# Docs
+# Documentation
 *.md
 !README.md
+
+# Deployment files
+deploy.sh
+DEPLOYMENT*.md
+START_HERE.md
+SERVER_COMMANDS.md
+QUICK_DEPLOY.md
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage
+.nyc_output
+
+# Misc
+*.log

@@ -188,7 +188,7 @@ export default function NewProjectPage() {
                     value={formData.title}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                     placeholder="صندوق الرياض السكني الأول"
                   />
                 </div>
@@ -199,7 +199,7 @@ export default function NewProjectPage() {
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   >
                     <option>صندوق عقاري</option>
                     <option>صكوك</option>
@@ -214,7 +214,7 @@ export default function NewProjectPage() {
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   >
                     <option>سكني</option>
                     <option>تجاري</option>
@@ -231,7 +231,7 @@ export default function NewProjectPage() {
                     value={formData.location}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                     placeholder="الرياض - حي العليا"
                   />
                 </div>
@@ -244,7 +244,7 @@ export default function NewProjectPage() {
                   value={formData.description}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all resize-none"
+                  className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/40 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all resize-none shadow-input"
                   placeholder="وصف تفصيلي للمشروع..."
                 />
               </div>
@@ -303,7 +303,7 @@ export default function NewProjectPage() {
                       name="image"
                       value={formData.image.startsWith('data:') ? '' : formData.image}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all text-sm"
+                      className="w-full px-4 py-3 rounded-xl glass border-2 border-primary/40 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all text-sm shadow-input"
                       placeholder="أو أدخل رابط الصورة"
                     />
                     <p className="text-text-muted text-xs">حجم الصورة: أقل من 5 ميجابايت</p>
@@ -337,7 +337,7 @@ export default function NewProjectPage() {
                       type="text"
                       value={imageUrl}
                       onChange={(e) => setImageUrl(e.target.value)}
-                      className="flex-1 px-4 py-3 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                      className="flex-1 px-4 py-3 rounded-xl glass border-2 border-primary/40 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                       placeholder="أو رابط URL"
                     />
                     <button
@@ -384,7 +384,7 @@ export default function NewProjectPage() {
                     name="targetAmount"
                     value={formData.targetAmount}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   />
                 </div>
 
@@ -397,7 +397,7 @@ export default function NewProjectPage() {
                     name="minimumAmount"
                     value={formData.minimumAmount}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   />
                 </div>
 
@@ -410,7 +410,7 @@ export default function NewProjectPage() {
                     name="expectedReturn"
                     value={formData.expectedReturn}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   />
                 </div>
 
@@ -423,7 +423,7 @@ export default function NewProjectPage() {
                     name="durationMonths"
                     value={formData.durationMonths}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   />
                 </div>
 
@@ -436,7 +436,7 @@ export default function NewProjectPage() {
                     name="unitPrice"
                     value={formData.unitPrice}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   />
                 </div>
 
@@ -448,7 +448,7 @@ export default function NewProjectPage() {
                     name="riskLevel"
                     value={formData.riskLevel}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   >
                     <option>منخفضة</option>
                     <option>متوسطة</option>
@@ -475,7 +475,7 @@ export default function NewProjectPage() {
                     name="fundManager"
                     value={formData.fundManager}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                     placeholder="شركة الرياض المالية"
                   />
                 </div>
@@ -489,7 +489,7 @@ export default function NewProjectPage() {
                     name="distributor"
                     value={formData.distributor}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                     placeholder="شركة الأهلي كابيتال"
                   />
                 </div>
@@ -503,7 +503,7 @@ export default function NewProjectPage() {
                     name="supervisor"
                     value={formData.supervisor}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   />
                 </div>
 
@@ -515,7 +515,7 @@ export default function NewProjectPage() {
                     name="distributionPolicy"
                     value={formData.distributionPolicy}
                     onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                    className="w-full px-4 py-4 rounded-xl glass border-2 border-primary/60 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   >
                     <option>عند التصفية</option>
                     <option>سنوي</option>
@@ -538,7 +538,7 @@ export default function NewProjectPage() {
                   value={badgeInput}
                   onChange={(e) => setBadgeInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddBadge())}
-                  className="flex-1 px-4 py-4 rounded-xl glass border border-primary/20 text-text-primary placeholder-text-dimmed focus:border-primary-400 focus:shadow-glow-sm outline-none transition-all"
+                  className="flex-1 px-4 py-4 rounded-xl glass border-2 border-primary/40 text-text-primary placeholder-text-dimmed focus:border-primary focus:shadow-input-focus outline-none transition-all shadow-input"
                   placeholder="مثال: جديد، مميز، حصري"
                 />
                 <button
