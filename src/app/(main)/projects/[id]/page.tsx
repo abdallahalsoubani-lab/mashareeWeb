@@ -74,6 +74,8 @@ export default function ProjectDetailsPage({
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [investing, setInvesting] = useState(false);
   const [investmentSuccess, setInvestmentSuccess] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
     const unwrapParams = async () => {
@@ -82,6 +84,24 @@ export default function ProjectDetailsPage({
     };
     unwrapParams();
   }, [params]);
+
+  // Check authentication status
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/auth/me');
+        const data = await response.json();
+        setIsAuthenticated(data.success && data.user);
+      } catch (error) {
+        console.error('Error checking auth:', error);
+        setIsAuthenticated(false);
+      } finally {
+        setCheckingAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     if (!projectId) return;
@@ -718,28 +738,39 @@ export default function ProjectDetailsPage({
               </div>
 
               {/* Investment Button */}
-              <button
-                onClick={() => setShowConfirmPopup(true)}
-                disabled={
-                  project.status === 'completed' ||
-                  !investmentAmount ||
-                  parseFloat(investmentAmount) < project.minimumAmount
-                }
-                className={`group relative w-full py-4 rounded-xl font-bold text-lg transition-all ${
-                  project.status === 'completed' || !investmentAmount || parseFloat(investmentAmount) < project.minimumAmount
-                    ? 'bg-background-tertiary border border-primary/10 text-secondary cursor-not-allowed'
-                    : 'bg-primary text-background hover:shadow-glow-gold hover:scale-105'
-                }`}
-              >
-                <span className="relative z-10 flex items-center justify-center gap-2">
-                  {project.status === 'completed' ? 'تم تحقيق الصندوق' : (
-                    <>
+              {!isAuthenticated ? (
+                <Link href={`/login?redirect=/projects/${projectId}`}>
+                  <button className="group relative w-full py-4 rounded-xl font-bold text-lg transition-all bg-primary text-background hover:shadow-glow-gold hover:scale-105">
+                    <span className="relative z-10 flex items-center justify-center gap-2">
                       <TrendingUp size={20} />
-                      <span>استثمر الآن</span>
-                    </>
-                  )}
-                </span>
-              </button>
+                      <span>سجل دخول للاستثمار</span>
+                    </span>
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  onClick={() => setShowConfirmPopup(true)}
+                  disabled={
+                    project.status === 'completed' ||
+                    !investmentAmount ||
+                    parseFloat(investmentAmount) < project.minimumAmount
+                  }
+                  className={`group relative w-full py-4 rounded-xl font-bold text-lg transition-all ${
+                    project.status === 'completed' || !investmentAmount || parseFloat(investmentAmount) < project.minimumAmount
+                      ? 'bg-background-tertiary border border-primary/10 text-secondary cursor-not-allowed'
+                      : 'bg-primary text-background hover:shadow-glow-gold hover:scale-105'
+                  }`}
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    {project.status === 'completed' ? 'تم تحقيق الصندوق' : (
+                      <>
+                        <TrendingUp size={20} />
+                        <span>استثمر الآن</span>
+                      </>
+                    )}
+                  </span>
+                </button>
+              )}
               </div>
             </div>
           </div>

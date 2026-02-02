@@ -12,7 +12,6 @@ const protectedRoutes = [
   '/wallet',
   '/investments',
   '/profile',
-  '/projects',
 ];
 
 // Admin routes that require admin role
